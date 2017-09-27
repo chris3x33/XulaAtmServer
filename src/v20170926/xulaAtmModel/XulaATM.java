@@ -5,9 +5,9 @@ public class XulaATM {
     private XulaATMAccountList atmAccountList;
     private XulaATMUserList atmUserList;
 
-    public double getAccountBalance(long accountID) {
+    public double getAccountBalance(long accountId) {
 
-        return atmAccountList.getAccountBalance(accountID);
+        return atmAccountList.getAccountBalance(accountId);
 
     }
 
@@ -29,9 +29,9 @@ public class XulaATM {
         return atmAccountList.deposit(toAccountId,depositAmount);
     }
 
-    public TransferResult transfer(long fromAccountId, long toAccount, double transferAmount) {
+    public TransferResult transfer(long fromAccountId, long toAccountId, double transferAmount) {
 
-        return atmAccountList.transfer(fromAccountId, toAccount, transferAmount);
+        return atmAccountList.transfer(fromAccountId, toAccountId, transferAmount);
     }
 
     public NewUserCreationResult createNewUser(String username, String password) {
