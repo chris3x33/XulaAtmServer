@@ -2,6 +2,9 @@ package v20170926.xulaAtmModel;
 
 public class XulaATM {
 
+    private XulaATMAccountList atmAccountList;
+    private XulaATMUserList atmUserList;
+
     public double getAccountBalance(long accountID) {
 
         return -1;
