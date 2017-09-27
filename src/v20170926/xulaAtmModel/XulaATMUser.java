@@ -7,4 +7,9 @@ public class XulaATMUser {
     private long userId;
     private long[] atmAccountIds;
 
+    public ValidatePasswordResult validatePassword( String passwordTovalidate){
+
+        return null;
+    }
+
 }
