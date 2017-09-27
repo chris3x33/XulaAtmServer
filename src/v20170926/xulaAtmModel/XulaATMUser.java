@@ -4,6 +4,6 @@ public class XulaATMUser {
 
     private String userName;
     private String password;
-    private XulaATMAccount[] atmAccounts;
+    private long[] atmAccountIds;
 
 }
