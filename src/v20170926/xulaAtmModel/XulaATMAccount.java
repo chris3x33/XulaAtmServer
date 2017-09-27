@@ -5,6 +5,6 @@ public class XulaATMAccount {
     private long id;
     private double balance;
     private int type;
-    private XulaATMTransaction[] atmTransactions;
+    private XulaATMTransactionList atmTransactionList;
 
 }
