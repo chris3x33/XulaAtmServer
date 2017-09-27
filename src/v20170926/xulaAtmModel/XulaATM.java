@@ -8,7 +8,7 @@ public class XulaATM {
 
     }
 
-    public long[] getAccountIDs(String userName){
+    public long[] getAccountIDs(long userId){
 
         return new long[0];
 
