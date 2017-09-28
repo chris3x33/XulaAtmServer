@@ -40,7 +40,10 @@ public class ATMRunTest {
     private static void handleUserOption(XulaATM xulaATM, char userOption) {
 
         if (userOption == 'L') {
+
             //Login
+            runLoginOption(xulaATM);
+
         } else if (userOption == 'O') {
             //Open a New Account
 
@@ -50,6 +53,16 @@ public class ATMRunTest {
         } else {
             //Error
         }
+
+    }
+
+    private static void runLoginOption(XulaATM xulaATM) {
+
+        //Get userName
+
+        //Get password
+
+        //Try to Login
 
     }
 
