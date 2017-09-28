@@ -6,7 +6,7 @@ public class ATMRunTest {
 
     public static void main(String[] args) {
 
-        XulaATM xulaATM;
+        XulaATM xulaATM = new XulaATM();
 
 
 
