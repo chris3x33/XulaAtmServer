@@ -2,7 +2,11 @@ package v20170926.runTest;
 
 import v20170926.xulaAtmModel.XulaATM;
 
+import java.util.Scanner;
+
 public class ATMRunTest {
+
+    private final static Scanner IN = new Scanner(System.in);
 
     public static void main(String[] args) {
 
