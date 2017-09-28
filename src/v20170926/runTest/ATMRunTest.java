@@ -21,12 +21,46 @@ public class ATMRunTest {
         //XulaAtm starts with a welcome msg
         System.out.println(xulaATM.getWelcomeMsg());
 
-        //Login, Open a New Account, and Quit Options are shown
-
         //repeat options until the program quits
+        //Login, Open a New Account, and Quit Options are shown
+        // if invalid option, show error and repeat
+        while (true) {
 
-        //if invalid option, show error and repeat valid options
+            outputOptions();
 
+            //Get User Option
+            char userOption = IN.next().toUpperCase().charAt(0);
+
+            handleUserOption(userOption);
+
+        }
+
+    }
+
+    private static void handleUserOption(char userOption) {
+
+        if (userOption == 'L') {
+            //Login
+        } else if (userOption == 'O') {
+            //Open a New Account
+
+        } else if (userOption == 'Q') {
+            //Quit
+            System.exit(0);
+        } else {
+            //Error
+        }
+
+    }
+
+    private static void outputOptions() {
+
+        System.out.println(
+                "Options: \n" +
+                        "\t Enter \'L\' to Login" +
+                        "\t Enter \'O\' to Open a New Account"+
+                        "\t Enter \'Q\' to Quit"
+        );
 
     }
 
