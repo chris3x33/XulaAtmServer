@@ -23,6 +23,10 @@ public class XulaATM {
 
     }
 
+    public boolean userExists(String userName){
+        return atmUserList.userExists(userName);
+    }
+
     public WithdrawResult withdraw(long fromAccountId, double
             withdrawAmount) {
 
