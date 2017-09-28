@@ -19,4 +19,14 @@ public class XulaATMUserList {
 
         return false;
     }
+
+    public boolean userExists(String userName){
+        for (XulaATMUser atmUser : atmUsers){
+            if (atmUser.getUserName().compareTo(userName) == 0){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
