@@ -69,9 +69,15 @@ public class ATMRunTest {
 
     private static String getUserNameFromUser() {
 
-        System.out.println("\tEnter Your UserName: ");
+        String userName;
 
-        return IN.next();
+        System.out.print("\tEnter Your UserName: ");
+
+        userName = IN.next();
+
+        System.out.println();
+
+        return userName;
 
     }
 
