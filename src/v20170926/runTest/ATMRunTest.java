@@ -14,6 +14,13 @@ public class ATMRunTest {
 
     private static void runATM(XulaATM xulaATM) {
 
+        //XulaAtm starts with a welcome msg
+
+        //Login, Open a New Account, and Quit Options are shown
+
+        //repeat options until the program quits
+
+        //if invalid option, show error and repeat valid options
 
 
     }
