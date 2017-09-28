@@ -57,9 +57,9 @@ public class ATMRunTest {
 
         System.out.println(
                 "Options: \n" +
-                        "\t Enter \'L\' to Login" +
-                        "\t Enter \'O\' to Open a New Account"+
-                        "\t Enter \'Q\' to Quit"
+                        "\t Enter \'L\' to Login\n" +
+                        "\t Enter \'O\' to Open a New Account\n"+
+                        "\t Enter \'Q\' to Quit\n"
         );
 
     }
