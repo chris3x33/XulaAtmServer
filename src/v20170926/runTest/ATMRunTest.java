@@ -31,13 +31,13 @@ public class ATMRunTest {
             //Get User Option
             char userOption = IN.next().toUpperCase().charAt(0);
 
-            handleUserOption(userOption);
+            handleUserOption(xulaATM, userOption);
 
         }
 
     }
 
-    private static void handleUserOption(char userOption) {
+    private static void handleUserOption(XulaATM xulaATM, char userOption) {
 
         if (userOption == 'L') {
             //Login
