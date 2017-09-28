@@ -8,6 +8,12 @@ public class ATMRunTest {
 
         XulaATM xulaATM = new XulaATM();
 
+        runATM(xulaATM);
+
+    }
+
+    private static void runATM(XulaATM xulaATM) {
+
 
 
     }
