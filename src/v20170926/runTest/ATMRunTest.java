@@ -59,10 +59,19 @@ public class ATMRunTest {
     private static void runLoginOption(XulaATM xulaATM) {
 
         //Get userName
+        String userName = getUserNameFromUser();
 
         //Get password
 
         //Try to Login
+
+    }
+
+    private static String getUserNameFromUser() {
+
+        System.out.println("\tEnter Your UserName: ");
+
+        return IN.next();
 
     }
 
