@@ -15,6 +15,7 @@ public class ATMRunTest {
     private static void runATM(XulaATM xulaATM) {
 
         //XulaAtm starts with a welcome msg
+        System.out.println(xulaATM.getWelcomeMsg());
 
         //Login, Open a New Account, and Quit Options are shown
 
