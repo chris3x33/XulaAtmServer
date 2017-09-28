@@ -12,4 +12,19 @@ public class XulaATMUser {
         return null;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public long[] getAtmAccountIds() {
+        return atmAccountIds;
+    }
 }
