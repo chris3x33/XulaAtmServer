@@ -13,7 +13,7 @@ public class XulaATM {
 
     public long[] getAccountIDs(long userId) {
 
-        return new long[0];
+        return atmUserList.getAccountIDs(userId);
 
     }
 
