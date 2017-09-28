@@ -4,6 +4,11 @@ public class XulaATM {
 
     private XulaATMAccountList atmAccountList;
     private XulaATMUserList atmUserList;
+    private final String WELCOME_MSG = "Welcome to XULA ATM";
+
+    public String getWelcomeMsg() {
+        return WELCOME_MSG;
+    }
 
     public double getAccountBalance(long accountId) {
 
@@ -17,13 +22,13 @@ public class XulaATM {
 
     }
 
-    public boolean userExists(long userId){
+    public boolean userExists(long userId) {
 
         return atmUserList.userExists(userId);
 
     }
 
-    public boolean userExists(String userName){
+    public boolean userExists(String userName) {
         return atmUserList.userExists(userName);
     }
 
@@ -36,7 +41,7 @@ public class XulaATM {
 
     public DepositResult deposit(long toAccountId, double depositAmount) {
 
-        return atmAccountList.deposit(toAccountId,depositAmount);
+        return atmAccountList.deposit(toAccountId, depositAmount);
     }
 
     public TransferResult transfer(long fromAccountId, long toAccountId, double transferAmount) {
