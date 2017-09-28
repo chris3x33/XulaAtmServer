@@ -9,4 +9,14 @@ public class XulaATMUserList {
         return new long[0];
 
     }
+
+    public boolean userExists(long userId){
+        for (XulaATMUser atmUser : atmUsers){
+            if (atmUser.getUserId() == userId){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
