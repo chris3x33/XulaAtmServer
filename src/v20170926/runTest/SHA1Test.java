@@ -9,6 +9,7 @@ public class SHA1Test {
     private static String encrypt(String password){
 
         //Set encrypt type
+        final String encryptType = "SHA-1";
 
         //initialize encryption
 
