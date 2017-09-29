@@ -25,8 +25,7 @@ public class SHA1Test {
         byte[] encryptedBytes = encryptor.digest(passwordBytes);
 
         //convert bytes to hex
-
-        return null;
+        return toHexString(encryptedBytes);
     }
 
     private static String toHexString(byte[] bytes){
