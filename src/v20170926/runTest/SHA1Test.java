@@ -14,6 +14,7 @@ public class SHA1Test {
         System.out.print("Enter password to encrypt: ");
 
         //Get Password from user
+        String password = IN.nextLine();
 
         //Encrypt password
 
