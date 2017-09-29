@@ -66,6 +66,8 @@ public class XulaATM {
 
         }
 
+        //Get user
+
         //Check password
 
         //Setup LoginResult
