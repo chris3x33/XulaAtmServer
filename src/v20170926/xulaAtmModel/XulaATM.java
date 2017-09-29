@@ -77,5 +77,9 @@ public class XulaATM {
         return null;
     }
 
+    public Result changePassword(long userId, String currPass, String newPass){
 
+        return null;
+
+    }
 }
