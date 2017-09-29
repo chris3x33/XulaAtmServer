@@ -19,6 +19,7 @@ public class SHA1Test {
         encryptor.reset();
 
         //get password bytes
+        byte[] passwordBytes = password.getBytes();
 
         //encrypt password bytes
 
