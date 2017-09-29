@@ -70,6 +70,7 @@ public class XulaATM {
         XulaATMUser atmUser = atmUserList.getATMUser(userName);
 
         //Check password
+        ValidatePasswordResult validatePasswordResult = atmUser.validatePassword(password);
 
         //Setup LoginResult
 
