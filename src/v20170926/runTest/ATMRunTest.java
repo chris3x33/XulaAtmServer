@@ -90,7 +90,7 @@ public class ATMRunTest {
 
         System.out.print("\tEnter Your UserName: ");
 
-        userName = IN.next();
+        userName = IN.nextLine();
 
         System.out.println();
 
