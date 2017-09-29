@@ -14,6 +14,15 @@ public class Result {
 
     }
 
+    public Result(int status) {
+
+        // sets status
+        this.status = status;
+
+        this.message = "";
+
+    }
+
     public int getStatus() {
         return status;
     }
