@@ -60,6 +60,13 @@ public class XulaATM {
     }
 
     public LoginResult login(String userName, String password){
+
+        //Check if User Exists
+
+        //Check password
+
+        //Setup LoginResult
+
         return null;
     }
 
