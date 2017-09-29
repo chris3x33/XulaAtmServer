@@ -4,6 +4,17 @@ public class XulaATMUserList {
 
     private XulaATMUser[] atmUsers;
 
+    public XulaATMUser getATMUser(String userName){
+
+        for (XulaATMUser atmUser : atmUsers){
+            if (atmUser.getUserName().compareTo(userName) == 0){
+                return atmUser;
+            }
+        }
+
+        return null;
+    }
+
     public long[] getAccountIDs(long userId) {
 
         return new long[0];
