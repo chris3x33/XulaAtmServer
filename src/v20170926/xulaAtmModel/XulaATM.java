@@ -62,6 +62,9 @@ public class XulaATM {
     public LoginResult login(String userName, String password){
 
         //Check if User Exists
+        if(!userExists(userName)){
+
+        }
 
         //Check password
 
