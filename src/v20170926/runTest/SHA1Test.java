@@ -8,7 +8,7 @@ public class SHA1Test {
 
     private final static Scanner IN = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchAlgorithmException {
 
         //Output Instruction
         System.out.print("Enter password to encrypt: ");
@@ -17,6 +17,7 @@ public class SHA1Test {
         String password = IN.nextLine();
 
         //Encrypt password
+
 
         //Output Encrypted password
 
