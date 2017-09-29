@@ -6,8 +6,12 @@ public class Result {
     private String message;
 
     public Result() {
+
+        // sets status to 1 for a success
         this.status = 1;
+
         this.message = "";
+
     }
 
     public int getStatus() {
