@@ -67,6 +67,7 @@ public class XulaATM {
         }
 
         //Get user
+        XulaATMUser atmUser = atmUserList.getATMUser(userName);
 
         //Check password
 
