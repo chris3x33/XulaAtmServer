@@ -2,7 +2,7 @@ package v20170926.xulaAtmModel;
 
 public class Result {
 
-    private int status;
+    private int status;// 0 for fail, 1 for success
     private String message;
 
     public Result() {
