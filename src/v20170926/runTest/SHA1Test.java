@@ -7,6 +7,14 @@ public class SHA1Test {
 
     public static void main(String[] args) {
 
+        //Output Instruction
+
+        //Get Password from user
+
+        //Encrypt password
+
+        //Output Encrypted password
+
     }
 
     private static String encrypt(String password) throws NoSuchAlgorithmException {
