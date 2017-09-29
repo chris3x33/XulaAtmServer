@@ -59,5 +59,9 @@ public class XulaATM {
         return null;
     }
 
+    public LoginResult login(String userName, String password){
+        return null;
+    }
+
 
 }
