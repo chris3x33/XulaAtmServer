@@ -5,6 +5,11 @@ public class Result {
     private int status;
     private String message;
 
+    public Result() {
+        this.status = 1;
+        this.message = "";
+    }
+
     public int getStatus() {
         return status;
     }
