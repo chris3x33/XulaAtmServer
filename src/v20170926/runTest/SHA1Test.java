@@ -20,6 +20,7 @@ public class SHA1Test {
         String encryptedPassword = encrypt(password);
 
         //Output Encrypted password
+        System.out.println("Encrypted password: "+encryptedPassword);
 
     }
 
