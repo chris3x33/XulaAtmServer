@@ -40,4 +40,11 @@ public class XulaATMUserList {
 
         return false;
     }
+
+    public Result changePassword(long userId, String currPass, String newPass){
+
+        return null;
+
+    }
+
 }
