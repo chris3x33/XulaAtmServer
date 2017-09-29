@@ -2,8 +2,11 @@ package v20170926.runTest;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Scanner;
 
 public class SHA1Test {
+
+    private final static Scanner IN = new Scanner(System.in);
 
     public static void main(String[] args) {
 
