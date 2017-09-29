@@ -29,4 +29,18 @@ public class SHA1Test {
         return null;
     }
 
+    private static String toHexString(byte[] bytes){
+
+        StringBuilder hexStringBuilder = new StringBuilder();
+
+        for (byte b : bytes){
+            hexStringBuilder.append(
+                    String.format("%02x", b)
+            );
+        }
+
+        return hexStringBuilder.toString();
+
+    }
+
 }
