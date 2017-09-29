@@ -58,7 +58,7 @@ public class ATMRunTest {
 
     private static void runLoginOption(XulaATM xulaATM) {
 
-        System.out.print("Login: ");
+        System.out.println("Login: ");
 
         //Get userName
         String userName = getUserNameFromUser();
