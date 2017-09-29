@@ -22,6 +22,7 @@ public class SHA1Test {
         byte[] passwordBytes = password.getBytes();
 
         //encrypt password bytes
+        byte[] encryptedBytes = encryptor.digest(passwordBytes);
 
         //convert bytes to hex
 
