@@ -8,6 +8,7 @@ public class SHA1Test {
     public static void main(String[] args) {
 
         //Output Instruction
+        System.out.print("Enter password to encrypt: ");
 
         //Get Password from user
 
