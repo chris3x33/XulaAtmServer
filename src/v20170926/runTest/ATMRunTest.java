@@ -1,5 +1,6 @@
 package v20170926.runTest;
 
+import v20170926.xulaAtmModel.LoginResult;
 import v20170926.xulaAtmModel.XulaATM;
 
 import java.util.Scanner;
@@ -67,6 +68,7 @@ public class ATMRunTest {
         String password = getPasswordFromUser();
 
         //Try to Login
+        LoginResult loginResult = xulaATM.login(userName, password);
 
     }
 
