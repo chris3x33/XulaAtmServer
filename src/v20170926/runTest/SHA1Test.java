@@ -15,7 +15,8 @@ public class SHA1Test {
         final String encryptType = "SHA-1";
 
         //initialize encryption
-
+        MessageDigest encryptor = MessageDigest.getInstance(encryptType);
+        encryptor.reset();
 
         //get password bytes
 
