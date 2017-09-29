@@ -64,8 +64,23 @@ public class ATMRunTest {
         String userName = getUserNameFromUser();
 
         //Get password
+        String password = getPasswordFromUser();
 
         //Try to Login
+
+    }
+
+    private static String getPasswordFromUser() {
+
+        String password;
+
+        System.out.print("\tEnter Your Password: ");
+
+        password = IN.nextLine();
+
+        System.out.println();
+
+        return password;
 
     }
 
