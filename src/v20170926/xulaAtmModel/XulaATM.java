@@ -79,7 +79,7 @@ public class XulaATM {
 
     public Result changePassword(long userId, String currPass, String newPass){
 
-        return null;
+        return atmUserList.changePassword(userId, currPass, newPass);
 
     }
 }
