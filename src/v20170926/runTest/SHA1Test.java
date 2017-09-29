@@ -17,7 +17,7 @@ public class SHA1Test {
         String password = IN.nextLine();
 
         //Encrypt password
-
+        String encryptedPassword = encrypt(password);
 
         //Output Encrypted password
 
