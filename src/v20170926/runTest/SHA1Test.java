@@ -54,7 +54,7 @@ public class SHA1Test {
             );
         }
 
-        return hexStringBuilder.toString();
+        return hexStringBuilder.toString().toUpperCase();
 
     }
 
