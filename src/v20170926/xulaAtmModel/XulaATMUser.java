@@ -14,6 +14,7 @@ public class XulaATMUser {
     public ValidatePasswordResult validatePassword( String passwordToValidate){
 
         //encrypt passwordToValidate
+        String encryptedPassword = encrypt(password);
 
         //check against User password
 
