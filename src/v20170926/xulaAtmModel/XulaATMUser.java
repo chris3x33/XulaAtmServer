@@ -1,5 +1,9 @@
 package v20170926.xulaAtmModel;
 
+import v20170926.sha1Utilits.SHA1Utilits;
+
+import java.security.NoSuchAlgorithmException;
+
 public class XulaATMUser {
 
     private String userName;
@@ -14,6 +18,20 @@ public class XulaATMUser {
         //check against User password
 
         return null;
+    }
+
+    private String encrypt(String password){
+
+        try {
+
+            return new SHA1Utilits().encrypt(password);
+
+        } catch (NoSuchAlgorithmException e) {
+
+            return null;
+
+        }
+
     }
 
     public String getUserName() {
