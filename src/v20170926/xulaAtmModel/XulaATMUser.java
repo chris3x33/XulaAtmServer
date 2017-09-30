@@ -9,6 +9,9 @@ public class XulaATMUser {
 
     public ValidatePasswordResult validatePassword( String passwordToValidate){
 
+        //encrypt passwordToValidate
+
+        //check against User password
 
         return null;
     }
