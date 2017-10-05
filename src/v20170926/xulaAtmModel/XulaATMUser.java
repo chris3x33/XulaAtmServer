@@ -23,6 +23,13 @@ public class XulaATMUser {
 
     public Result isUsablePassword(String password){
 
+        //Password needs to be at least 8 characters long
+        //Can not be more than 40 characters long
+        //Must have a lower case character
+        //Must have an upper case character
+        //Must have a number
+
+
         return null;
     }
 
