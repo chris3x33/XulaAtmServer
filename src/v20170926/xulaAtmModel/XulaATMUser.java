@@ -21,6 +21,11 @@ public class XulaATMUser {
         return null;
     }
 
+    public Result isUsablePassword(String password){
+
+        return null;
+    }
+
     private String encrypt(String password){
 
         try {
