@@ -70,5 +70,9 @@ public class SessionList {
 
     }
 
+    public int size(){
+        return sessions.size();
+    }
+
 
 }
