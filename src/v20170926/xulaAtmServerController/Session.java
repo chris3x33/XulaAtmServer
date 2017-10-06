@@ -5,6 +5,11 @@ public class Session {
     private int sessionId;
     private int userId = -1;
 
+    public Session(){
+        sessionId= -1;
+        userId = -1;
+    }
+
     public int getSessionId() {
         return sessionId;
     }
