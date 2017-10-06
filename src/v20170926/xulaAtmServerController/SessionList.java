@@ -1,10 +1,12 @@
 package v20170926.xulaAtmServerController;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 
 public class SessionList {
 
     private ArrayList<Session> sessions = new ArrayList<Session>();
+    private SecureRandom random = new SecureRandom();
 
     public boolean sessionExists(int sessionId){
 
@@ -33,6 +35,8 @@ public class SessionList {
         return null;
 
     }
+
+
 
 
 }
