@@ -56,5 +56,10 @@ public class SessionList {
         return sessionExists(sessionId);
     }
 
+    public int newSession(){
+
+        return -1;
+    }
+
 
 }
