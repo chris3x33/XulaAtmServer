@@ -53,7 +53,8 @@ public class SessionList {
             }
         }
 
-        return sessionExists(sessionId);
+        return !sessionExists(sessionId);
+
     }
 
     public int newSession(){
