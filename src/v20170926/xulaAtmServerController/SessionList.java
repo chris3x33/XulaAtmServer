@@ -36,7 +36,25 @@ public class SessionList {
 
     }
 
+    public boolean deleteSession(int sessionId) {
 
+        if(!sessionExists(sessionId)){
+            return true;
+        }
+
+        for (int i = 0; i <sessions.size() ; i++) {
+
+            Session session = sessions.get(i);
+
+            if(session.getSessionId() == sessionId){
+
+                sessions.remove(i);
+                break;
+            }
+        }
+
+        return sessionExists(sessionId);
+    }
 
 
 }
