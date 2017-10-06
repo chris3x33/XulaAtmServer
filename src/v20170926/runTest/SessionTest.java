@@ -8,6 +8,12 @@ public class SessionTest {
 
     public static void main(String[] args) {
 
+        int sessionId1 = sessionList.newSession();
+        int sessionId2 = sessionList.newSession();
+
+        System.out.println("sessionId1 = "+sessionId1);
+        System.out.println("sessionId2 = "+sessionId2);
+
     }
 
 }

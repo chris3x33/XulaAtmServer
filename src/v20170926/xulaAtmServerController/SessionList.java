@@ -58,7 +58,16 @@ public class SessionList {
 
     public int newSession(){
 
-        return -1;
+        int sessionId = Math.abs(random.nextInt());
+
+        while (sessionExists(sessionId)){
+            sessionId = random.nextInt();
+        }
+
+        sessions.add(new Session(sessionId));
+
+        return sessionId;
+
     }
 
 
