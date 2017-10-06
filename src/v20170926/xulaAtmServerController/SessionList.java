@@ -20,5 +20,19 @@ public class SessionList {
 
     }
 
+    public Session getSession(int sessionId) {
+
+        for (Session session : sessions){
+
+            if(session.getSessionId() == sessionId){
+                return session;
+            }
+
+        }
+
+        return null;
+
+    }
+
 
 }
