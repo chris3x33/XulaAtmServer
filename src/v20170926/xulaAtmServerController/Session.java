@@ -10,6 +10,11 @@ public class Session {
         userId = -1;
     }
 
+    public Session(int sessionId){
+        this.sessionId = sessionId;
+        userId = -1;
+    }
+
     public int getSessionId() {
         return sessionId;
     }
