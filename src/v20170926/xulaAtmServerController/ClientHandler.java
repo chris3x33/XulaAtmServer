@@ -25,6 +25,17 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
 
+        try {
+
+            //read sessionId
+            int sessionId = readIntWTimeout();
+
+        } catch (SocketTimeoutException e) {
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     private int readIntWTimeout() throws IOException {
