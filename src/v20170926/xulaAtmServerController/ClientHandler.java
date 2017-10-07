@@ -5,6 +5,8 @@ import java.net.Socket;
 
 public class ClientHandler implements Runnable {
 
+    private final int TIMEOUT = 3000;
+
     public ClientHandler(Socket socket) throws IOException {
 
     }
@@ -13,5 +15,7 @@ public class ClientHandler implements Runnable {
     public void run() {
 
     }
+
+
 
 }
