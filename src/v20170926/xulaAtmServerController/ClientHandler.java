@@ -30,10 +30,18 @@ public class ClientHandler implements Runnable {
             //read sessionId
             int sessionId = readIntWTimeout();
 
+
+
         } catch (SocketTimeoutException e) {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+    }
+
+    private void handleNewSession() {
+
 
 
     }
