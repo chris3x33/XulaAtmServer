@@ -30,6 +30,15 @@ public class ClientHandler implements Runnable {
             //read sessionId
             int sessionId = readIntWTimeout();
 
+            //check for new session
+            if(sessionId <= -1){
+
+                handleNewSession();
+
+                SOCKET.close();
+
+                return;
+            }
 
 
         } catch (SocketTimeoutException e) {
