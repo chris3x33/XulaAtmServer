@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 
 public class ClientHandler implements Runnable {
 
@@ -26,6 +27,23 @@ public class ClientHandler implements Runnable {
 
     }
 
+    private int readIntWTimeout() throws IOException {
 
+        final int BYTE_SIZE_OF_INT = Integer.SIZE/ Byte.SIZE;
+
+        boolean hasInt;
+
+        long startTime = System.currentTimeMillis();
+
+        do {
+            hasInt = (IN.available() >= BYTE_SIZE_OF_INT);
+        } while (!hasInt && (System.currentTimeMillis() - startTime) < TIMEOUT);
+
+        if (hasInt) {
+            return DATA_IN.readInt();
+        } else {
+            throw new SocketTimeoutException();
+        }
+    }
 
 }
