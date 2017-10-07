@@ -6,9 +6,10 @@ import java.net.Socket;
 public class ClientHandler implements Runnable {
 
     private final int TIMEOUT = 3000;
+    private final Socket SOCKET;
 
     public ClientHandler(Socket socket) throws IOException {
-
+        SOCKET = socket;
     }
 
     @Override
