@@ -8,7 +8,7 @@ public class SessionList {
     private ArrayList<Session> sessions = new ArrayList<Session>();
     private SecureRandom random = new SecureRandom();
 
-    public boolean sessionExists(int sessionId){
+    public boolean sessionExists(long sessionId){
 
         for (Session session : sessions){
 
@@ -22,7 +22,7 @@ public class SessionList {
 
     }
 
-    public Session getSession(int sessionId) {
+    public Session getSession(long sessionId) {
 
         for (Session session : sessions){
 
@@ -36,7 +36,7 @@ public class SessionList {
 
     }
 
-    public boolean deleteSession(int sessionId) {
+    public boolean deleteSession(long sessionId) {
 
         if(!sessionExists(sessionId)){
             return true;
@@ -57,9 +57,9 @@ public class SessionList {
 
     }
 
-    public int newSession(){
+    public long newSession(){
 
-        int sessionId = Math.abs(random.nextInt());
+        long sessionId = Math.abs(random.nextInt());
 
         while (sessionExists(sessionId)){
             sessionId = random.nextInt();

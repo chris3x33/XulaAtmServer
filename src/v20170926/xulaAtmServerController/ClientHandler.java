@@ -28,7 +28,7 @@ public class ClientHandler implements Runnable {
         try {
 
             //read sessionId
-            int sessionId = readIntWTimeout();
+            long sessionId = readIntWTimeout();
 
             //check for new session
             if(sessionId <= -1){

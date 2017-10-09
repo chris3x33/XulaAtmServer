@@ -2,7 +2,7 @@ package v20170926.xulaAtmServerController;
 
 public class Session {
 
-    private int sessionId;
+    private long sessionId;
     private int userId = -1;
 
     public Session(){
@@ -10,16 +10,16 @@ public class Session {
         userId = -1;
     }
 
-    public Session(int sessionId){
+    public Session(long sessionId){
         this.sessionId = sessionId;
         userId = -1;
     }
 
-    public int getSessionId() {
+    public long getSessionId() {
         return sessionId;
     }
 
-    public void setSessionId(int sessionId) {
+    public void setSessionId(long sessionId) {
         this.sessionId = sessionId;
     }
 
