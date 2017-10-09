@@ -78,4 +78,24 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    private long readLongWTimeout() throws IOException {
+
+        final long BYTE_SIZE_OF_LONG = Long.SIZE/ Byte.SIZE;
+
+        boolean hasLong;
+
+        long startTime = System.currentTimeMillis();
+
+        do {
+            hasLong = (IN.available() >= BYTE_SIZE_OF_LONG);
+        } while (!hasLong && (System.currentTimeMillis() - startTime) < TIMEOUT);
+
+        if (hasLong) {
+            return DATA_IN.readLong();
+        } else {
+            throw new SocketTimeoutException();
+        }
+    }
+
+
 }
