@@ -32,7 +32,13 @@ public class ClientHandler implements Runnable {
         try {
 
             //read sessionId
-            long sessionId = readIntWTimeout();
+            long sessionId = readLongWTimeout();
+            System.out.println("Read sessionId = " + sessionId);
+
+            //Send ACK
+            DATA_OUT.writeInt(ACK_CODE);
+            System.out.println("Sent ACK");
+
 
             //check for new session
             if(sessionId <= -1){
@@ -44,6 +50,7 @@ public class ClientHandler implements Runnable {
                 return;
             }
 
+            SOCKET.close();
 
         } catch (SocketTimeoutException e) {
         } catch (IOException e) {
