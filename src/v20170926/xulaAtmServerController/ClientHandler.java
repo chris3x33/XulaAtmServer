@@ -33,7 +33,7 @@ public class ClientHandler implements Runnable {
 
             //read sessionId
             long sessionId = readLongWTimeout();
-            System.out.println("Read sessionId = " + sessionId);
+            System.out.println("\nRead sessionId = " + sessionId);
 
             //Send ACK
             DATA_OUT.writeInt(ACK_CODE);
@@ -43,8 +43,9 @@ public class ClientHandler implements Runnable {
             //check for new session
             if(sessionId <= -1){
 
+                System.out.println("NewSessionCMD Start");
                 handleNewSession();
-
+                System.out.println("NewSessionCMD End\n");
                 SOCKET.close();
 
                 return;
@@ -60,11 +61,37 @@ public class ClientHandler implements Runnable {
 
     }
 
-    private void handleNewSession() {
+    private void handleNewSession() throws IOException {
+        int ack;
+        //get new session
+        long sessionId = sessionList.newSession();
 
+        //Read ACK
+        ack = readIntWTimeout();
+        if (ack == ACK_CODE){
+            System.out.println("\tRead ACK");
+        }else {
+            System.out.println("\tACK Read Error");
+        }
 
+        //Send sessionId
+        DATA_OUT.writeLong(sessionId);
+        System.out.println("\tSent sessionId = "+sessionId);
+
+        //Read ACK
+        ack = readIntWTimeout();
+        if (ack == ACK_CODE){
+            System.out.println("\tRead ACK");
+        }else {
+            System.out.println("\tACK Read Error");
+        }
+
+        //Send ACK
+        DATA_OUT.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
 
     }
+
 
     private int readIntWTimeout() throws IOException {
 
