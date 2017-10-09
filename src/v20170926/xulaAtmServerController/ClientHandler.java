@@ -14,6 +14,7 @@ public class ClientHandler implements Runnable {
     private final InputStream IN;
     private final DataInputStream DATA_IN;
     private final DataOutputStream DATA_OUT;
+    private static SessionList sessionList = new SessionList();
 
     public ClientHandler(Socket socket) throws IOException {
         SOCKET = socket;
