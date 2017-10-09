@@ -59,7 +59,7 @@ public class SessionList {
 
     public long newSession(){
 
-        long sessionId = Math.abs(random.nextInt());
+        long sessionId = Math.abs(random.nextLong());
 
         while (sessionExists(sessionId)){
             sessionId = random.nextInt();
