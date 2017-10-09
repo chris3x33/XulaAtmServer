@@ -15,6 +15,9 @@ public class ClientHandler implements Runnable {
     private final DataInputStream DATA_IN;
     private final DataOutputStream DATA_OUT;
     private static SessionList sessionList = new SessionList();
+    private final int ACK_CODE = 10101010;
+
+
 
     public ClientHandler(Socket socket) throws IOException {
         SOCKET = socket;
