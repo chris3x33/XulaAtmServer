@@ -9,7 +9,7 @@ import java.net.SocketTimeoutException;
 public class XulaAtmServer {
 
     private static final int PORT = 55555;
-    private static final String IP_ADDRESS = /*"127.0.0.1"*/ "192.168.1.74";
+    private static final String IP_ADDRESS = "127.0.0.1" /*"192.168.1.74"*/;
     private static final int TIMEOUT = 100;
 
     public static void main(String[] args) {
