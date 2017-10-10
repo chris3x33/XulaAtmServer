@@ -24,4 +24,18 @@ public class NewUserCreator {
         //Write to Filesystem
 
     }
+
+    private static String getUserNameFromUser() {
+
+        String userName;
+
+        System.out.print("\tEnter Your UserName: ");
+
+        userName = IN.nextLine();
+
+        System.out.println();
+
+        return userName;
+
+    }
 }
