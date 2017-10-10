@@ -47,4 +47,8 @@ public class XulaATMUserList {
 
     }
 
+    public Result isValidUserName(String userName){
+        return null;
+    }
+
 }
