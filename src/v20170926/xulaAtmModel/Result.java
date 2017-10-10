@@ -2,6 +2,8 @@ package v20170926.xulaAtmModel;
 
 public class Result {
 
+    public static final int ERROR_CODE = 0;
+
     private int status;// 0 for fail, 1 for success
     private String message;
 
