@@ -1,5 +1,7 @@
 package v20170926.xulaAtmModel;
 
+
+
 public class XulaATM {
 
     private XulaATMAccountList atmAccountList;
@@ -8,6 +10,10 @@ public class XulaATM {
 
     public String getWelcomeMsg() {
         return WELCOME_MSG;
+    }
+
+    public Result isValidUserNsme(){
+        return null;
     }
 
     public double getAccountBalance(long accountId) {
@@ -82,4 +88,11 @@ public class XulaATM {
         return atmUserList.changePassword(userId, currPass, newPass);
 
     }
+
+    public Result isValidUserName(String userName){
+
+        return atmUserList.isValidUserName(userName);
+
+    }
+
 }
