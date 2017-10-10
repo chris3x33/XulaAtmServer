@@ -38,4 +38,18 @@ public class NewUserCreator {
         return userName;
 
     }
+
+    private static String getPasswordFromUser() {
+
+        String password;
+
+        System.out.print("\tEnter Your Password: ");
+
+        password = IN.nextLine();
+
+        System.out.println();
+
+        return password;
+
+    }
 }
