@@ -1,5 +1,8 @@
 package v20170926.utils;
 
+import v20170926.xulaAtmModel.Result;
+import v20170926.xulaAtmModel.XulaATM;
+
 import java.util.Scanner;
 
 public class NewUserCreator {
@@ -11,7 +14,30 @@ public class NewUserCreator {
 
     public static void main(String[] args) {
 
+        XulaATM xulaATM = new XulaATM();
+
         //Get UserName
+        String userName;
+
+        boolean userExists;
+        boolean isValidUserName;
+        do{
+            userName = getUserNameFromUser();
+
+            Result validUserNameResult = xulaATM.isValidUserName(userName);
+
+            isValidUserName = (validUserNameResult.getStatus() == Result.SUCCESS_CODE);
+            if(!isValidUserName){
+                System.out.println(validUserNameResult.getMessage() + "\n");
+            }
+
+            userExists = xulaATM.userExists(userName);
+            if (isValidUserName && userExists){
+                System.out.println("UserName already exists\n");
+            }
+
+        }while (!isValidUserName||userExists);
+
 
         //Get Password
 
