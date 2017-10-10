@@ -48,7 +48,43 @@ public class XulaATMUserList {
     }
 
     public Result isValidUserName(String userName){
-        return null;
+
+        final int USERNAME_MIN_LEN = 6;
+        final int USERNAME_MAX_LEN = 40;
+
+        if(userName == null || userName.isEmpty()){
+
+            String errMsg = "UserName cannot be empty!!";
+
+            return new Result(Result.ERROR_CODE, errMsg);
+        }
+
+        //Check length
+        if (userName.length()<USERNAME_MIN_LEN || userName.length() > USERNAME_MAX_LEN){
+
+            String errMsg = "UserName must be between and in length!!";
+
+            return new Result(Result.ERROR_CODE, errMsg);
+        }
+
+        //Check first char is a Letter
+        char firstChar = userName.charAt(0);
+        if(!Character.isLetter(firstChar)){
+
+            String errMsg = "UserName must start with a letter!!";
+
+            return new Result(Result.ERROR_CODE, errMsg);
+        }
+
+        //Check for spaces
+        if(userName.indexOf(' ') > -1){
+            String errMsg = "UserName cannot contain spaces!!";
+
+            return new Result(Result.ERROR_CODE, errMsg);
+        }
+
+        return new Result(Result.SUCCESS_CODE);
+
     }
 
 }
