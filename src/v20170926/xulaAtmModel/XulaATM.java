@@ -8,6 +8,13 @@ public class XulaATM {
     private XulaATMUserList atmUserList;
     private final String WELCOME_MSG = "Welcome to XULA ATM";
 
+    public XulaATM(){
+
+        atmAccountList = new XulaATMAccountList();
+        atmUserList = new XulaATMUserList();
+
+    }
+
     public String getWelcomeMsg() {
         return WELCOME_MSG;
     }
