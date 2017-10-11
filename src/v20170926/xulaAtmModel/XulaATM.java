@@ -15,6 +15,10 @@ public class XulaATM {
 
     }
 
+    public XulaATM(String UserListFolder, String AccountListFolder){
+
+    }
+
     public String getWelcomeMsg() {
         return WELCOME_MSG;
     }
