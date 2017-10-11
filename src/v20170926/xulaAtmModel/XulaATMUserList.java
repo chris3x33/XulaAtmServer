@@ -171,4 +171,15 @@ public class XulaATMUserList {
         return new Result(Result.SUCCESS_CODE);
     }
 
+    private long getUnusedUserId() {
+
+        long unusedUserId;
+        do {
+            unusedUserId = Math.abs(random.nextLong());
+
+        } while (userExists(unusedUserId));
+
+        return unusedUserId;
+    }
+
 }
