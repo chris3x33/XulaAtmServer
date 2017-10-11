@@ -2,6 +2,7 @@ package v20170926.xulaAtmModel;
 
 import v20170926.sha1Utilits.SHA1Utilits;
 
+import java.io.File;
 import java.security.NoSuchAlgorithmException;
 
 public class XulaATMUser {
@@ -10,6 +11,9 @@ public class XulaATMUser {
     private String password;
     private long userId;
     private long[] atmAccountIds;
+
+    public XulaATMUser(File userFile) {
+    }
 
     public ValidatePasswordResult validatePassword( String passwordToValidate){
 
