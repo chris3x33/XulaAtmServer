@@ -73,7 +73,11 @@ public class XulaATMUserList {
         //Check length
         if (userName.length()<USERNAME_MIN_LEN || userName.length() > USERNAME_MAX_LEN){
 
-            String errMsg = "UserName must be between and in length!!";
+            String errMsg = String.format(
+                    "UserName must be between %d and %d in length!!",
+                    USERNAME_MIN_LEN,
+                    USERNAME_MAX_LEN
+            );
 
             return new Result(Result.ERROR_CODE, errMsg);
         }
