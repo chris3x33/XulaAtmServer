@@ -3,7 +3,9 @@ package v20170926.xulaAtmModel;
 import v20170926.sha1Utilits.SHA1Utilits;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Scanner;
 
 public class XulaATMUser {
 
@@ -12,7 +14,25 @@ public class XulaATMUser {
     private long userId;
     private long[] atmAccountIds;
 
-    public XulaATMUser(File userFile) {
+    public XulaATMUser(File userFile) throws FileNotFoundException {
+
+        readUserFrom(userFile);
+
+    }
+
+    public void readUserFrom(File userFile) throws FileNotFoundException {
+
+        Scanner scanner = new Scanner(userFile);
+
+        //Read UserId
+
+        //Read userName
+
+        //Read password
+
+        //Read numOfAccounts
+
+        //Read Accounts
     }
 
     public ValidatePasswordResult validatePassword( String passwordToValidate){
