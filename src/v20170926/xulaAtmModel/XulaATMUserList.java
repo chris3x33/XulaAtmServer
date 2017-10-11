@@ -15,6 +15,9 @@ public class XulaATMUserList {
 
     }
 
+    public XulaATMUserList(String userListFolder) {
+    }
+
     public XulaATMUser getATMUser(String userName){
 
         for (XulaATMUser atmUser : atmUsers){
