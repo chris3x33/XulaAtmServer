@@ -60,7 +60,8 @@ public class XulaATM {
 
     public CreateNewUserResult createNewUser(String username, String password) {
 
-        return null;
+        return atmUserList.createNewUser(username, password);
+
     }
 
     public OpenAccountResult openNewAccount(long userId) {
