@@ -182,18 +182,18 @@ public class XulaATMUserList {
         return unusedUserId;
     }
 
-    public OpenAccountResult openNewAccount(String username, String password) {
+    public CreateNewUserResult createNewUser(String username, String password) {
 
         //Check if username is valid
         Result validUserNameResult = isValidUserName(username);
         boolean isValidUserName = (validUserNameResult.getStatus() == Result.SUCCESS_CODE);
         if (!isValidUserName) {
-            return new OpenAccountResult( validUserNameResult );
+            return new CreateNewUserResult( validUserNameResult );
         }
 
         //Check if username is taken
         if (userExists(username)) {
-            return new OpenAccountResult(Result.ERROR_CODE,"UserName already exists");
+            return new CreateNewUserResult(Result.ERROR_CODE,"UserName already exists");
         }
 
         //Check if password is usable
@@ -201,7 +201,7 @@ public class XulaATMUserList {
         boolean isUsablePassword = (isUsablePasswordResult.getStatus() == Result.SUCCESS_CODE);
 
         if (!isUsablePassword) {
-            return new OpenAccountResult( isUsablePasswordResult );
+            return new CreateNewUserResult( isUsablePasswordResult );
         }
 
         //Create UserId
@@ -215,7 +215,7 @@ public class XulaATMUserList {
 
         //Write to Filesystem async
 
-        return new OpenAccountResult(Result.SUCCESS_CODE, newUserId);
+        return new CreateNewUserResult(Result.SUCCESS_CODE, newUserId);
     }
 
 }
