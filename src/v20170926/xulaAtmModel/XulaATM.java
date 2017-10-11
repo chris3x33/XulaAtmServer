@@ -1,6 +1,7 @@
 package v20170926.xulaAtmModel;
 
 
+import java.io.FileNotFoundException;
 
 public class XulaATM {
 
@@ -15,7 +16,10 @@ public class XulaATM {
 
     }
 
-    public XulaATM(String UserListFolder, String AccountListFolder){
+    public XulaATM(String UserListFolder, String AccountListFolder) throws FileNotFoundException {
+
+        atmAccountList = new XulaATMAccountList(AccountListFolder);
+        atmUserList = new XulaATMUserList(UserListFolder);
 
     }
 
