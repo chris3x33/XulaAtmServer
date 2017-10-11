@@ -1,6 +1,10 @@
 package v20170926.xulaAtmModel;
 
+import java.security.SecureRandom;
+
 public class XulaATMUserList {
+
+    private SecureRandom random = new SecureRandom();
 
     private XulaATMUser[] atmUsers;
 
