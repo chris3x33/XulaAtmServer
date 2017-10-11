@@ -7,6 +7,9 @@ public class XulaATMAccountList {
     public XulaATMAccountList(String accountListFolder) {
     }
 
+    public XulaATMAccountList() {
+    }
+
     public double getAccountBalance(long accountID) {
 
         return -1;
