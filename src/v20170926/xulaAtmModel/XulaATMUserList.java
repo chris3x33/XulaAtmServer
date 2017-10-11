@@ -182,4 +182,40 @@ public class XulaATMUserList {
         return unusedUserId;
     }
 
+    public OpenAccountResult openNewAccount(String username, String password) {
+
+        //Check if username is valid
+        Result validUserNameResult = isValidUserName(username);
+        boolean isValidUserName = (validUserNameResult.getStatus() == Result.SUCCESS_CODE);
+        if (!isValidUserName) {
+            return new OpenAccountResult( validUserNameResult );
+        }
+
+        //Check if username is taken
+        if (userExists(username)) {
+            return new OpenAccountResult(Result.ERROR_CODE,"UserName already exists");
+        }
+
+        //Check if password is usable
+        Result isUsablePasswordResult = isUsablePassword(password);
+        boolean isUsablePassword = (isUsablePasswordResult.getStatus() == Result.SUCCESS_CODE);
+
+        if (!isUsablePassword) {
+            return new OpenAccountResult( isUsablePasswordResult );
+        }
+
+        //Create UserId
+        long newUserId = getUnusedUserId();
+
+        //Create Checking Account
+
+        //Create Savings Account
+
+        //add to UserList
+
+        //Write to Filesystem async
+
+        return new OpenAccountResult(Result.SUCCESS_CODE, newUserId);
+    }
+
 }
