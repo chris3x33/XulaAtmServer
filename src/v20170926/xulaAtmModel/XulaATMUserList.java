@@ -9,6 +9,12 @@ public class XulaATMUserList {
 
     private ArrayList<XulaATMUser> atmUsers;
 
+    public XulaATMUserList(){
+
+        atmUsers = new ArrayList<XulaATMUser>();
+
+    }
+
     public XulaATMUser getATMUser(String userName){
 
         for (XulaATMUser atmUser : atmUsers){
