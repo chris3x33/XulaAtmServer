@@ -102,4 +102,73 @@ public class XulaATMUserList {
 
     }
 
+    public Result isUsablePassword(String password){
+
+        if(password == null || password.isEmpty()){
+
+            String errMsg = "Password cannot be empty!!";
+
+            return new Result(Result.ERROR_CODE, errMsg);
+        }
+
+        //Password needs to be at least 8 characters long
+        //Can not be more than 40 characters long
+        final int MIN_LEN = 6;
+        final int MAX_LEN = 40;
+
+        if (password.length()<MIN_LEN || password.length()>MAX_LEN){
+
+            String errMsg = String.format(
+                    "Password must be between %d and %d in length!!",
+                    MIN_LEN,
+                    MAX_LEN
+            );
+
+            return new Result(Result.ERROR_CODE, errMsg);
+        }
+
+        //Must have a lower case character
+        //Must have an upper case character
+        //Must have a number
+        boolean hasUpperCase = false;
+        boolean hasLowerCase = false;
+        boolean hasNumber = false;
+
+        for(int i=0;i < password.length();i++) {
+            char ch = password.charAt(i);
+            if (Character.isDigit(ch)) {
+                hasNumber = true;
+            } else if (Character.isUpperCase(ch)) {
+                hasUpperCase = true;
+            } else if (Character.isLowerCase(ch)) {
+                hasLowerCase = true;
+            }
+        }
+
+        if(!hasNumber){
+
+            String errMsg = "Password must contain a number!!";
+
+            return new Result(Result.ERROR_CODE, errMsg);
+        }
+
+        if(!hasLowerCase){
+
+            String errMsg = "Password must contain a Lower Case Letter!!";
+
+            return new Result(Result.ERROR_CODE, errMsg);
+
+        }
+
+        if(!hasUpperCase){
+
+            String errMsg = "Password must contain a Upper Case Letter!!";
+
+            return new Result(Result.ERROR_CODE, errMsg);
+
+        }
+
+        return new Result(Result.SUCCESS_CODE);
+    }
+
 }
