@@ -4,6 +4,9 @@ public class XulaATMAccountList {
 
     private XulaATMAccount[] atmAccounts;
 
+    public XulaATMAccountList(String accountListFolder) {
+    }
+
     public double getAccountBalance(long accountID) {
 
         return -1;
