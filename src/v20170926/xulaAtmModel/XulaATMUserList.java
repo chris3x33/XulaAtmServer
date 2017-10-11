@@ -1,12 +1,13 @@
 package v20170926.xulaAtmModel;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 
 public class XulaATMUserList {
 
     private SecureRandom random = new SecureRandom();
 
-    private XulaATMUser[] atmUsers;
+    private ArrayList<XulaATMUser> atmUsers;
 
     public XulaATMUser getATMUser(String userName){
 
