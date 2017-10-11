@@ -58,7 +58,7 @@ public class XulaATM {
         return atmAccountList.transfer(fromAccountId, toAccountId, transferAmount);
     }
 
-    public NewUserCreationResult createNewUser(String username, String password) {
+    public CreateNewUserResult createNewUser(String username, String password) {
 
         return null;
     }
