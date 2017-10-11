@@ -19,10 +19,6 @@ public class XulaATM {
         return WELCOME_MSG;
     }
 
-    public Result isValidUserNsme(){
-        return null;
-    }
-
     public double getAccountBalance(long accountId) {
 
         return atmAccountList.getAccountBalance(accountId);
