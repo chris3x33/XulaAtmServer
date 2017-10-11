@@ -1,5 +1,6 @@
 package v20170926.utils;
 
+import v20170926.xulaAtmModel.CreateNewUserResult;
 import v20170926.xulaAtmModel.Result;
 import v20170926.xulaAtmModel.XulaATM;
 
@@ -16,38 +17,29 @@ public class NewUserCreator {
 
         XulaATM xulaATM = new XulaATM();
 
-        //Get UserName
         String userName;
+        String password;
 
-        boolean userExists;
-        boolean isValidUserName;
+        boolean isNewUserCreated;
+        CreateNewUserResult newUserResult;
+
         do{
+
             userName = getUserNameFromUser();
+            password = getPasswordFromUser();
 
-            Result validUserNameResult = xulaATM.isValidUserName(userName);
+            newUserResult = xulaATM.createNewUser(userName, password);
 
-            isValidUserName = (validUserNameResult.getStatus() == Result.SUCCESS_CODE);
-            if(!isValidUserName){
-                System.out.println(validUserNameResult.getMessage() + "\n");
+            isNewUserCreated = (newUserResult.getStatus() == Result.SUCCESS_CODE);
+            if(!isNewUserCreated){
+                System.out.println(newUserResult.getMessage() + "\n");
             }
 
-            userExists = xulaATM.userExists(userName);
-            if (isValidUserName && userExists){
-                System.out.println("UserName already exists\n");
-            }
+        }while (!isNewUserCreated);
 
-        }while (!isValidUserName||userExists);
-
-
-        //Get Password
-
-        //Create UserId
-
-        //Create Checking Account
-
-        //Create Savings Account
-
-        //Write to Filesystem
+        System.out.println("New User Created!!");
+        System.out.println("UserName: "+userName);
+        System.out.println("UserId: "+newUserResult.getUserId());
 
     }
 
