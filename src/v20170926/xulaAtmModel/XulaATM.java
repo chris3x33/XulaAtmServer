@@ -96,10 +96,4 @@ public class XulaATM {
 
     }
 
-    public Result isValidUserName(String userName){
-
-        return atmUserList.isValidUserName(userName);
-
-    }
-
 }
