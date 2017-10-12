@@ -2,6 +2,7 @@ package v20170926.xulaAtmModel;
 
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class XulaATM {
 
@@ -68,7 +69,54 @@ public class XulaATM {
 
     public CreateNewUserResult createNewUser(String username, String password) {
 
-        return atmUserList.createNewUser(username, password);
+        //Check if username is valid
+        Result validUserNameResult = atmUserList.isValidUserName(username);
+        boolean isValidUserName = (validUserNameResult.getStatus() == Result.SUCCESS_CODE);
+        if (!isValidUserName) {
+            return new CreateNewUserResult( validUserNameResult );
+        }
+
+        //Check if username is taken
+        if (userExists(username)) {
+            return new CreateNewUserResult(Result.ERROR_CODE,"UserName already exists");
+        }
+
+        //Check if password is usable
+        Result isUsablePasswordResult = atmUserList.isUsablePassword(password);
+        boolean isUsablePassword = (isUsablePasswordResult.getStatus() == Result.SUCCESS_CODE);
+
+        if (!isUsablePassword) {
+            return new CreateNewUserResult( isUsablePasswordResult );
+        }
+
+        //Create UserId
+        long newUserId = atmUserList.getUnusedUserId();
+
+        //Create Checking Account
+        long newCheckingAccountId = atmAccountList.getUnusedAccountId();
+        atmAccountList.createNewAccount(newCheckingAccountId,XulaATMAccountType.CHECKING,0);
+
+        //Create Savings Account
+        long newSavingsAccountId = atmAccountList.getUnusedAccountId();
+        atmAccountList.createNewAccount(newSavingsAccountId,XulaATMAccountType.SAVINGS,0);
+
+        //Create User Account id list
+        ArrayList<Long> atmAccountIds = new ArrayList<Long>();
+        atmAccountIds.add(newCheckingAccountId);
+        atmAccountIds.add(newSavingsAccountId);
+
+        //Create User
+        atmUserList.createNewUser(username,password,newUserId,atmAccountIds);
+
+        //Write to Filesystem async
+        XulaATMAccount newCheckingAccount = atmAccountList.getAccount(newCheckingAccountId);
+
+
+        XulaATMAccount newSavingsAccount = atmAccountList.getAccount(newSavingsAccountId);
+
+
+
+        return new CreateNewUserResult(Result.SUCCESS_CODE, newUserId);
 
     }
 
