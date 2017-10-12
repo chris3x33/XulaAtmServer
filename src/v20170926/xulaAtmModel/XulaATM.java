@@ -120,7 +120,7 @@ public class XulaATM {
 
         XulaATMAccount newSavingsAccount = atmAccountList.getAccount(newSavingsAccountId);
 
-
+        XulaATMUser atmUser = atmUserList.getATMUser(newUserId);
 
         return new CreateNewUserResult(Result.SUCCESS_CODE, newUserId);
 
