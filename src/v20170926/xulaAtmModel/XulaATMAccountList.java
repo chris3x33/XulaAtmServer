@@ -1,5 +1,6 @@
 package v20170926.xulaAtmModel;
 
+import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 
@@ -78,4 +79,9 @@ public class XulaATMAccountList {
 
     }
 
+    public void writeTo(String accountListFolderPath) throws IOException {
+        for (XulaATMAccount atmAccount :atmAccounts){
+            atmAccount.writeTo(accountListFolderPath);
+        }
+    }
 }
