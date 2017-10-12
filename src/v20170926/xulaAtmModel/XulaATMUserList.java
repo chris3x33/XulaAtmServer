@@ -198,7 +198,7 @@ public class XulaATMUserList {
         return new Result(Result.SUCCESS_CODE);
     }
 
-    private long getUnusedUserId() {
+    public long getUnusedUserId() {
 
         long unusedUserId;
         do {
@@ -209,40 +209,9 @@ public class XulaATMUserList {
         return unusedUserId;
     }
 
-    public CreateNewUserResult createNewUser(String username, String password) {
+    public boolean createNewUser(String userName, String password, long userId, ArrayList<Long> atmAccountIds) {
 
-        //Check if username is valid
-        Result validUserNameResult = isValidUserName(username);
-        boolean isValidUserName = (validUserNameResult.getStatus() == Result.SUCCESS_CODE);
-        if (!isValidUserName) {
-            return new CreateNewUserResult( validUserNameResult );
-        }
+        return false;
 
-        //Check if username is taken
-        if (userExists(username)) {
-            return new CreateNewUserResult(Result.ERROR_CODE,"UserName already exists");
-        }
-
-        //Check if password is usable
-        Result isUsablePasswordResult = isUsablePassword(password);
-        boolean isUsablePassword = (isUsablePasswordResult.getStatus() == Result.SUCCESS_CODE);
-
-        if (!isUsablePassword) {
-            return new CreateNewUserResult( isUsablePasswordResult );
-        }
-
-        //Create UserId
-        long newUserId = getUnusedUserId();
-
-        //Create Checking Account
-
-        //Create Savings Account
-
-        //add to UserList
-
-        //Write to Filesystem async
-
-        return new CreateNewUserResult(Result.SUCCESS_CODE, newUserId);
     }
-
 }
