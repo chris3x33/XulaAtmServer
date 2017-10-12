@@ -7,6 +7,13 @@ public class XulaATMAccount {
     private int accountType;
     private XulaATMTransactionList atmTransactionList;
 
+    public XulaATMAccount(long accountId, int accountType, double balance) {
+        this.accountId = accountId;
+        this.balance = balance;
+        this.accountType = accountType;
+    }
+
+
     public long getAccountId() {
         return accountId;
     }
