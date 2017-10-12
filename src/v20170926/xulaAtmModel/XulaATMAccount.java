@@ -7,5 +7,17 @@ public class XulaATMAccount {
     private int accountType;
     private XulaATMTransactionList atmTransactionList;
 
+    public long getAccountId() {
+        return accountId;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public int getAccountType() {
+        return accountType;
+    }
+
 
 }
