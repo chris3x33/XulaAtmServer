@@ -5,6 +5,7 @@ import v20170926.sha1Utilits.SHA1Utilits;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class XulaATMUser {
@@ -12,9 +13,13 @@ public class XulaATMUser {
     private String userName;
     private String password;
     private long userId;
-    private long[] atmAccountIds;
+    private ArrayList<Long> atmAccountIds;
+
+
 
     public XulaATMUser(File userFile) throws FileNotFoundException {
+
+        atmAccountIds = new ArrayList<Long>();
 
         readUserFrom(userFile);
 
@@ -25,14 +30,21 @@ public class XulaATMUser {
         Scanner scanner = new Scanner(userFile);
 
         //Read UserId
+        userId = scanner.nextLong();
+        scanner.nextLine();
 
         //Read userName
+        userName = scanner.nextLine();
 
         //Read password
-
-        //Read numOfAccounts
+        password = scanner.nextLine();
 
         //Read Accounts
+        while (scanner.hasNextLine()){
+            scanner.nextLong();
+            scanner.nextLine();
+        }
+
     }
 
     public ValidatePasswordResult validatePassword( String passwordToValidate){
@@ -71,7 +83,7 @@ public class XulaATMUser {
         return userId;
     }
 
-    public long[] getAtmAccountIds() {
+    public ArrayList<Long> getAtmAccountIds() {
         return atmAccountIds;
     }
 }
