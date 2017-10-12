@@ -15,7 +15,14 @@ public class XulaATMUser {
     private long userId;
     private ArrayList<Long> atmAccountIds;
 
+    public XulaATMUser(String userName, String password, long userId, ArrayList<Long> atmAccountIds) {
 
+        this.userName = userName;
+        this.password = password;
+        this.userId = userId;
+        this.atmAccountIds = atmAccountIds;
+
+    }
 
     public XulaATMUser(File userFile) throws FileNotFoundException {
 
