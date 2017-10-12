@@ -4,6 +4,8 @@ import v20170926.sha1Utilits.SHA1Utilits;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -92,5 +94,27 @@ public class XulaATMUser {
 
     public ArrayList<Long> getAtmAccountIds() {
         return atmAccountIds;
+    }
+
+    public boolean writeTo(String userListFolderPath) throws IOException {
+        File userListFolder = new File(userListFolderPath);
+
+        if (!userListFolder.isDirectory()){return false;}
+
+        File userFile = new File(userListFolderPath+"\\"+userId+".txt");
+        userFile.createNewFile();
+
+        PrintWriter out = new PrintWriter(userFile);
+
+        out.println(userId);
+        out.println(userName);
+        out.println(password);
+        for (long accountId : atmAccountIds){
+            out.println(accountId);
+        }
+
+        out.close();
+
+        return true;
     }
 }
