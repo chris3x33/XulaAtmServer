@@ -3,7 +3,7 @@ package v20170926.utils;
 import v20170926.xulaAtmModel.CreateNewUserResult;
 import v20170926.xulaAtmModel.Result;
 import v20170926.xulaAtmModel.XulaATM;
-
+import java.io.IOException;
 import java.util.Scanner;
 
 public class NewUserCreator {
@@ -13,9 +13,9 @@ public class NewUserCreator {
     private final static String ACCOUNTLIST_PATH=XULA_ATM_PATH+"\\AccountList";
     private final static Scanner IN = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        XulaATM xulaATM = new XulaATM();
+        XulaATM xulaATM = new XulaATM(USERLIST_PATH,ACCOUNTLIST_PATH);
 
         String userName;
         String password;
@@ -41,6 +41,7 @@ public class NewUserCreator {
         System.out.println("UserName: "+userName);
         System.out.println("UserId: "+newUserResult.getUserId());
         System.out.println("User Accounts: "+ xulaATM.getAccountIDs(newUserResult.getUserId()));
+        xulaATM.writeTo(USERLIST_PATH,ACCOUNTLIST_PATH);
 
     }
 
@@ -71,4 +72,6 @@ public class NewUserCreator {
         return password;
 
     }
+
+
 }
