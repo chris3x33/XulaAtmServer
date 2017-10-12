@@ -1,8 +1,10 @@
 package v20170926.xulaAtmModel;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class XulaATMAccount {
 
@@ -17,6 +19,11 @@ public class XulaATMAccount {
         this.accountType = accountType;
     }
 
+    public XulaATMAccount(File accountFile) throws FileNotFoundException {
+
+        atmTransactionList = new XulaATMTransactionList();
+        readAccountFrom(accountFile);
+    }
 
     public long getAccountId() {
         return accountId;
@@ -48,5 +55,25 @@ public class XulaATMAccount {
         out.close();
 
         return true;
+    }
+
+    public void readAccountFrom(File accountFile) throws FileNotFoundException {
+
+        Scanner scanner = new Scanner(accountFile);
+
+        //Read accountId
+        accountId = scanner.nextLong();
+        scanner.nextLine();
+
+        //Read accountType
+        accountType = scanner.nextInt();
+        scanner.nextLine();
+
+        //Read balance
+        balance = scanner.nextDouble();
+        scanner.hasNextLine();
+
+        scanner.close();
+
     }
 }
