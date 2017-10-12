@@ -1,5 +1,7 @@
 package v20170926.xulaAtmModel;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -9,7 +11,28 @@ public class XulaATMAccountList {
     private SecureRandom random = new SecureRandom();
     private ArrayList<XulaATMAccount> atmAccounts;
 
-    public XulaATMAccountList(String accountListFolder) {
+    public XulaATMAccountList(String accountListFolderPath) throws FileNotFoundException {
+        atmAccounts = readAccountsFrom(accountListFolderPath);
+    }
+
+    private ArrayList<XulaATMAccount> readAccountsFrom(String accountListFolderPath) throws FileNotFoundException {
+        File userListFolder = new File(accountListFolderPath);
+        if(!userListFolder.isDirectory()){
+            return new ArrayList<XulaATMAccount>();
+        }
+
+        File[] accountFiles = userListFolder.listFiles();
+        if(accountFiles == null){
+            return new ArrayList<XulaATMAccount>();
+        }
+
+        ArrayList<XulaATMAccount> atmAccounts = new ArrayList<XulaATMAccount>();
+
+        for (File accountFile :accountFiles){
+            atmAccounts.add(new XulaATMAccount(accountFile));
+        }
+
+        return atmAccounts;
     }
 
     public XulaATMAccountList() {
