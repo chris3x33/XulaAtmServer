@@ -1,7 +1,10 @@
 package v20170926.xulaAtmModel;
 
 
+import v20170926.sha1Utilits.SHA1Utilits;
+
 import java.io.FileNotFoundException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 public class XulaATM {
@@ -89,6 +92,9 @@ public class XulaATM {
             return new CreateNewUserResult( isUsablePasswordResult );
         }
 
+        //Encrypt password
+        String encryptedPassword = encrypt(password);
+
         //Create UserId
         long newUserId = atmUserList.getUnusedUserId();
 
@@ -106,7 +112,7 @@ public class XulaATM {
         atmAccountIds.add(newSavingsAccountId);
 
         //Create User
-        atmUserList.createNewUser(username,password,newUserId,atmAccountIds);
+        atmUserList.createNewUser(username,encryptedPassword,newUserId,atmAccountIds);
 
         //Write to Filesystem async
         XulaATMAccount newCheckingAccount = atmAccountList.getAccount(newCheckingAccountId);
@@ -117,6 +123,20 @@ public class XulaATM {
 
 
         return new CreateNewUserResult(Result.SUCCESS_CODE, newUserId);
+
+    }
+
+    private String encrypt(String password){
+
+        try {
+
+            return new SHA1Utilits().encrypt(password);
+
+        } catch (NoSuchAlgorithmException e) {
+
+            return null;
+
+        }
 
     }
 
