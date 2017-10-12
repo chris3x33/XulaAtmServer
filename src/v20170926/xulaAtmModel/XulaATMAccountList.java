@@ -60,5 +60,17 @@ public class XulaATMAccountList {
         return null;
     }
 
+    public XulaATMAccount getAccount(long accountId){
+
+        for (XulaATMAccount atmAccount : atmAccounts){
+            if (atmAccount.getAccountId() == accountId){
+                return atmAccount;
+            }
+        }
+
+        return null;
+
+    }
+
 
 }
