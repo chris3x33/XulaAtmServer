@@ -220,4 +220,14 @@ public class XulaATMUserList {
         return atmUsers.add(new XulaATMUser(userName, password, userId, atmAccountIds));
 
     }
+
+    public XulaATMUser getATMUser(long userId) {
+        for (XulaATMUser atmUser : atmUsers){
+            if (atmUser.getUserId()==userId){
+                return atmUser;
+            }
+        }
+
+        return null;
+    }
 }
