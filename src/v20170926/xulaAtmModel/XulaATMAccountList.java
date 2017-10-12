@@ -21,6 +21,17 @@ public class XulaATMAccountList {
 
     }
 
+    public boolean accountExists(long accountID){
+        for (XulaATMAccount atmAccount : atmAccounts){
+            if (atmAccount.getAccountId() == accountID){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
     public WithdrawResult withdraw(long fromAccountId, double
             withdrawAmount) {
 
