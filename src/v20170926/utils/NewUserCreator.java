@@ -40,6 +40,7 @@ public class NewUserCreator {
         System.out.println("New User Created!!");
         System.out.println("UserName: "+userName);
         System.out.println("UserId: "+newUserResult.getUserId());
+        System.out.println("User Accounts: "+ xulaATM.getAccountIDs(newUserResult.getUserId()));
 
     }
 
