@@ -2,9 +2,10 @@ package v20170926.xulaAtmModel;
 
 public class XulaATMAccount {
 
-    private long id;
+    private long accountId;
     private double balance;
-    private int type;
+    private int accountType;
     private XulaATMTransactionList atmTransactionList;
+
 
 }
