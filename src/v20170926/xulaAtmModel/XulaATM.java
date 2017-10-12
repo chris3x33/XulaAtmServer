@@ -4,6 +4,7 @@ package v20170926.xulaAtmModel;
 import v20170926.sha1Utilits.SHA1Utilits;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
@@ -47,6 +48,10 @@ public class XulaATM {
 
         return atmUserList.userExists(userId);
 
+    }
+    public void writeTo(String userListFolderPath, String accountListFolderPath) throws IOException {
+        atmUserList.writeTo(userListFolderPath);
+        atmAccountList.writeTo(accountListFolderPath);
     }
 
     public boolean userExists(String userName) {
@@ -116,7 +121,6 @@ public class XulaATM {
 
         //Write to Filesystem async
         XulaATMAccount newCheckingAccount = atmAccountList.getAccount(newCheckingAccountId);
-
 
         XulaATMAccount newSavingsAccount = atmAccountList.getAccount(newSavingsAccountId);
 
