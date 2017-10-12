@@ -53,9 +53,15 @@ public class XulaATMUserList {
         return null;
     }
 
-    public long[] getAccountIDs(long userId) {
+    public ArrayList<Long> getAccountIDs(long userId) {
 
-        return new long[0];
+        for (XulaATMUser atmUser : atmUsers){
+            if (atmUser.getUserId()== userId){
+                return atmUser.getAtmAccountIds();
+            }
+        }
+
+        return null;
 
     }
 
