@@ -1,5 +1,9 @@
 package v20170926.xulaAtmModel;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 public class XulaATMAccount {
 
     private long accountId;
@@ -27,4 +31,20 @@ public class XulaATMAccount {
     }
 
 
+    public boolean writeTo(String accountListFolderPath) throws IOException {
+        File accountListFolder = new File(accountListFolderPath);
+
+        if (!accountListFolder.isDirectory()){return false;}
+
+        File accountFile = new File(accountListFolderPath+"\\"+accountId+".txt");
+        accountFile.createNewFile();
+
+        PrintWriter out = new PrintWriter(accountFile);
+
+        out.println(accountId);
+        out.println(accountType);
+        out.println(balance);
+
+        return true;
+    }
 }
