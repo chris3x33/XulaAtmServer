@@ -31,6 +31,18 @@ public class XulaATMAccountList {
         return false;
     }
 
+    public long getUnusedAccountId() {
+
+        long unusedUserId;
+        do {
+            unusedUserId = Math.abs(random.nextLong());
+
+        } while (accountExists(unusedUserId));
+
+        return unusedUserId;
+    }
+
+
 
     public WithdrawResult withdraw(long fromAccountId, double
             withdrawAmount) {
