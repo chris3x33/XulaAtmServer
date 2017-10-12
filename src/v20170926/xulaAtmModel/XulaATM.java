@@ -153,7 +153,10 @@ public class XulaATM {
 
         //Check if User Exists
         if(!userExists(userName)){
-
+            return new LoginResult(
+                    Result.ERROR_CODE,
+                    "User Doesn't Exists!!"
+            );
         }
 
         //Get user
@@ -161,10 +164,15 @@ public class XulaATM {
 
         //Check password
         ValidatePasswordResult validatePasswordResult = atmUser.validatePassword(password);
+        boolean isPasswordValid = (validatePasswordResult.getStatus() == Result.SUCCESS_CODE);
+        if(!isPasswordValid){
+            return new LoginResult(
+                    validatePasswordResult.getStatus(),
+                    validatePasswordResult.getMessage()
+            );
+        }
 
-        //Setup LoginResult
-
-        return null;
+        return new LoginResult(Result.SUCCESS_CODE,atmUser.getUserId());
     }
 
     public Result changePassword(long userId, String currPass, String newPass){
