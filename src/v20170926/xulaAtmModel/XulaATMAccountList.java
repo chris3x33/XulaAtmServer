@@ -12,6 +12,7 @@ public class XulaATMAccountList {
     }
 
     public XulaATMAccountList() {
+        atmAccounts = new ArrayList<XulaATMAccount>();
     }
 
     public double getAccountBalance(long accountID) {
