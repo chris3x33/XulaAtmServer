@@ -5,6 +5,10 @@ public class ValidatePasswordResult extends Result{
         super();
     }
 
+    public ValidatePasswordResult(int status, String message) {
+        super(status, message);
+    }
+
     public ValidatePasswordResult(int status) {
         super(status);
     }
