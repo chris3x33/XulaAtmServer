@@ -4,6 +4,7 @@ public class Session {
 
     private long sessionId;
     private int userId = -1;
+    private int expire;
 
     public Session(){
         sessionId= -1;
@@ -13,6 +14,10 @@ public class Session {
     public Session(long sessionId){
         this.sessionId = sessionId;
         userId = -1;
+    }
+
+    public int getExpire() {
+        return expire;
     }
 
     public long getSessionId() {
