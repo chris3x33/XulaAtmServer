@@ -59,11 +59,14 @@ public class XulaATMUser {
     public ValidatePasswordResult validatePassword( String passwordToValidate){
 
         //encrypt passwordToValidate
-        String encryptedPassword = encrypt(password);
+        String encryptedPassword = encrypt(passwordToValidate);
 
         //check against User password
+        if(!encryptedPassword.equals(password)){
+            return new ValidatePasswordResult(Result.ERROR_CODE, "Incorrect Password!!");
+        }
 
-        return null;
+        return new ValidatePasswordResult(Result.SUCCESS_CODE);
     }
 
     private String encrypt(String password){
