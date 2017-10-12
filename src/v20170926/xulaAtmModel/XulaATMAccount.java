@@ -45,6 +45,8 @@ public class XulaATMAccount {
         out.println(accountType);
         out.println(balance);
 
+        out.close();
+
         return true;
     }
 }
