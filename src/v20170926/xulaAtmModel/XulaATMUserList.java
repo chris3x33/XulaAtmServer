@@ -2,6 +2,7 @@ package v20170926.xulaAtmModel;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 
@@ -229,5 +230,11 @@ public class XulaATMUserList {
         }
 
         return null;
+    }
+
+    public void writeTo(String userListFolderPath) throws IOException {
+        for (XulaATMUser atmUser : atmUsers){
+            atmUser.writeTo(userListFolderPath);
+        }
     }
 }
