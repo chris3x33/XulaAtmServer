@@ -42,7 +42,7 @@ public class ClientHandler implements Runnable {
             //check for new session
             if (sessionId <= -1) {
 
-                System.out.println("NewSessionCMD Start");
+                System.out.println("\nNewSessionCMD Start");
                 handleNewSession();
                 System.out.println("NewSessionCMD End\n");
 
@@ -50,6 +50,22 @@ public class ClientHandler implements Runnable {
 
                 return;
             }
+
+            //check for valid session
+            if (!sessionList.sessionExists(sessionId)){
+
+                System.out.println("\nInvalidSessionCMD Start");
+
+                handleInvalidSession();
+
+                System.out.println("InvalidSessionCMD End\n");
+
+
+                SOCKET.close();
+
+                return;
+            }
+
 
             SOCKET.close();
 
