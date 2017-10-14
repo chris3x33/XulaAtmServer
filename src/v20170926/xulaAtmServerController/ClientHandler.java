@@ -1,5 +1,7 @@
 package v20170926.xulaAtmServerController;
 
+import v20170926.xulaAtmModel.LoginResult;
+import v20170926.xulaAtmModel.Result;
 import v20170926.xulaAtmModel.XulaATM;
 
 import java.io.DataInputStream;
@@ -82,6 +84,97 @@ public class ClientHandler implements Runnable {
             e.printStackTrace();
         }
 
+
+    }
+
+    private void handleLoginCommand() throws IOException {
+        int ack;
+
+        System.out.println("\nLoginCMD Start");
+
+        //Read userName Length
+        int userNameLen = readIntWTimeout();
+        System.out.println("\tRead userName Length");
+
+        //Send ACK
+        DATA_OUT.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        //Read userName Bytes
+        byte[] userNameBytes = readBytesWTimeout(userNameLen);
+        String userName = new String(userNameBytes);
+        System.out.println("\tRead userName: " + userName);
+
+        //Send ACK
+        DATA_OUT.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        //Read password Length
+        int passwordLen = readIntWTimeout();
+        System.out.println("\tRead password Length");
+
+        //Send ACK
+        DATA_OUT.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        //Read password Bytes
+        byte[] passwordBytes = readBytesWTimeout(passwordLen);
+        String password = new String(passwordBytes);
+        System.out.println("\tRead password: " + password);
+
+        //Send ACK
+        DATA_OUT.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        //Read ACK
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
+        LoginResult loginResult = xulaATM.login(userName, password);
+
+        //Send LoginResult Status
+        DATA_OUT.writeInt(loginResult.getStatus());
+        System.out.println("\tSent LoginResult Status Length");
+
+        //Read ACK
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
+        boolean isUserLoggedIn;
+        isUserLoggedIn = (loginResult.getStatus() == Result.SUCCESS_CODE);
+
+        if (!isUserLoggedIn){
+
+            //Send LoginResult Message Length
+            DATA_OUT.writeInt(loginResult.getMessage().length());
+            System.out.println("\tSent LoginResult Message Length");
+
+            //Read ACK
+            ack = readIntWTimeout();
+            printACKResult(ack);
+
+            //Send LoginResult Message Bytes
+            DATA_OUT.write(loginResult.getMessage().getBytes());
+            System.out.println("\tSent LoginResult Message Bytes");
+
+            //Read ACK
+            ack = readIntWTimeout();
+            printACKResult(ack);
+
+            //Send ACK
+            DATA_OUT.writeInt(ACK_CODE);
+            System.out.println("\tSent ACK");
+
+            System.out.println("LoginCMD End\n");
+
+            return;
+        }
+
+        //Send ACK
+        DATA_OUT.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        System.out.println("LoginCMD End\n");
 
     }
 
