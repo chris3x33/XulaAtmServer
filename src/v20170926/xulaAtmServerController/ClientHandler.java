@@ -1,5 +1,7 @@
 package v20170926.xulaAtmServerController;
 
+import v20170926.xulaAtmModel.XulaATM;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -9,7 +11,7 @@ import java.net.SocketTimeoutException;
 
 public class ClientHandler implements Runnable {
 
-    private final int TIMEOUT = 3000;
+    private final int TIMEOUT = 5000;
     private final Socket SOCKET;
     private final InputStream IN;
     private final DataInputStream DATA_IN;
@@ -17,13 +19,19 @@ public class ClientHandler implements Runnable {
     private static SessionList sessionList = new SessionList();
     private final int ACK_CODE = 10101010;
 
+    private final XulaATM xulaATM;
 
-    public ClientHandler(Socket socket) throws IOException {
+    public ClientHandler(Socket socket, final XulaATM xulaATM) throws IOException {
+
         SOCKET = socket;
         IN = socket.getInputStream();
         DATA_IN = new DataInputStream(IN);
         DATA_OUT = new DataOutputStream(socket.getOutputStream());
+
+        this.xulaATM = xulaATM;
+
     }
+
 
     @Override
     public void run() {

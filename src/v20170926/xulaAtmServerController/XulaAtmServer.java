@@ -44,7 +44,7 @@ public class XulaAtmServer {
 
                 Socket socket = server.accept();
                 System.out.println("Accepted Connection From "+socket.getRemoteSocketAddress());
-                Thread clientHandlerThread = new Thread(new ClientHandler(socket));
+                Thread clientHandlerThread = new Thread(new ClientHandler(socket, xulaATM));
                 clientHandlerThread.start();
 
             } catch (SocketTimeoutException e) {
