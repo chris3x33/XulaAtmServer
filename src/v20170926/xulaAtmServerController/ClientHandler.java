@@ -84,6 +84,45 @@ public class ClientHandler implements Runnable {
 
     }
 
+    private void handleInvalidSession() throws IOException {
+
+        int ack;
+
+        //Read ACK
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
+        //Send Invalid Session
+        DATA_OUT.writeInt(Session.INVALID_SESSION_CODE);
+        System.out.println("\tSent INVALID_SESSION_CODE");
+
+        //Read ACK
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
+        String errMsg = "Invalid Session!!";
+
+        //Send errMsg Length
+        DATA_OUT.writeInt(errMsg.length());
+        System.out.println("\tSent errMsg Length");
+
+        //Read ACK
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
+        //Send errMsg bytes
+        DATA_OUT.write(errMsg.getBytes());
+        System.out.println("\tSent errMsg bytes");
+
+        //Read ACK
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
+        //Send ACK
+        DATA_OUT.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+    }
 
     private int readIntWTimeout() throws IOException {
 
