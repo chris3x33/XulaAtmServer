@@ -85,6 +85,11 @@ public class ClientHandler implements Runnable {
 
     }
 
+    private void handleInvalidCommand() {
+
+    }
+
+
     private void handleNewSession() throws IOException {
         int ack;
         //get new session
