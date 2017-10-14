@@ -18,7 +18,6 @@ public class ClientHandler implements Runnable {
     private final int ACK_CODE = 10101010;
 
 
-
     public ClientHandler(Socket socket) throws IOException {
         SOCKET = socket;
         IN = socket.getInputStream();
@@ -41,11 +40,12 @@ public class ClientHandler implements Runnable {
 
 
             //check for new session
-            if(sessionId <= -1){
+            if (sessionId <= -1) {
 
                 System.out.println("NewSessionCMD Start");
                 handleNewSession();
                 System.out.println("NewSessionCMD End\n");
+
                 SOCKET.close();
 
                 return;
@@ -68,23 +68,15 @@ public class ClientHandler implements Runnable {
 
         //Read ACK
         ack = readIntWTimeout();
-        if (ack == ACK_CODE){
-            System.out.println("\tRead ACK");
-        }else {
-            System.out.println("\tACK Read Error");
-        }
+        printACKResult(ack);
 
         //Send sessionId
         DATA_OUT.writeLong(sessionId);
-        System.out.println("\tSent sessionId = "+sessionId);
+        System.out.println("\tSent sessionId = " + sessionId);
 
         //Read ACK
         ack = readIntWTimeout();
-        if (ack == ACK_CODE){
-            System.out.println("\tRead ACK");
-        }else {
-            System.out.println("\tACK Read Error");
-        }
+        printACKResult(ack);
 
         //Send ACK
         DATA_OUT.writeInt(ACK_CODE);
@@ -95,7 +87,7 @@ public class ClientHandler implements Runnable {
 
     private int readIntWTimeout() throws IOException {
 
-        final int BYTE_SIZE_OF_INT = Integer.SIZE/ Byte.SIZE;
+        final int BYTE_SIZE_OF_INT = Integer.SIZE / Byte.SIZE;
 
         boolean hasInt;
 
@@ -114,7 +106,7 @@ public class ClientHandler implements Runnable {
 
     private long readLongWTimeout() throws IOException {
 
-        final long BYTE_SIZE_OF_LONG = Long.SIZE/ Byte.SIZE;
+        final long BYTE_SIZE_OF_LONG = Long.SIZE / Byte.SIZE;
 
         boolean hasLong;
 
@@ -131,5 +123,14 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    private void printACKResult(int ack) {
+
+        if (ack == ACK_CODE) {
+            System.out.println("\tRead ACK");
+        } else {
+            System.out.println("\tACK Read Error");
+        }
+
+    }
 
 }
