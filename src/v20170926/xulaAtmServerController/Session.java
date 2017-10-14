@@ -2,6 +2,7 @@ package v20170926.xulaAtmServerController;
 
 public class Session {
 
+    public static final int VALID_SESSION_CODE = 1;
     public static final int INVALID_SESSION_CODE = -1;
     public static final int EXPIRED_SESSION_CODE = -2;
 
