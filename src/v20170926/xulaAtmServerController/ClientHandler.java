@@ -76,14 +76,60 @@ public class ClientHandler implements Runnable {
                 return;
             }
 
+            int ack;
+
+            //Read ACK
+            ack = readIntWTimeout();
+            printACKResult(ack);
+
+            //Send Valid session
+            DATA_OUT.writeInt(Session.VALID_SESSION_CODE);
+
+            //Read ACK
+            ack = readIntWTimeout();
+            printACKResult(ack);
+
+            //Send ACK
+            DATA_OUT.writeInt(ACK_CODE);
+            System.out.println("Sent ACK");
+
+            //read Command
+            int command = readIntWTimeout();
+
+            //Send ACK
+            DATA_OUT.writeInt(ACK_CODE);
+            System.out.println("Sent ACK");
+
+            handleCommand(command);
 
             SOCKET.close();
 
         } catch (SocketTimeoutException e) {
+            System.out.println("SocketTimeoutException");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+
+    }
+
+
+    private void handleCommand(int command) throws IOException {
+
+        switch (command){
+
+            case XulaAtmServerCommands.LOGIN_CMD:
+
+                handleLoginCommand();
+
+                break;
+
+            default://Invalid Command
+
+                handleInvalidCommand();
+
+                break;
+        }
 
     }
 
