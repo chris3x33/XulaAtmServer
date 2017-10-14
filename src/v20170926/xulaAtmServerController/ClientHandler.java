@@ -191,6 +191,33 @@ public class ClientHandler implements Runnable {
         }
     }
 
+    private byte[] readBytesWTimeout(int numOfBytes) throws IOException {
+
+        final int BYTE_SIZE = 1;
+
+        byte[] readBytes = new byte[numOfBytes];
+
+        boolean hasByte;
+        for (int i = 0; i < readBytes.length; i++) {
+
+            long startTime = System.currentTimeMillis();
+
+            do {
+                hasByte = (IN.available() >= BYTE_SIZE);
+            } while (!hasByte && (System.currentTimeMillis() - startTime) < TIMEOUT);
+
+            if (hasByte) {
+                readBytes[i] = DATA_IN.readByte();
+            } else {
+                throw new SocketTimeoutException();
+            }
+
+        }
+
+        return readBytes;
+    }
+
+
     private void printACKResult(int ack) {
 
         if (ack == ACK_CODE) {
