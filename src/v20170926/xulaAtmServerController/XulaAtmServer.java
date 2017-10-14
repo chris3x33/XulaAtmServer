@@ -1,5 +1,7 @@
 package v20170926.xulaAtmServerController;
 
+import v20170926.xulaAtmModel.XulaATM;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -12,11 +14,19 @@ public class XulaAtmServer {
     private static final String IP_ADDRESS = "127.0.0.1" /*"192.168.1.74"*/;
     private static final int TIMEOUT = 100;
 
+    private final static String XULA_ATM_PATH="XulaATMFiles";
+    private final static String USERLIST_PATH=XULA_ATM_PATH+"\\UserList";
+    private final static String ACCOUNTLIST_PATH=XULA_ATM_PATH+"\\AccountList";
+    private static XulaATM xulaATM;
+
+
     public static void main(String[] args) {
 
         try {
 
             ServerSocket server = setupServer();
+
+            xulaATM = new XulaATM(USERLIST_PATH, ACCOUNTLIST_PATH);
 
             runServer(server);
 
