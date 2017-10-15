@@ -15,6 +15,7 @@ public class XulaATMUser {
     private String userName;
     private String password;
     private long userId;
+    private boolean isActivated;
     private ArrayList<Long> atmAccountIds;
 
     public XulaATMUser(String userName, String password, long userId, ArrayList<Long> atmAccountIds) {
@@ -23,6 +24,18 @@ public class XulaATMUser {
         this.password = password;
         this.userId = userId;
         this.atmAccountIds = atmAccountIds;
+        this.isActivated=true;
+    }
+
+    public XulaATMUser(
+            String userName, String password, long userId,
+            boolean isActivated, ArrayList<Long> atmAccountIds) {
+
+        this.userName = userName;
+        this.password = password;
+        this.userId = userId;
+        this.atmAccountIds = atmAccountIds;
+        this.isActivated = isActivated;
 
     }
 
@@ -47,6 +60,9 @@ public class XulaATMUser {
 
         //Read password
         password = scanner.nextLine();
+
+        //Read isActivated
+        isActivated = scanner.nextBoolean();
 
         //Read Accounts
         while (scanner.hasNextLine()){
@@ -83,6 +99,14 @@ public class XulaATMUser {
 
     }
 
+    public boolean isActivated() {
+        return isActivated;
+    }
+
+    public void setActivated(boolean activated) {
+        isActivated = activated;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -112,6 +136,7 @@ public class XulaATMUser {
         out.println(userId);
         out.println(userName);
         out.println(password);
+        out.println(isActivated);
         for (long accountId : atmAccountIds){
             out.println(accountId);
         }
