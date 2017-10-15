@@ -1,5 +1,6 @@
 package v20170926.xulaAtmServerController;
 
+import v20170926.xulaAtmModel.CreateNewUserResult;
 import v20170926.xulaAtmModel.LoginResult;
 import v20170926.xulaAtmModel.Result;
 import v20170926.xulaAtmModel.XulaATM;
@@ -128,12 +129,115 @@ public class ClientHandler implements Runnable {
 
                 break;
 
+            case XulaAtmServerCommands.CREATE_NEW_USER_CMD:
+
+                handleCreateNewUserCommand();
+
+                break;
+
             default://Invalid Command
 
                 handleInvalidCommand();
 
                 break;
         }
+
+    }
+
+    private void handleCreateNewUserCommand() throws IOException {
+        int ack;
+
+        System.out.println("\nCreateNewUserCMD Start");
+
+        //Read userName Length
+        int userNameLen = readIntWTimeout();
+        System.out.println("\tRead userName Length");
+
+        //Send ACK
+        DATA_OUT.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        //Read userName Bytes
+        byte[] userNameBytes = readBytesWTimeout(userNameLen);
+        String userName = new String(userNameBytes);
+        System.out.println("\tRead userName: " + userName);
+
+        //Send ACK
+        DATA_OUT.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        //Read password Length
+        int passwordLen = readIntWTimeout();
+        System.out.println("\tRead password Length");
+
+        //Send ACK
+        DATA_OUT.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        //Read password Bytes
+        byte[] passwordBytes = readBytesWTimeout(passwordLen);
+        String password = new String(passwordBytes);
+        System.out.println("\tRead password: " + password);
+
+        //Send ACK
+        DATA_OUT.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        //Read ACK
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
+        CreateNewUserResult createNewUserResult;
+        synchronized (xulaATM) {
+            createNewUserResult = xulaATM.createNewUser(
+                    userName,
+                    password
+            );
+        }
+
+        //Send CreateNewUserResult Status
+        DATA_OUT.writeInt(createNewUserResult.getStatus());
+        System.out.println("\tSent CreateNewUserResult Status Length");
+
+        //Read ACK
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
+        boolean isNewUserCreated;
+        isNewUserCreated = (createNewUserResult.getStatus() == Result.SUCCESS_CODE);
+
+        if (!isNewUserCreated){
+
+            //Send CreateNewUserResult Message Length
+            DATA_OUT.writeInt(createNewUserResult.getMessage().length());
+            System.out.println("\tSent CreateNewUserResult Message Length");
+
+            //Read ACK
+            ack = readIntWTimeout();
+            printACKResult(ack);
+
+            //Send CreateNewUserResult Message Bytes
+            DATA_OUT.write(createNewUserResult.getMessage().getBytes());
+            System.out.println("\tSent CreateNewUserResult Message Bytes");
+
+            //Read ACK
+            ack = readIntWTimeout();
+            printACKResult(ack);
+
+            //Send ACK
+            DATA_OUT.writeInt(ACK_CODE);
+            System.out.println("\tSent ACK");
+
+            System.out.println("CreateNewUserCMD End\n");
+
+            return;
+        }
+
+        //Send ACK
+        DATA_OUT.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        System.out.println("CreateNewUserCMD End\n");
 
     }
 
