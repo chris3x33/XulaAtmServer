@@ -155,6 +155,14 @@ public class XulaATM {
         //Get user
         XulaATMUser atmUser = atmUserList.getATMUser(userName);
 
+        //Check if User is Activated
+        if(!atmUser.isActivated()){
+            return new LoginResult(
+                    Result.ERROR_CODE,
+                    "User Deactivated!!"
+            );
+        }
+
         //Check password
         ValidatePasswordResult validatePasswordResult = atmUser.validatePassword(password);
         boolean isPasswordValid = (validatePasswordResult.getStatus() == Result.SUCCESS_CODE);
