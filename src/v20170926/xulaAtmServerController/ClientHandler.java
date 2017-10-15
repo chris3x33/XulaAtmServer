@@ -18,7 +18,10 @@ public class ClientHandler implements Runnable {
     private final InputStream IN;
     private final DataInputStream DATA_IN;
     private final DataOutputStream DATA_OUT;
+
     private static SessionList sessionList = new SessionList();
+    private long sessionId;
+
     private final int ACK_CODE = 10101010;
 
     private final XulaATM xulaATM;
@@ -41,7 +44,7 @@ public class ClientHandler implements Runnable {
         try {
 
             //read sessionId
-            long sessionId = readLongWTimeout();
+            sessionId = readLongWTimeout();
             System.out.println("\nRead sessionId = " + sessionId);
 
             //Send ACK
@@ -84,6 +87,7 @@ public class ClientHandler implements Runnable {
 
             //Send Valid session
             DATA_OUT.writeInt(Session.VALID_SESSION_CODE);
+            System.out.println("Send VALID_SESSION_CODE");
 
             //Read ACK
             ack = readIntWTimeout();
@@ -95,6 +99,7 @@ public class ClientHandler implements Runnable {
 
             //read Command
             int command = readIntWTimeout();
+            System.out.println("read Command: "+command);
 
             //Send ACK
             DATA_OUT.writeInt(ACK_CODE);
@@ -112,7 +117,6 @@ public class ClientHandler implements Runnable {
 
 
     }
-
 
     private void handleCommand(int command) throws IOException {
 
