@@ -3,15 +3,20 @@ package v20170926.runTest;
 import v20170926.xulaAtmModel.LoginResult;
 import v20170926.xulaAtmModel.XulaATM;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class ATMRunTest {
 
     private final static Scanner IN = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    private final static String XULA_ATM_PATH="XulaATMFiles";
+    private final static String USERLIST_PATH=XULA_ATM_PATH+"\\UserList";
+    private final static String ACCOUNTLIST_PATH=XULA_ATM_PATH+"\\AccountList";
 
-        XulaATM xulaATM = new XulaATM();
+    public static void main(String[] args) throws FileNotFoundException {
+
+        XulaATM xulaATM = new XulaATM(USERLIST_PATH,ACCOUNTLIST_PATH);
 
         runATM(xulaATM);
 

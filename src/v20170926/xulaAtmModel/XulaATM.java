@@ -14,13 +14,6 @@ public class XulaATM {
     private XulaATMUserList atmUserList;
     private final String WELCOME_MSG = "Welcome to XULA ATM";
 
-    public XulaATM(){
-
-        atmAccountList = new XulaATMAccountList();
-        atmUserList = new XulaATMUserList();
-
-    }
-
     public XulaATM(String UserListFolder, String AccountListFolder) throws FileNotFoundException {
 
         atmAccountList = new XulaATMAccountList(AccountListFolder);
