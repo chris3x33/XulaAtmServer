@@ -284,7 +284,10 @@ public class ClientHandler implements Runnable {
         ack = readIntWTimeout();
         printACKResult(ack);
 
-        LoginResult loginResult = xulaATM.login(userName, password);
+        LoginResult loginResult;
+        synchronized (xulaATM) {
+            loginResult = xulaATM.login(userName, password);
+        }
 
         //Send LoginResult Status
         DATA_OUT.writeInt(loginResult.getStatus());
