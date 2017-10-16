@@ -135,12 +135,39 @@ public class ClientHandler implements Runnable {
 
                 break;
 
+            case XulaAtmServerCommands.LOGOUT_CMD:
+
+                handleLogoutCommand();
+
+                break;
+
             default://Invalid Command
 
                 handleInvalidCommand();
 
                 break;
         }
+
+    }
+
+    private void handleLogoutCommand() throws IOException {
+
+        int ack;
+
+        System.out.println("\nLogoutCMD Start");
+
+        //Read ACK
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
+        sessionList.deleteSession(sessionId);
+        System.out.println("\tSession Ld: "+sessionId+" Deleted");
+
+        //Send ACK
+        DATA_OUT.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        System.out.println("LogoutCMD End\n");
 
     }
 
