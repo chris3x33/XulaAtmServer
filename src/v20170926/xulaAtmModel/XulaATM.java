@@ -182,4 +182,10 @@ public class XulaATM {
 
     }
 
+    public String getUserName(long userId) {
+
+        return atmUserList.getATMUser(userId).getUserName();
+
+    }
+
 }
