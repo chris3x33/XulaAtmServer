@@ -5,4 +5,11 @@ public class XulaATMTransaction {
     private String type;// W , D
     private String otherAccount;
     private String DateTime;
+
+    public XulaATMTransaction(double amount, String type, String otherAccount, String dateTime) {
+        this.amount = amount;
+        this.type = type;
+        this.otherAccount = otherAccount;
+        DateTime = dateTime;
+    }
 }
