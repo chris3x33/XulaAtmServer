@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 
 public class ClientHandler implements Runnable {
 
@@ -140,6 +141,8 @@ public class ClientHandler implements Runnable {
                 handleLogoutCommand();
 
                 break;
+
+
 
             default://Invalid Command
 
@@ -357,6 +360,10 @@ public class ClientHandler implements Runnable {
         //Send ACK
         DATA_OUT.writeInt(ACK_CODE);
         System.out.println("\tSent ACK");
+
+        //Add user id to the session
+        Session session = sessionList.getSession(sessionId);
+        session.setUserId(loginResult.getUserId());
 
         System.out.println("LoginCMD End\n");
 
