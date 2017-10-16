@@ -7,7 +7,7 @@ public class Session {
     public static final int EXPIRED_SESSION_CODE = -2;
 
     private long sessionId;
-    private int userId = -1;
+    private long userId = -1;
     private int expire;
 
     public Session(){
@@ -32,11 +32,11 @@ public class Session {
         this.sessionId = sessionId;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 }
