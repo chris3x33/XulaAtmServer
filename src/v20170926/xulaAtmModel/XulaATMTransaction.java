@@ -4,4 +4,5 @@ public class XulaATMTransaction {
     private double amount;
     private String type;// W , D
     private String otherAccount;
+    private String DateTime;
 }
