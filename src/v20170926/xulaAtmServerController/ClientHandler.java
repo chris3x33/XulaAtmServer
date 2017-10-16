@@ -142,6 +142,11 @@ public class ClientHandler implements Runnable {
 
                 break;
 
+            case XulaAtmServerCommands.GET_USERNAME_CMD:
+
+                handleGetUsernameCommand();
+
+                break;
 
 
             default://Invalid Command
@@ -152,6 +157,49 @@ public class ClientHandler implements Runnable {
         }
 
     }
+
+    private void handleGetUsernameCommand() throws IOException {
+
+        int ack;
+
+        System.out.println("\nGetUsernameCMD Start");
+
+        //Read ACK
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
+        //Get userName
+        String userName;
+        Session session = sessionList.getSession(sessionId);
+        long userId = session.getUserId();
+        synchronized (xulaATM) {
+            userName = xulaATM.getUserName(userId);
+        }
+
+        //Send userName Length
+        DATA_OUT.writeInt(userName.length());
+        System.out.println("\tSend userName Length");
+
+        //Read ACK
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
+        //Send userName
+        DATA_OUT.write(userName.getBytes());
+        System.out.println("\tSend userName: "+userName);
+
+        //Read ACK
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
+        //Send ACK
+        DATA_OUT.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        System.out.println("GetUsernameCMD End\n");
+
+    }
+
 
     private void handleLogoutCommand() throws IOException {
 
