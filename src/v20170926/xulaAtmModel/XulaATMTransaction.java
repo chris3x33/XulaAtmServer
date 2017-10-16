@@ -12,4 +12,20 @@ public class XulaATMTransaction {
         this.otherAccount = otherAccount;
         DateTime = dateTime;
     }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getOtherAccount() {
+        return otherAccount;
+    }
+
+    public String getDateTime() {
+        return DateTime;
+    }
 }
