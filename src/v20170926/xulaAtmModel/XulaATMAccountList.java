@@ -41,6 +41,12 @@ public class XulaATMAccountList {
 
     public double getAccountBalance(long accountID) {
 
+        for (XulaATMAccount atmAccount: atmAccounts) {
+            if (atmAccount.getAccountId() == accountID){
+                return atmAccount.getBalance();
+            }
+        }
+
         return -1;
 
     }
