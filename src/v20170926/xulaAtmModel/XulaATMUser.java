@@ -66,7 +66,7 @@ public class XulaATMUser {
 
         //Read Accounts
         while (scanner.hasNextLine()){
-            scanner.nextLong();
+            atmAccountIds.add(scanner.nextLong());
             scanner.nextLine();
         }
 
