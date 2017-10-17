@@ -148,6 +148,11 @@ public class ClientHandler implements Runnable {
 
                 break;
 
+            case XulaAtmServerCommands.GET_USER_ACCOUNTIDS_CMD:
+
+                handleGetUserAccountIdsCommand();
+
+                break;
 
             default://Invalid Command
 
@@ -155,6 +160,55 @@ public class ClientHandler implements Runnable {
 
                 break;
         }
+
+    }
+
+    private void handleGetUserAccountIdsCommand() throws IOException {
+        int ack;
+
+        System.out.println("\nGetUserAccountIdsCMD Start");
+
+        //Read ACK
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
+        //Get userId
+        Session session = sessionList.getSession(sessionId);
+        long userId = session.getUserId();
+
+        //Get AccountIds
+        ArrayList<Long> accountIDs;
+        synchronized (xulaATM) {
+            accountIDs = xulaATM.getAccountIDs(userId);
+        }
+
+        //Send numOfAccountIDs
+        int numOfAccountIDs = accountIDs.size();
+        DATA_OUT.writeInt(numOfAccountIDs);
+        System.out.println("\tSent numOfAccountIDs: "+numOfAccountIDs);
+
+        //Read ACK
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
+        //Send numOfAccountIDs
+        for (long accountID:accountIDs){
+
+            //Send AccountId
+            DATA_OUT.writeLong(accountID);
+            System.out.println("\tSent accountID: "+accountID);
+
+            //Read ACK
+            ack = readIntWTimeout();
+            printACKResult(ack);
+
+        }
+
+        //Send ACK
+        DATA_OUT.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        System.out.println("GetUserAccountIdsCMD End\n");
 
     }
 
