@@ -1,5 +1,6 @@
 package v20170926.runTest;
 
+import v20170926.xulaAtmModel.AccountBalanceResult;
 import v20170926.xulaAtmModel.LoginResult;
 import v20170926.xulaAtmModel.Result;
 import v20170926.xulaAtmModel.XulaATM;
@@ -26,6 +27,8 @@ public class ATMDepositWithdrawTest {
         LoginResult loginResult;
 
         do{
+
+            System.out.println("Login:");
 
             userName = getUserNameFromUser();
             password = getPasswordFromUser();
@@ -58,7 +61,7 @@ public class ATMDepositWithdrawTest {
 
                     break;
                 case 'D':
-
+                    runDepositOption(xulaATM, userId);
                     break;
 
                 case 'Q':
@@ -70,6 +73,69 @@ public class ATMDepositWithdrawTest {
             }
 
         }
+
+    }
+
+    private static void runDepositOption(XulaATM xulaATM,long userId) {
+
+        System.out.println("Deposit: ");
+
+        //Get User Accounts
+        ArrayList<Long> accountIDs = xulaATM.getAccountIDs(userId);
+
+        //Get User Account Balances
+        ArrayList<Double> accountBalances = new ArrayList<Double>();
+        for (int i = 0; i < accountIDs.size(); i++){
+
+            long accountId = accountIDs.get(i);
+            AccountBalanceResult accountBalanceResult = xulaATM.getAccountBalance(accountId);
+            accountBalances.add(accountBalanceResult.getAccountBalance());
+
+        }
+
+        //Get Account Selection
+        int accountSelection;
+        boolean hasViladAccountSelection;
+        do {
+
+            System.out.println("\tSelect an account to Deposit into: ");
+
+            //List Accounts
+            for (int i = 0; i < accountIDs.size(); i++) {
+
+                long accountId = accountIDs.get(i);
+                Double accountBalance = accountBalances.get(i);
+
+                System.out.println("\tEnter \""+(i+1)+"\" for\n"+
+                            "\t\taccount: "+accountId+"\n"+
+                            "\t\tbalance: "+accountBalance+"\n"
+                    );
+
+
+
+            }
+
+            accountSelection = IN.nextInt() - 1;
+            IN.hasNextLine();
+
+            hasViladAccountSelection = (accountSelection < 0 || accountSelection >= accountIDs.size());
+            if(!hasViladAccountSelection){
+                System.out.println("Invalid Account Selection!!");
+                System.out.println("Invalid Account Selection!!");
+            }
+
+        }while (!hasViladAccountSelection);
+
+        //output Selected Account
+        long accountId = accountIDs.get(accountSelection);
+        double accountBalance = accountBalances.get(accountSelection);
+        System.out.println("Selected Account: "+accountId);
+        System.out.println("Balance: "+accountBalance);
+
+        //Get Amount
+        System.out.println("\tEnter the Deposit amount: ");
+        double amount = IN.nextDouble();
+        IN.hasNextLine();
 
     }
 
