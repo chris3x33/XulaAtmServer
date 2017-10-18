@@ -37,6 +37,24 @@ public class XulaATMAccount {
         this.balance = balance;
     }
 
+    public DepositResult deposit(double depositAmount){
+
+        //check if depositAmount is negative
+        if (depositAmount < 0){
+
+            return new DepositResult(
+                    Result.ERROR_CODE,
+                    "Deposit amount can not be negative!!"
+            );
+
+        }
+
+        setBalance(balance + depositAmount);
+
+        return new DepositResult(Result.SUCCESS_CODE);
+        
+    }
+
     public int getAccountType() {
         return accountType;
     }
