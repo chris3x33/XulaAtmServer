@@ -1,9 +1,6 @@
 package v20170926.runTest;
 
-import v20170926.xulaAtmModel.AccountBalanceResult;
-import v20170926.xulaAtmModel.LoginResult;
-import v20170926.xulaAtmModel.Result;
-import v20170926.xulaAtmModel.XulaATM;
+import v20170926.xulaAtmModel.*;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -30,6 +27,8 @@ public class ATMDepositWithdrawTest {
 
             System.out.println("Login:");
 
+            userName = "u123456";
+            password = "Pw123456";
             userName = getUserNameFromUser();
             password = getPasswordFromUser();
 
@@ -42,6 +41,8 @@ public class ATMDepositWithdrawTest {
             }
 
         }while (!isUserLoggedIn);
+
+
 
         System.out.println("User LoggedIn!!");
         System.out.println("UserName: "+userName);
@@ -106,9 +107,9 @@ public class ATMDepositWithdrawTest {
                 long accountId = accountIDs.get(i);
                 Double accountBalance = accountBalances.get(i);
 
-                System.out.println("\tEnter \""+(i+1)+"\" for\n"+
-                            "\t\taccount: "+accountId+"\n"+
-                            "\t\tbalance: "+accountBalance+"\n"
+                System.out.println("\t\tEnter \""+(i+1)+"\" for\n"+
+                            "\t\t\taccount: "+accountId+"\n"+
+                            "\t\t\tbalance: "+accountBalance+"\n"
                     );
 
 
@@ -117,12 +118,13 @@ public class ATMDepositWithdrawTest {
 
             accountSelection = IN.nextInt() - 1;
             IN.hasNextLine();
+            System.out.println("accountSelection: "+accountSelection);
+            hasViladAccountSelection = (accountSelection  > -1 && accountSelection < accountIDs.size());
 
-            hasViladAccountSelection = (accountSelection < 0 || accountSelection >= accountIDs.size());
             if(!hasViladAccountSelection){
-                System.out.println("Invalid Account Selection!!");
-                System.out.println("Invalid Account Selection!!");
+                System.out.println("\tInvalid Account Selection!!\n");
             }
+
 
         }while (!hasViladAccountSelection);
 
@@ -133,9 +135,26 @@ public class ATMDepositWithdrawTest {
         System.out.println("Balance: "+accountBalance);
 
         //Get Amount
+        double amount;
         System.out.println("\tEnter the Deposit amount: ");
-        double amount = IN.nextDouble();
+        amount = IN.nextDouble();
         IN.hasNextLine();
+
+        DepositResult depositResult = xulaATM.deposit(userId, accountId, amount);
+
+        if (depositResult.getStatus() == Result.ERROR_CODE){
+
+            System.out.println(depositResult.getMessage());
+
+            return;
+
+        }
+
+        //Get New Balance
+        double accountNewBalance = xulaATM.getAccountBalance(accountId).getAccountBalance();
+
+        //Output New Balance
+        System.out.println("New Balance: "+accountNewBalance);
 
     }
 
