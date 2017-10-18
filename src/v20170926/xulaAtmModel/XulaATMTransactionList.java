@@ -6,4 +6,10 @@ public class XulaATMTransactionList {
 
     private ArrayList<XulaATMTransaction> atmTransactions;
 
+    public XulaATMTransactionList(){
+
+        atmTransactions = new ArrayList<XulaATMTransaction>();
+
+    }
+
 }
