@@ -12,4 +12,10 @@ public class XulaATMTransactionList {
 
     }
 
+    public void recordTransaction(double amount, String type, String otherAccount, String dateTime){
+
+        atmTransactions.add(new XulaATMTransaction(amount,type,otherAccount,dateTime));
+
+    }
+
 }
