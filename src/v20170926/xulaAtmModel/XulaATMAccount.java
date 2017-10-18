@@ -33,6 +33,10 @@ public class XulaATMAccount {
         return balance;
     }
 
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
     public int getAccountType() {
         return accountType;
     }
