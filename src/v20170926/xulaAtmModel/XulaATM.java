@@ -60,7 +60,29 @@ public class XulaATM {
 
     public DepositResult deposit(long userId, long toAccountId, double depositAmount) {
 
-        return atmAccountList.deposit(userId, toAccountId, depositAmount);
+        //Check if User Exists
+        if(!userExists(userId)){
+            return new DepositResult(
+                    Result.ERROR_CODE,
+                    "User Doesn't Exists!!"
+            );
+        }
+
+        //Get User
+        XulaATMUser atmUser = atmUserList.getATMUser(userId);
+
+        //Get AtmAccountIds
+        ArrayList<Long> atmAccountIds = atmUser.getAtmAccountIds();
+
+        //check if the Account belongs to the user
+        if (!atmAccountIds.contains(toAccountId)){
+            return new DepositResult(
+                    Result.ERROR_CODE,
+                    "Account Access Denied!!"
+            );
+        }
+
+        return atmAccountList.deposit(toAccountId, depositAmount);
     }
 
     public TransferResult transfer(long fromAccountId, long toAccountId, double transferAmount) {
