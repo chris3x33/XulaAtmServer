@@ -91,9 +91,20 @@ public class XulaATMAccountList {
         return null;
     }
 
-    public DepositResult deposit(long userId, long toAccountId, double depositAmount) {
+    public DepositResult deposit(long toAccountId, double depositAmount) {
 
-        return null;
+        //check if the Account Exists
+        if (!accountExists(toAccountId)){
+
+            return new DepositResult(
+                    Result.ERROR_CODE,
+                    "Account Doesn't Exists!!"
+            );
+
+        }
+
+        return getAccount(toAccountId).deposit(depositAmount);
+
     }
 
     public TransferResult transfer(long fromAccountId, long toAccount, double transferAmount) {
