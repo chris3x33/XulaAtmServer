@@ -91,7 +91,7 @@ public class XulaATMAccountList {
         return null;
     }
 
-    public DepositResult deposit(long toAccountId, double depositAmount) {
+    public DepositResult deposit(long userId, long toAccountId, double depositAmount) {
 
         return null;
     }

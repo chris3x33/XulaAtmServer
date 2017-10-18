@@ -58,9 +58,9 @@ public class XulaATM {
 
     }
 
-    public DepositResult deposit(long toAccountId, double depositAmount) {
+    public DepositResult deposit(long userId, long toAccountId, double depositAmount) {
 
-        return atmAccountList.deposit(toAccountId, depositAmount);
+        return atmAccountList.deposit(userId, toAccountId, depositAmount);
     }
 
     public TransferResult transfer(long fromAccountId, long toAccountId, double transferAmount) {
