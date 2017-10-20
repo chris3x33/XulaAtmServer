@@ -281,39 +281,8 @@ public class ClientHandler implements Runnable {
 
         System.out.println("\nCreateNewUserCMD Start");
 
-        //Read userName Length
-        int userNameLen = readIntWTimeout();
-        System.out.println("\tRead userName Length");
-
-        //Send ACK
-        DATA_OUT.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
-
-        //Read userName Bytes
-        byte[] userNameBytes = readBytesWTimeout(userNameLen);
-        String userName = new String(userNameBytes);
-        System.out.println("\tRead userName: " + userName);
-
-        //Send ACK
-        DATA_OUT.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
-
-        //Read password Length
-        int passwordLen = readIntWTimeout();
-        System.out.println("\tRead password Length");
-
-        //Send ACK
-        DATA_OUT.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
-
-        //Read password Bytes
-        byte[] passwordBytes = readBytesWTimeout(passwordLen);
-        String password = new String(passwordBytes);
-        System.out.println("\tRead password: " + password);
-
-        //Send ACK
-        DATA_OUT.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
+        String userName = readString();
+        String password = readString();
 
         //Read ACK
         ack = readIntWTimeout();
@@ -338,39 +307,8 @@ public class ClientHandler implements Runnable {
 
         System.out.println("\nLoginCMD Start");
 
-        //Read userName Length
-        int userNameLen = readIntWTimeout();
-        System.out.println("\tRead userName Length");
-
-        //Send ACK
-        DATA_OUT.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
-
-        //Read userName Bytes
-        byte[] userNameBytes = readBytesWTimeout(userNameLen);
-        String userName = new String(userNameBytes);
-        System.out.println("\tRead userName: " + userName);
-
-        //Send ACK
-        DATA_OUT.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
-
-        //Read password Length
-        int passwordLen = readIntWTimeout();
-        System.out.println("\tRead password Length");
-
-        //Send ACK
-        DATA_OUT.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
-
-        //Read password Bytes
-        byte[] passwordBytes = readBytesWTimeout(passwordLen);
-        String password = new String(passwordBytes);
-        System.out.println("\tRead password: " + password);
-
-        //Send ACK
-        DATA_OUT.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
+        String userName = readString();
+        String password = readString();
 
         //Read ACK
         ack = readIntWTimeout();
@@ -388,6 +326,47 @@ public class ClientHandler implements Runnable {
         session.setUserId(loginResult.getUserId());
 
         System.out.println("LoginCMD End\n");
+
+    }
+
+    private String readString() throws IOException {
+
+        //read Str Len
+        int readStrLen = readIntWTimeout();
+        System.out.println("\tRead readStr Len");
+
+        //Send Ack
+        DATA_OUT.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        //Read Str
+        String readStr = new String(readBytesWTimeout(readStrLen));
+        System.out.println("\tRead readStr: "+readStr);
+
+        //Send Ack
+        DATA_OUT.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+        return readStr;
+
+    }
+
+    private void sendString(String sendStr) throws IOException {
+
+        int ack;
+
+        int sendStrLen = sendStr.length();
+        DATA_OUT.writeInt(sendStrLen);
+        System.out.println("\tSent Str Len");
+
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
+        DATA_OUT.write(sendStr.getBytes());
+        System.out.println("\tSent Str: "+sendStr);
+
+        ack = readIntWTimeout();
+        printACKResult(ack);
 
     }
 
