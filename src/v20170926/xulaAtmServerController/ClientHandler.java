@@ -266,7 +266,7 @@ public class ClientHandler implements Runnable {
         printACKResult(ack);
 
         sessionList.deleteSession(sessionId);
-        System.out.println("\tSession Ld: "+sessionId+" Deleted");
+        System.out.println("\tSession Id: "+sessionId+" Deleted");
 
         //Send ACK
         DATA_OUT.writeInt(ACK_CODE);
@@ -327,47 +327,7 @@ public class ClientHandler implements Runnable {
             );
         }
 
-        //Send CreateNewUserResult Status
-        DATA_OUT.writeInt(createNewUserResult.getStatus());
-        System.out.println("\tSent CreateNewUserResult Status Length");
-
-        //Read ACK
-        ack = readIntWTimeout();
-        printACKResult(ack);
-
-        boolean isNewUserCreated;
-        isNewUserCreated = (createNewUserResult.getStatus() == Result.SUCCESS_CODE);
-
-        if (!isNewUserCreated){
-
-            //Send CreateNewUserResult Message Length
-            DATA_OUT.writeInt(createNewUserResult.getMessage().length());
-            System.out.println("\tSent CreateNewUserResult Message Length");
-
-            //Read ACK
-            ack = readIntWTimeout();
-            printACKResult(ack);
-
-            //Send CreateNewUserResult Message Bytes
-            DATA_OUT.write(createNewUserResult.getMessage().getBytes());
-            System.out.println("\tSent CreateNewUserResult Message Bytes");
-
-            //Read ACK
-            ack = readIntWTimeout();
-            printACKResult(ack);
-
-            //Send ACK
-            DATA_OUT.writeInt(ACK_CODE);
-            System.out.println("\tSent ACK");
-
-            System.out.println("CreateNewUserCMD End\n");
-
-            return;
-        }
-
-        //Send ACK
-        DATA_OUT.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
+        sendResult(createNewUserResult);
 
         System.out.println("CreateNewUserCMD End\n");
 
@@ -421,30 +381,42 @@ public class ClientHandler implements Runnable {
             loginResult = xulaATM.login(userName, password);
         }
 
-        //Send LoginResult Status
-        DATA_OUT.writeInt(loginResult.getStatus());
-        System.out.println("\tSent LoginResult Status Length");
+        sendResult(loginResult);
+
+        //Add user id to the session
+        Session session = sessionList.getSession(sessionId);
+        session.setUserId(loginResult.getUserId());
+
+        System.out.println("LoginCMD End\n");
+
+    }
+
+    private void sendResult(Result result) throws IOException {
+
+        int ack;
+
+        //Send Result Status
+        DATA_OUT.writeInt(result.getStatus());
+        System.out.println("\tSent Result Status: "+result.getStatus());
 
         //Read ACK
         ack = readIntWTimeout();
         printACKResult(ack);
 
-        boolean isUserLoggedIn;
-        isUserLoggedIn = (loginResult.getStatus() == Result.SUCCESS_CODE);
+        //handle Results Msg
+        if (result.getStatus() == Result.ERROR_CODE){
 
-        if (!isUserLoggedIn){
-
-            //Send LoginResult Message Length
-            DATA_OUT.writeInt(loginResult.getMessage().length());
-            System.out.println("\tSent LoginResult Message Length");
+            //Send Result Message Length
+            DATA_OUT.writeInt(result.getMessage().length());
+            System.out.println("\tSent Result Message Length");
 
             //Read ACK
             ack = readIntWTimeout();
             printACKResult(ack);
 
-            //Send LoginResult Message Bytes
-            DATA_OUT.write(loginResult.getMessage().getBytes());
-            System.out.println("\tSent LoginResult Message Bytes");
+            //Send Result Message Bytes
+            DATA_OUT.write(result.getMessage().getBytes());
+            System.out.println("\tSent Result Message Bytes: "+result.getMessage());
 
             //Read ACK
             ack = readIntWTimeout();
@@ -454,21 +426,12 @@ public class ClientHandler implements Runnable {
             DATA_OUT.writeInt(ACK_CODE);
             System.out.println("\tSent ACK");
 
-            System.out.println("LoginCMD End\n");
-
             return;
         }
 
         //Send ACK
         DATA_OUT.writeInt(ACK_CODE);
         System.out.println("\tSent ACK");
-
-        //Add user id to the session
-        Session session = sessionList.getSession(sessionId);
-        session.setUserId(loginResult.getUserId());
-
-        System.out.println("LoginCMD End\n");
-
     }
 
     private void handleInvalidCommand() {
@@ -502,40 +465,7 @@ public class ClientHandler implements Runnable {
     private void handleInvalidSession() throws IOException {
 
         int ack;
-
-        //Read ACK
-        ack = readIntWTimeout();
-        printACKResult(ack);
-
-        //Send Invalid Session
-        DATA_OUT.writeInt(Session.INVALID_SESSION_CODE);
-        System.out.println("\tSent INVALID_SESSION_CODE");
-
-        //Read ACK
-        ack = readIntWTimeout();
-        printACKResult(ack);
-
-        String errMsg = "Invalid Session!!";
-
-        //Send errMsg Length
-        DATA_OUT.writeInt(errMsg.length());
-        System.out.println("\tSent errMsg Length");
-
-        //Read ACK
-        ack = readIntWTimeout();
-        printACKResult(ack);
-
-        //Send errMsg bytes
-        DATA_OUT.write(errMsg.getBytes());
-        System.out.println("\tSent errMsg bytes");
-
-        //Read ACK
-        ack = readIntWTimeout();
-        printACKResult(ack);
-
-        //Send ACK
-        DATA_OUT.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
+        sendResult(new Result(Result.ERROR_CODE, "Invalid Session!!"));
 
     }
 
