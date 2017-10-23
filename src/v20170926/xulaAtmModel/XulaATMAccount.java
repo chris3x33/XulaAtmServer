@@ -49,7 +49,12 @@ public class XulaATMAccount {
 
         }
 
-        setBalance(balance + depositAmount);
+        double prevBalance = balance;
+
+        setBalance(prevBalance + depositAmount);
+
+        atmTransactionList.recordTransaction(
+                depositAmount,XulaATMTransactionType.DEPOSIT,"CASH",prevBalance,"");
 
         return new DepositResult(Result.SUCCESS_CODE);
         
