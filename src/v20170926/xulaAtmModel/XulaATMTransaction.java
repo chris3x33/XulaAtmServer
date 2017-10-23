@@ -2,22 +2,24 @@ package v20170926.xulaAtmModel;
 
 public class XulaATMTransaction {
     private double amount;
-    private String type;// W , D
+    private int type;// W , D
     private String otherAccount;
-    private String DateTime;
+    private String dateTime;
+    private double prevAmount;
 
-    public XulaATMTransaction(double amount, String type, String otherAccount, String dateTime) {
+    public XulaATMTransaction(double amount, int type, String otherAccount, double prevAmount, String dateTime) {
         this.amount = amount;
         this.type = type;
         this.otherAccount = otherAccount;
-        DateTime = dateTime;
+        this.prevAmount = prevAmount;
+        this.dateTime = dateTime;
     }
 
     public double getAmount() {
         return amount;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
@@ -26,6 +28,10 @@ public class XulaATMTransaction {
     }
 
     public String getDateTime() {
-        return DateTime;
+        return dateTime;
+    }
+
+    public double getPrevAmount() {
+        return prevAmount;
     }
 }

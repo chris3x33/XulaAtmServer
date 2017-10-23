@@ -12,9 +12,9 @@ public class XulaATMTransactionList {
 
     }
 
-    public void recordTransaction(double amount, String type, String otherAccount, String dateTime){
+    public void recordTransaction(double amount, int type, String otherAccount, double prevAmount, String dateTime){
 
-        atmTransactions.add(new XulaATMTransaction(amount,type,otherAccount,dateTime));
+        atmTransactions.add(new XulaATMTransaction(amount,type,otherAccount, prevAmount, dateTime));
 
     }
 
