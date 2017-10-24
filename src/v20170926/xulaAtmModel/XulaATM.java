@@ -204,10 +204,41 @@ public class XulaATM {
 
     }
 
-    public String getUserName(long userId) {
+    public GetUserNameResult getUserName(long userId) {
 
-        return atmUserList.getATMUser(userId).getUserName();
+        String userName;
+
+        boolean userExists = atmUserList.userExists(userId);
+        if (!userExists){
+            return new GetUserNameResult(
+                    Result.ERROR_CODE,
+                    "User Doesn't Exists!!"
+            );
+        }
+
+        XulaATMUser atmUser = atmUserList.getATMUser(userId);
+        if (atmUser == null){
+            return new GetUserNameResult(
+                    Result.ERROR_CODE,
+                    "Error finding User!!"
+            );
+        }
+
+        userName = atmUser.getUserName();
+        if(userName==null || userName.isEmpty()){
+            return new GetUserNameResult(
+                    Result.ERROR_CODE,
+                    "Error userName missing!!"
+            );
+        }
+
+
+        GetUserNameResult getUserNameResult = new GetUserNameResult(Result.SUCCESS_CODE);
+        getUserNameResult.setUserName(userName);
+
+        return getUserNameResult;
 
     }
 
 }
+

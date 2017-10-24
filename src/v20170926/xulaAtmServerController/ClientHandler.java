@@ -1,9 +1,6 @@
 package v20170926.xulaAtmServerController;
 
-import v20170926.xulaAtmModel.CreateNewUserResult;
-import v20170926.xulaAtmModel.LoginResult;
-import v20170926.xulaAtmModel.Result;
-import v20170926.xulaAtmModel.XulaATM;
+import v20170926.xulaAtmModel.*;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -222,33 +219,33 @@ public class ClientHandler implements Runnable {
         ack = readIntWTimeout();
         printACKResult(ack);
 
-        //Get userName
-        String userName;
+        //Get userId
         Session session = sessionList.getSession(sessionId);
         long userId = session.getUserId();
+
+        //Get userNameResult
+        GetUserNameResult userNameResult;
         synchronized (xulaATM) {
-            userName = xulaATM.getUserName(userId);
+            userNameResult = xulaATM.getUserName(userId);
         }
 
-        //Send userName Length
-        DATA_OUT.writeInt(userName.length());
-        System.out.println("\tSend userName Length");
+        //Send userNameResult
+        sendResult(userNameResult);
 
-        //Read ACK
-        ack = readIntWTimeout();
-        printACKResult(ack);
+        //if ERROR, Do not send userName.
+        if (userNameResult.getStatus() == Result.ERROR_CODE) {
+
+            System.out.println("GetUsernameCMD End\n");
+
+            return;
+
+        }
+
+        //Get userName
+        String userName = userNameResult.getUserName();
 
         //Send userName
-        DATA_OUT.write(userName.getBytes());
-        System.out.println("\tSend userName: "+userName);
-
-        //Read ACK
-        ack = readIntWTimeout();
-        printACKResult(ack);
-
-        //Send ACK
-        DATA_OUT.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
+        sendString(userName);
 
         System.out.println("GetUsernameCMD End\n");
 
@@ -355,16 +352,19 @@ public class ClientHandler implements Runnable {
 
         int ack;
 
+        //Send sendStr Length
         int sendStrLen = sendStr.length();
         DATA_OUT.writeInt(sendStrLen);
         System.out.println("\tSent Str Len");
 
+        //Read ACK
         ack = readIntWTimeout();
         printACKResult(ack);
 
         DATA_OUT.write(sendStr.getBytes());
         System.out.println("\tSent Str: "+sendStr);
 
+        //Read ACK
         ack = readIntWTimeout();
         printACKResult(ack);
 
