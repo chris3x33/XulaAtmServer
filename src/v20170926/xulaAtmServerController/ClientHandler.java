@@ -173,37 +173,27 @@ public class ClientHandler implements Runnable {
         Session session = sessionList.getSession(sessionId);
         long userId = session.getUserId();
 
-        //Get AccountIds
-        ArrayList<Long> accountIDs;
+        //Get userNameResult
+        GetAccountIdsResult getAccountIdsResult;
         synchronized (xulaATM) {
-            accountIDs = xulaATM.getAccountIDs(userId);
+            getAccountIdsResult = xulaATM.getAccountIDs(userId);
+        }
+
+        //Send userNameResult
+        sendResult(getAccountIdsResult);
+
+        //if ERROR, Do not send userName.
+        if (getAccountIdsResult.getStatus() == Result.ERROR_CODE) {
+
+            System.out.println("GetUserAccountIdsCMD End\n");
+
+            return;
+
         }
 
         //Send numOfAccountIDs
-        int numOfAccountIDs = accountIDs.size();
-        DATA_OUT.writeInt(numOfAccountIDs);
-        System.out.println("\tSent numOfAccountIDs: "+numOfAccountIDs);
-
-        //Read ACK
-        ack = readIntWTimeout();
-        printACKResult(ack);
-
-        //Send numOfAccountIDs
-        for (long accountID:accountIDs){
-
-            //Send AccountId
-            DATA_OUT.writeLong(accountID);
-            System.out.println("\tSent accountID: "+accountID);
-
-            //Read ACK
-            ack = readIntWTimeout();
-            printACKResult(ack);
-
-        }
-
-        //Send ACK
-        DATA_OUT.writeInt(ACK_CODE);
-        System.out.println("\tSent ACK");
+//        writeLongs(getAccountIdsResult.getAccountIDs());
+//        System.out.println("\tSent AccountIds: "+getAccountIdsResult.getAccountIDs());
 
         System.out.println("GetUserAccountIdsCMD End\n");
 

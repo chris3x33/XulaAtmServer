@@ -31,9 +31,28 @@ public class XulaATM {
 
     }
 
-    public ArrayList<Long> getAccountIDs(long userId) {
+    public GetAccountIdsResult getAccountIDs(long userId) {
 
-        return atmUserList.getAccountIDs(userId);
+        //Check if User Exists
+        if(!userExists(userId)){
+            return new GetAccountIdsResult(
+                    Result.ERROR_CODE,
+                    "User Doesn't Exists!!"
+            );
+        }
+
+        //Get User
+        XulaATMUser atmUser = atmUserList.getATMUser(userId);
+
+        //Get AtmAccountIds
+        ArrayList<Long> accountIDs = atmUserList.getAccountIDs(userId);
+
+        GetAccountIdsResult getAccountIdsResult = new GetAccountIdsResult(
+                Result.SUCCESS_CODE,
+                accountIDs
+        );
+
+        return getAccountIdsResult;
 
     }
 
