@@ -82,7 +82,8 @@ public class ATMDepositWithdrawTest {
         System.out.println("Deposit: ");
 
         //Get User Accounts
-        ArrayList<Long> accountIDs = xulaATM.getAccountIDs(userId);
+        GetAccountIdsResult getAccountIdsResult = xulaATM.getAccountIDs(userId);
+        ArrayList<Long> accountIDs = getAccountIdsResult.getAccountIDs();
 
         //Get User Account Balances
         ArrayList<Double> accountBalances = new ArrayList<Double>();
