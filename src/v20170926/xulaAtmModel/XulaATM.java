@@ -25,7 +25,7 @@ public class XulaATM {
         return WELCOME_MSG;
     }
 
-    public AccountBalanceResult getAccountBalance(long accountId) {
+    public GetAccountBalanceResult getAccountBalance(long accountId) {
 
         return atmAccountList.getAccountBalance(accountId);
 

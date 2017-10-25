@@ -1,15 +1,15 @@
 package v20170926.xulaAtmModel;
 
-public class AccountBalanceResult extends Result{
+public class GetAccountBalanceResult extends Result{
 
     private double accountBalance;
 
-    public AccountBalanceResult(int status, double accountBalance) {
+    public GetAccountBalanceResult(int status, double accountBalance) {
         super(status);
         this.accountBalance = accountBalance;
     }
 
-    public AccountBalanceResult(int status, String message) {
+    public GetAccountBalanceResult(int status, String message) {
         super(status, message);
         this.accountBalance = -1;
     }

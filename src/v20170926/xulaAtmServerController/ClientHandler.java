@@ -444,6 +444,7 @@ public class ClientHandler implements Runnable {
 
         //Send numOfLongs
         DATA_OUT.writeInt(longs.size());
+        System.out.println("\tSend numOfLongs");
 
         //Read ACK
         ack = readIntWTimeout();

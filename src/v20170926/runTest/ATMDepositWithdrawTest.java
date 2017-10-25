@@ -90,8 +90,8 @@ public class ATMDepositWithdrawTest {
         for (int i = 0; i < accountIDs.size(); i++){
 
             long accountId = accountIDs.get(i);
-            AccountBalanceResult accountBalanceResult = xulaATM.getAccountBalance(accountId);
-            accountBalances.add(accountBalanceResult.getAccountBalance());
+            GetAccountBalanceResult getAccountBalanceResult = xulaATM.getAccountBalance(accountId);
+            accountBalances.add(getAccountBalanceResult.getAccountBalance());
 
         }
 
