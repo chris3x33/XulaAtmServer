@@ -173,16 +173,16 @@ public class ClientHandler implements Runnable {
         Session session = sessionList.getSession(sessionId);
         long userId = session.getUserId();
 
-        //Get userNameResult
+        //Get getAccountIdsResult
         GetAccountIdsResult getAccountIdsResult;
         synchronized (xulaATM) {
             getAccountIdsResult = xulaATM.getAccountIDs(userId);
         }
 
-        //Send userNameResult
+        //Send getAccountIdsResult
         sendResult(getAccountIdsResult);
 
-        //if ERROR, Do not send userName.
+        //if ERROR, Do not send AccountIds.
         if (getAccountIdsResult.getStatus() == Result.ERROR_CODE) {
 
             System.out.println("GetUserAccountIdsCMD End\n");
@@ -192,8 +192,8 @@ public class ClientHandler implements Runnable {
         }
 
         //Send numOfAccountIDs
-//        writeLongs(getAccountIdsResult.getAccountIDs());
-//        System.out.println("\tSent AccountIds: "+getAccountIdsResult.getAccountIDs());
+        writeLongs(getAccountIdsResult.getAccountIDs());
+        System.out.println("\tSent AccountIds: "+getAccountIdsResult.getAccountIDs());
 
         System.out.println("GetUserAccountIdsCMD End\n");
 
@@ -435,6 +435,31 @@ public class ClientHandler implements Runnable {
 
         int ack;
         sendResult(new Result(Result.ERROR_CODE, "Invalid Session!!"));
+
+    }
+
+    private void writeLongs(ArrayList<Long> longs) throws IOException{
+
+        int ack;
+
+        //Send numOfLongs
+        DATA_OUT.writeInt(longs.size());
+
+        //Read ACK
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
+        //Send longs
+        for (long curLong :longs) {
+
+            //Send long
+            DATA_OUT.writeLong(curLong);
+
+            //Read ACK
+            ack = readIntWTimeout();
+            printACKResult(ack);
+
+        }
 
     }
 
