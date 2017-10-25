@@ -151,12 +151,62 @@ public class ClientHandler implements Runnable {
 
                 break;
 
+            case XulaAtmServerCommands.GET_ACCOUNT_BALANCE_CMD:
+
+                handleGetAccountBalanceCommand();
+
+                break;
+
             default://Invalid Command
 
                 handleInvalidCommand();
 
                 break;
         }
+
+    }
+
+    private void handleGetAccountBalanceCommand() throws IOException {
+
+        int ack;
+
+        System.out.println("\nGetAccountBalanceCMD Start");
+
+        //Read AccountId
+        long AccountId = readLongWTimeout();
+        System.out.println("\tRead AccountId: "+AccountId);
+
+        //Send ACK
+        sendAck();
+
+        //Get Account Balance Result
+        GetAccountBalanceResult getAccountBalanceResult;
+        synchronized (xulaATM) {
+            getAccountBalanceResult = xulaATM.getAccountBalance(AccountId);
+        }
+
+        //Send getAccountIdsResult
+        sendResult(getAccountBalanceResult);
+
+        //if ERROR, Do not send AccountIds.
+        if (getAccountBalanceResult.getStatus() == Result.ERROR_CODE) {
+
+            System.out.println("GetAccountBalanceCMD End\n");
+
+            return;
+
+        }
+
+        //Send Account Balance
+        double accountBalance = getAccountBalanceResult.getAccountBalance();
+        DATA_OUT.writeDouble(accountBalance);
+        System.out.println("\tSent AccountBalance: " + accountBalance);
+
+        //Read ACK
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
+        System.out.println("GetAccountBalanceCMD End\n");
 
     }
 
@@ -320,7 +370,7 @@ public class ClientHandler implements Runnable {
 
         //read Str Len
         int readStrLen = readIntWTimeout();
-        System.out.println("\tRead readStr Len");
+        System.out.println("\tRead readStr Len: " + readStrLen);
 
         //Send Ack
         DATA_OUT.writeInt(ACK_CODE);
@@ -482,7 +532,13 @@ public class ClientHandler implements Runnable {
             throw new SocketTimeoutException();
         }
     }
+    private void sendAck() throws IOException {
 
+        //Send Ack
+        DATA_OUT.writeInt(ACK_CODE);
+        System.out.println("\tSent ACK");
+
+    }
     private long readLongWTimeout() throws IOException {
 
         final long BYTE_SIZE_OF_LONG = Long.SIZE / Byte.SIZE;
@@ -528,6 +584,24 @@ public class ClientHandler implements Runnable {
         return readBytes;
     }
 
+    private double readDoubleWTimeout() throws IOException {
+
+        final int BYTE_SIZE_OF_DOUBLE = Double.SIZE / Byte.SIZE;
+
+        boolean hasDouble;
+
+        long startTime = System.currentTimeMillis();
+
+        do {
+            hasDouble = (IN.available() >= BYTE_SIZE_OF_DOUBLE);
+        } while (!hasDouble && (System.currentTimeMillis() - startTime) < TIMEOUT);
+
+        if (hasDouble) {
+            return DATA_IN.readDouble();
+        } else {
+            throw new SocketTimeoutException();
+        }
+    }
 
     private void printACKResult(int ack) {
 
@@ -540,3 +614,4 @@ public class ClientHandler implements Runnable {
     }
 
 }
+
