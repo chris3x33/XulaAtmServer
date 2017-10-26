@@ -1,7 +1,7 @@
 package v20170926.utils;
 
-import v20170926.xulaAtmModel.CreateNewUserResult;
-import v20170926.xulaAtmModel.Result;
+import v20170926.xulaAtmModel.result.CreateNewUserResult;
+import v20170926.xulaAtmModel.result.Result;
 import v20170926.xulaAtmModel.XulaATM;
 import java.io.IOException;
 import java.util.Scanner;

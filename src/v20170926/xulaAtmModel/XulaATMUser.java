@@ -1,6 +1,8 @@
 package v20170926.xulaAtmModel;
 
 import v20170926.sha1Utilits.SHA1Utilits;
+import v20170926.xulaAtmModel.result.Result;
+import v20170926.xulaAtmModel.result.ValidatePasswordResult;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -72,7 +74,7 @@ public class XulaATMUser {
 
     }
 
-    public ValidatePasswordResult validatePassword( String passwordToValidate){
+    public ValidatePasswordResult validatePassword(String passwordToValidate){
 
         //encrypt passwordToValidate
         String encryptedPassword = encrypt(passwordToValidate);

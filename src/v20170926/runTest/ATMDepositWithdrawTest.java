@@ -1,6 +1,7 @@
 package v20170926.runTest;
 
 import v20170926.xulaAtmModel.*;
+import v20170926.xulaAtmModel.result.*;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

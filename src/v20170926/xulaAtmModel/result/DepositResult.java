@@ -1,4 +1,4 @@
-package v20170926.xulaAtmModel;
+package v20170926.xulaAtmModel.result;
 
 public class DepositResult extends Result {
     public DepositResult() {

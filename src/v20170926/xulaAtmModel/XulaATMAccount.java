@@ -1,5 +1,8 @@
 package v20170926.xulaAtmModel;
 
+import v20170926.xulaAtmModel.result.DepositResult;
+import v20170926.xulaAtmModel.result.Result;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

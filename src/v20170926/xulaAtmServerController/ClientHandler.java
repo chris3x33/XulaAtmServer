@@ -1,6 +1,7 @@
 package v20170926.xulaAtmServerController;
 
 import v20170926.xulaAtmModel.*;
+import v20170926.xulaAtmModel.result.*;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -179,7 +180,7 @@ public class ClientHandler implements Runnable {
         //Send ACK
         sendAck();
 
-        //Get Account Balance Result
+        //Get Account Balance result
         GetAccountBalanceResult getAccountBalanceResult;
         synchronized (xulaATM) {
             getAccountBalanceResult = xulaATM.getAccountBalance(AccountId);
@@ -414,9 +415,9 @@ public class ClientHandler implements Runnable {
 
         int ack;
 
-        //Send Result Status
+        //Send result Status
         DATA_OUT.writeInt(result.getStatus());
-        System.out.println("\tSent Result Status: "+result.getStatus());
+        System.out.println("\tSent result Status: "+result.getStatus());
 
         //Read ACK
         ack = readIntWTimeout();
@@ -425,17 +426,17 @@ public class ClientHandler implements Runnable {
         //handle Results Msg
         if (result.getStatus() == Result.ERROR_CODE){
 
-            //Send Result Message Length
+            //Send result Message Length
             DATA_OUT.writeInt(result.getMessage().length());
-            System.out.println("\tSent Result Message Length");
+            System.out.println("\tSent result Message Length");
 
             //Read ACK
             ack = readIntWTimeout();
             printACKResult(ack);
 
-            //Send Result Message Bytes
+            //Send result Message Bytes
             DATA_OUT.write(result.getMessage().getBytes());
-            System.out.println("\tSent Result Message Bytes: "+result.getMessage());
+            System.out.println("\tSent result Message Bytes: "+result.getMessage());
 
             //Read ACK
             ack = readIntWTimeout();

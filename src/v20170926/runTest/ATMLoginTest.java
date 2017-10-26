@@ -1,7 +1,7 @@
 package v20170926.runTest;
 
-import v20170926.xulaAtmModel.LoginResult;
-import v20170926.xulaAtmModel.Result;
+import v20170926.xulaAtmModel.result.LoginResult;
+import v20170926.xulaAtmModel.result.Result;
 import v20170926.xulaAtmModel.XulaATM;
 
 import java.io.IOException;
