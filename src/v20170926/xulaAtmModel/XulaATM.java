@@ -15,11 +15,24 @@ public class XulaATM {
     private XulaATMUserList atmUserList;
     private final String WELCOME_MSG = "Welcome to XULA ATM";
 
-    public XulaATM(String UserListFolder, String AccountListFolder) throws FileNotFoundException {
+    private final String USERLIST_FOLDER;
+    private final String ACCOUNTLIST_FOLDER;
 
-        atmAccountList = new XulaATMAccountList(AccountListFolder);
-        atmUserList = new XulaATMUserList(UserListFolder);
+    public XulaATM(String userListFolder, String accountListFolder) throws FileNotFoundException {
 
+        this.USERLIST_FOLDER = userListFolder;
+        this.ACCOUNTLIST_FOLDER = accountListFolder;
+        atmAccountList = new XulaATMAccountList(accountListFolder);
+        atmUserList = new XulaATMUserList(userListFolder);
+
+    }
+
+    public String getUserListFolder() {
+        return USERLIST_FOLDER;
+    }
+
+    public String getAccountListFolder() {
+        return ACCOUNTLIST_FOLDER;
     }
 
     public String getWelcomeMsg() {
