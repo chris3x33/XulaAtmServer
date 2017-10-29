@@ -7,10 +7,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class XulaATMAccount {
+
+    private SecureRandom random = new SecureRandom();
 
     private long accountId;
     private long userId;
@@ -141,4 +144,17 @@ public class XulaATMAccount {
         return false;
 
     }
+
+    public long getUnusedTransactionId() {
+
+        long unusedTransactionId;
+        do {
+            unusedTransactionId = Math.abs(random.nextLong());
+
+        } while (hasTransaction(unusedTransactionId));
+
+        return unusedTransactionId;
+
+    }
+
 }
