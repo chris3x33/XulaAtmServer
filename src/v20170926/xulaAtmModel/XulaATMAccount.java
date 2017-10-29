@@ -83,6 +83,10 @@ public class XulaATMAccount {
         out.println(accountType);
         out.println(balance);
 
+        for (long transactionId : transactionIds){
+            out.println(transactionId);
+        }
+
         out.close();
 
         return true;
@@ -107,6 +111,12 @@ public class XulaATMAccount {
         //Read balance
         balance = scanner.nextDouble();
         scanner.hasNextLine();
+
+        //Read transactionIds
+        while (scanner.hasNextLine()){
+            transactionIds.add(scanner.nextLong());
+            scanner.nextLine();
+        }
 
         scanner.close();
 
