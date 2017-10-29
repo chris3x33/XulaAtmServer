@@ -13,6 +13,8 @@ public class XulaATM {
 
     private XulaATMAccountList atmAccountList;
     private XulaATMUserList atmUserList;
+    private XulaATMTransactionList atmTransactionList;
+
     private final String WELCOME_MSG = "Welcome to XULA ATM";
 
     private final String USERLIST_FOLDER;
