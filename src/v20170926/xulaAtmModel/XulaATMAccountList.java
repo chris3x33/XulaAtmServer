@@ -126,9 +126,9 @@ public class XulaATMAccountList {
 
     }
 
-    public boolean createNewAccount(long accountId, int accountType, double balance) {
+    public boolean createNewAccount(long accountId, long userId, int accountType, double balance) {
 
-        return atmAccounts.add(new XulaATMAccount(accountId,accountType,balance));
+        return atmAccounts.add(new XulaATMAccount(accountId,userId,accountType,balance));
 
     }
 

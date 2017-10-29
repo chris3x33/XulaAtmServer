@@ -155,11 +155,21 @@ public class XulaATM {
 
         //Create Checking Account
         long newCheckingAccountId = atmAccountList.getUnusedAccountId();
-        atmAccountList.createNewAccount(newCheckingAccountId,XulaATMAccountType.CHECKING,0);
+        atmAccountList.createNewAccount(
+                newCheckingAccountId,
+                newUserId,
+                XulaATMAccountType.CHECKING,
+                0
+        );
 
         //Create Savings Account
         long newSavingsAccountId = atmAccountList.getUnusedAccountId();
-        atmAccountList.createNewAccount(newSavingsAccountId,XulaATMAccountType.SAVINGS,0);
+        atmAccountList.createNewAccount(
+                newSavingsAccountId,
+                newUserId,
+                XulaATMAccountType.SAVINGS,
+                0
+        );
 
         //Create User Account id list
         ArrayList<Long> atmAccountIds = new ArrayList<Long>();

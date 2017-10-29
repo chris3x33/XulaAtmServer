@@ -18,8 +18,9 @@ public class XulaATMAccount {
     private int accountType;
     private ArrayList<Long> transactionIds;
 
-    public XulaATMAccount(long accountId, int accountType, double balance) {
+    public XulaATMAccount(long accountId, long userId, int accountType, double balance) {
         this.accountId = accountId;
+        this.userId = userId;
         this.balance = balance;
         this.accountType = accountType;
     }
