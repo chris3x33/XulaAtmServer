@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class XulaATMAccount {
@@ -15,7 +16,7 @@ public class XulaATMAccount {
     private long userId;
     private double balance;
     private int accountType;
-    private long[] transactionIds;
+    private ArrayList<Long> transactionIds;
 
     public XulaATMAccount(long accountId, int accountType, double balance) {
         this.accountId = accountId;
@@ -24,7 +25,10 @@ public class XulaATMAccount {
     }
 
     public XulaATMAccount(File accountFile) throws FileNotFoundException {
+
+        transactionIds = new ArrayList<Long>();
         readAccountFrom(accountFile);
+
     }
 
     public long getAccountId() {
@@ -111,7 +115,7 @@ public class XulaATMAccount {
         return userId;
     }
 
-    public long[] getTransactionIds() {
+    public ArrayList<Long> getTransactionIds() {
         return transactionIds;
     }
 }
