@@ -16,6 +16,7 @@ public class XulaATMAccount {
     private double balance;
     private int accountType;
     private XulaATMTransactionList atmTransactionList;
+    private long[] transactionIds;
 
     public XulaATMAccount(long accountId, int accountType, double balance) {
         this.accountId = accountId;
@@ -114,5 +115,9 @@ public class XulaATMAccount {
     }
     public long getUserId() {
         return userId;
+    }
+
+    public long[] getTransactionIds() {
+        return transactionIds;
     }
 }
