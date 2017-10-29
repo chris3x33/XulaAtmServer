@@ -80,6 +80,7 @@ public class XulaATMAccount {
         PrintWriter out = new PrintWriter(accountFile);
 
         out.println(accountId);
+        out.println(userId);
         out.println(accountType);
         out.println(balance);
 
@@ -94,6 +95,10 @@ public class XulaATMAccount {
 
         //Read accountId
         accountId = scanner.nextLong();
+        scanner.nextLine();
+
+        //Read userId
+        userId = scanner.nextLong();
         scanner.nextLine();
 
         //Read accountType
