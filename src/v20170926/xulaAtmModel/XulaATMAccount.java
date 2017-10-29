@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class XulaATMAccount {
 
     private long accountId;
+    private long userId;
     private double balance;
     private int accountType;
     private XulaATMTransactionList atmTransactionList;
@@ -105,5 +106,8 @@ public class XulaATMAccount {
 
         scanner.close();
 
+    }
+    public long getUserId() {
+        return userId;
     }
 }
