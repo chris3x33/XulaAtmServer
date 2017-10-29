@@ -111,7 +111,7 @@ public class XulaATMAccount {
 
         //Read balance
         balance = scanner.nextDouble();
-        scanner.hasNextLine();
+        scanner.nextLine();
 
         //Read transactionIds
         while (scanner.hasNextLine()){
