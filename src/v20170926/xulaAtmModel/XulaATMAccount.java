@@ -15,7 +15,6 @@ public class XulaATMAccount {
     private long userId;
     private double balance;
     private int accountType;
-    private XulaATMTransactionList atmTransactionList;
     private long[] transactionIds;
 
     public XulaATMAccount(long accountId, int accountType, double balance) {
@@ -25,8 +24,6 @@ public class XulaATMAccount {
     }
 
     public XulaATMAccount(File accountFile) throws FileNotFoundException {
-
-        atmTransactionList = new XulaATMTransactionList();
         readAccountFrom(accountFile);
     }
 
@@ -57,9 +54,6 @@ public class XulaATMAccount {
         double prevBalance = balance;
 
         setBalance(prevBalance + depositAmount);
-
-        atmTransactionList.recordTransaction(
-                depositAmount,XulaATMTransactionType.DEPOSIT,"CASH",prevBalance,"");
 
         return new DepositResult(Result.SUCCESS_CODE);
         
