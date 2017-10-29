@@ -129,4 +129,16 @@ public class XulaATMAccount {
     public ArrayList<Long> getTransactionIds() {
         return transactionIds;
     }
+
+    public boolean hasTransaction(long transactionId){
+
+        for (long curTransactionId: transactionIds){
+            if (curTransactionId == transactionId){
+                return true;
+            }
+        }
+
+        return false;
+
+    }
 }
