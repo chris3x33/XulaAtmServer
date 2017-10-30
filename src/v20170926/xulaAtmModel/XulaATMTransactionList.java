@@ -6,12 +6,6 @@ public class XulaATMTransactionList {
 
     private ArrayList<XulaATMTransaction> atmTransactions;
 
-    public XulaATMTransactionList(){
-
-        atmTransactions = new ArrayList<XulaATMTransaction>();
-
-    }
-
     public XulaATMTransactionList(String transactionListFolder) {
         atmTransactions = new ArrayList<XulaATMTransaction>();
     }
