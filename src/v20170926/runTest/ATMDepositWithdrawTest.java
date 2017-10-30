@@ -12,11 +12,13 @@ public class ATMDepositWithdrawTest {
     private final static String XULA_ATM_PATH="XulaATMFiles";
     private final static String USERLIST_PATH=XULA_ATM_PATH+"\\UserList";
     private final static String ACCOUNTLIST_PATH=XULA_ATM_PATH+"\\AccountList";
+    private final static String TRANSACTIONLIST_PATH = XULA_ATM_PATH+"\\TransactionList";
+
     private final static Scanner IN = new Scanner(System.in);
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        XulaATM xulaATM = new XulaATM(USERLIST_PATH, ACCOUNTLIST_PATH);
+        XulaATM xulaATM = new XulaATM(USERLIST_PATH, ACCOUNTLIST_PATH, TRANSACTIONLIST_PATH);
 
         String userName;
         String password;

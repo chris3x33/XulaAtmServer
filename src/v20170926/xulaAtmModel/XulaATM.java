@@ -19,11 +19,15 @@ public class XulaATM {
 
     private final String USERLIST_FOLDER;
     private final String ACCOUNTLIST_FOLDER;
+    private final String TRANSACTIONLIST_FOLDER;
 
-    public XulaATM(String userListFolder, String accountListFolder) throws FileNotFoundException {
+    public XulaATM(
+            String userListFolder, String accountListFolder,
+            String transactionListFolder) throws FileNotFoundException {
 
         this.USERLIST_FOLDER = userListFolder;
         this.ACCOUNTLIST_FOLDER = accountListFolder;
+        this.TRANSACTIONLIST_FOLDER = transactionListFolder;
         atmAccountList = new XulaATMAccountList(accountListFolder);
         atmUserList = new XulaATMUserList(userListFolder);
 
