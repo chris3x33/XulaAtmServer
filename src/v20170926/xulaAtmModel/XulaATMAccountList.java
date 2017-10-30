@@ -137,4 +137,15 @@ public class XulaATMAccountList {
             atmAccount.writeTo(accountListFolderPath);
         }
     }
+
+    public long getUnusedTransactionId(long accountId){
+        if (accountExists(accountId)){
+            return -1;
+        }
+
+        XulaATMAccount atmAccount = getAccount(accountId);
+
+        return atmAccount.getUnusedTransactionId();
+
+    }
 }
