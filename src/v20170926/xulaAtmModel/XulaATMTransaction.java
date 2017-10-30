@@ -2,6 +2,7 @@ package v20170926.xulaAtmModel;
 
 public class XulaATMTransaction {
     private long accountId;
+    private long transactionId;
     private double amount;
     private int type;// W , D
     private String otherAccount;
@@ -38,5 +39,9 @@ public class XulaATMTransaction {
 
     public long getAccountId() {
         return accountId;
+    }
+
+    public long getTransactionId() {
+        return transactionId;
     }
 }
