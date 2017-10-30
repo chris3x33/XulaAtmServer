@@ -28,9 +28,10 @@ public class XulaATM {
         this.USERLIST_FOLDER = userListFolder;
         this.ACCOUNTLIST_FOLDER = accountListFolder;
         this.TRANSACTIONLIST_FOLDER = transactionListFolder;
+
         atmAccountList = new XulaATMAccountList(accountListFolder);
         atmUserList = new XulaATMUserList(userListFolder);
-
+        atmTransactionList = new XulaATMTransactionList(transactionListFolder);
     }
 
     public String getUserListFolder() {
