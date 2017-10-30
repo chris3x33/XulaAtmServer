@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
+import static v20170926.utils.DateTime.getCurrentDate;
+
 public class XulaATM {
 
     private XulaATMAccountList atmAccountList;
@@ -153,7 +155,7 @@ public class XulaATM {
                 XulaATMTransactionType.DEPOSIT,
                 "CASH",
                 balanceBeforeDeposit,
-                ""
+                getCurrentDate()
         );
 
         return depositResult;

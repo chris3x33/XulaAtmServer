@@ -13,7 +13,7 @@ public class DateTime {
         SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_PATTERN);
 
         return dateFormat.format(new Date());
-        
+
     }
 
 }
