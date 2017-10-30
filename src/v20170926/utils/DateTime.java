@@ -16,4 +16,9 @@ public class DateTime {
 
     }
 
+    public static String getCurrentDateTime(String formatPattern) {
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat(formatPattern);
+        return dateTimeFormat.format(new Date());
+    }
+
 }
