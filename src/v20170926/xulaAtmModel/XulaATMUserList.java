@@ -239,4 +239,8 @@ public class XulaATMUserList {
             atmUser.writeTo(userListFolderPath);
         }
     }
+
+    public void writeUnsavedUsersTo(String userListFolderPath){
+
+    }
 }
