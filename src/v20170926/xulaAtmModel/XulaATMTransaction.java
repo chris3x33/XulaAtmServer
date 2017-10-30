@@ -1,6 +1,7 @@
 package v20170926.xulaAtmModel;
 
 public class XulaATMTransaction {
+    private long accountId;
     private double amount;
     private int type;// W , D
     private String otherAccount;
@@ -33,5 +34,9 @@ public class XulaATMTransaction {
 
     public double getPrevAmount() {
         return prevAmount;
+    }
+
+    public long getAccountId() {
+        return accountId;
     }
 }
