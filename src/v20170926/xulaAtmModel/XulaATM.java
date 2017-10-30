@@ -108,10 +108,18 @@ public class XulaATM {
             );
         }
 
+        //Check if Account Exists
+        if(!atmAccountList.accountExists(toAccountId)){
+            return new DepositResult(
+                    Result.ERROR_CODE,
+                    "Account Doesn't Exists!!"
+            );
+        }
+
         //Get User
         XulaATMUser atmUser = atmUserList.getATMUser(userId);
 
-        //Get AtmAccountIds
+        //Get User AtmAccountIds
         ArrayList<Long> atmAccountIds = atmUser.getAtmAccountIds();
 
         //check if the Account belongs to the user
