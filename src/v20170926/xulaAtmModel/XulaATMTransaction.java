@@ -9,7 +9,10 @@ public class XulaATMTransaction {
     private String dateTime;
     private double prevAmount;
 
-    public XulaATMTransaction(double amount, int type, String otherAccount, double prevAmount, String dateTime) {
+    public XulaATMTransaction(long accountId, long transactionId, double amount, int type, String otherAccount, double prevAmount, String dateTime) {
+
+        this.accountId = accountId;
+        this.transactionId = transactionId;
         this.amount = amount;
         this.type = type;
         this.otherAccount = otherAccount;

@@ -13,9 +13,19 @@ public class XulaATMTransactionList {
         readInTransactionsFrom(transactionListFolder);
     }
 
-    public void recordTransaction(double amount, int type, String otherAccount, double prevAmount, String dateTime) {
+    public void recordTransaction(long accountId, long transactionId, double amount, int type, String otherAccount, double prevAmount, String dateTime) {
 
-        atmTransactions.add(new XulaATMTransaction(amount, type, otherAccount, prevAmount, dateTime));
+        atmTransactions.add(
+                new XulaATMTransaction(
+                        accountId,
+                        transactionId,
+                        amount,
+                        type,
+                        otherAccount,
+                        prevAmount,
+                        dateTime
+                )
+        );
 
     }
 
