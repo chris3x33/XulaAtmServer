@@ -2,12 +2,17 @@ package v20170926.xulaAtmModel;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import static v20170926.utils.DateTime.getCurrentDateTime;
 
 public class XulaATMTransactionList {
 
     private ArrayList<XulaATMTransaction> atmTransactions;
+    private String dateTimeFormatPattern = "yyyy_dd_MM_HH_mm_ss";
 
     public XulaATMTransactionList(String transactionListFolder) throws FileNotFoundException {
         atmTransactions = new ArrayList<XulaATMTransaction>();
@@ -93,6 +98,56 @@ public class XulaATMTransactionList {
 
             atmTransactions.add(xulaATMTransaction);
         }
+
+    }
+
+    public void writeTo(String transactionListPath) throws IOException {
+        File accountListFolder = new File(transactionListPath);
+
+        if (!accountListFolder.isDirectory()){return;}
+
+        String currentDateTime = getCurrentDateTime(dateTimeFormatPattern);
+
+        File accountFile = new File(transactionListPath+"\\"+currentDateTime+".txt");
+        accountFile.createNewFile();
+
+        PrintWriter out = new PrintWriter(accountFile);
+        String spacer = " , ";
+        for (XulaATMTransaction atmTransaction: atmTransactions){
+
+            //write accountId
+            out.print(atmTransaction.getAccountId());
+            out.print(spacer);
+
+            //write accountId
+            out.print(atmTransaction.getTransactionId());
+            out.print(spacer);
+
+            //write amount
+            out.print(atmTransaction.getAmount());
+            out.print(spacer);
+
+            //write type
+            out.print(atmTransaction.getType());
+            out.print(spacer);
+
+            //read otherAccount
+            out.print(atmTransaction.getOtherAccount());
+            out.print(spacer);
+
+            //read prevAmount
+            out.print(atmTransaction.getPrevAmount());
+            out.print(spacer);
+
+            //read Date
+            out.print(atmTransaction.getDateTime());
+            out.print(spacer);
+
+            out.println();
+
+        }
+
+        out.close();
 
     }
 
