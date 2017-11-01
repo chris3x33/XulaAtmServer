@@ -424,7 +424,7 @@ public class ClientHandler implements Runnable {
         printACKResult(ack);
 
         //handle Results Msg
-        if (result.getStatus() == Result.ERROR_CODE){
+        if (result.getStatus() <= Result.ERROR_CODE){
 
             //Send result Message Length
             DATA_OUT.writeInt(result.getMessage().length());
@@ -485,7 +485,7 @@ public class ClientHandler implements Runnable {
     private void handleInvalidSession() throws IOException {
 
         int ack;
-        sendResult(new Result(Result.ERROR_CODE, "Invalid Session!!"));
+        sendResult(new Result(-1, "Invalid Session!!"));
 
     }
 
