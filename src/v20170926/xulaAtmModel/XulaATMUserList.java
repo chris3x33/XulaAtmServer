@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class XulaATMUserList {
 
@@ -42,7 +43,14 @@ public class XulaATMUserList {
         ArrayList<XulaATMUser> atmUsers = new ArrayList<XulaATMUser>();
 
         for (File userFile :userFiles){
-            atmUsers.add(new XulaATMUser(userFile));
+
+            try {
+                XulaATMUser atmUser = new XulaATMUser(userFile);
+                atmUsers.add(atmUser);
+            }catch (FileNotFoundException | NoSuchElementException e){
+
+            }
+
         }
 
         return atmUsers;

@@ -9,7 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -20,7 +19,6 @@ public class XulaATMUser {
     private String password;
     private long userId;
     private boolean isActivated;
-    private ArrayList<Long> atmAccountIds;
 
     public XulaATMUser(String userName, String password, long userId) {
 
@@ -41,30 +39,32 @@ public class XulaATMUser {
 
     }
 
-    public XulaATMUser(File userFile) throws FileNotFoundException {
+    public XulaATMUser(File userFile) throws FileNotFoundException, NoSuchElementException {
 
         readUserFrom(userFile);
 
+        //get FileName
+        String userFileName = userFile.getName();
+        userFileName = userFileName.substring(0,userFileName.indexOf('.'));
+
+        if(userFileName.compareTo(Long.toString(userId))!=0){throw new NoSuchElementException();}
+
     }
 
-    public void readUserFrom(File userFile) throws FileNotFoundException {
+    public void readUserFrom(File userFile) throws FileNotFoundException, NoSuchElementException{
 
         Scanner scanner = new Scanner(userFile);
 
-        //Read UserId
-        userId = scanner.nextLong();
-        scanner.nextLine();
+        String line = scanner.nextLine();
 
-        //Read userName
-        userName = scanner.nextLine();
+        XulaATMUser atmUser = XulaATMUser.parse(line);
 
-        //Read password
-        password = scanner.nextLine();
+        if (atmUser == null){throw new NoSuchElementException();}
 
-        //Read isActivated
-        isActivated = scanner.nextBoolean();
-
-
+        this.userId = atmUser.userId;
+        this.userName = atmUser.userName;
+        this.password = atmUser.password;
+        this.isActivated = atmUser.isActivated;
     }
 
     public ValidatePasswordResult validatePassword(String passwordToValidate){
@@ -123,12 +123,9 @@ public class XulaATMUser {
         userFile.createNewFile();
 
         PrintWriter out = new PrintWriter(userFile);
-
-        out.println(userId);
-        out.println(userName);
-        out.println(password);
-        out.println(isActivated);
-
+        synchronized (this) {
+            out.println(toString());
+        }
         out.close();
 
         return true;
