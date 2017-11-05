@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class XulaATMAccount {
@@ -166,4 +168,33 @@ public class XulaATMAccount {
                 balance;
     }
 
+    public static XulaATMAccount parse(String str) {
+
+        try {
+
+            Scanner parser = new Scanner(str);
+
+            //Read UserId
+            long userId = parser.nextLong();
+            parser.next();
+
+            //Read accountId
+            long accountId = parser.nextLong();
+            parser.next();
+
+            //Read accountType
+            int accountType = parser.nextInt();
+            parser.next();
+
+            //Read balance
+            double balance = parser.nextDouble();
+
+            return null;
+
+        } catch (InputMismatchException e){
+            return null;
+        }catch (NoSuchElementException e){
+            return null;
+        }
+    }
 }
