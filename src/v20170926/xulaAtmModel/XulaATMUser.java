@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class XulaATMUser {
@@ -158,4 +160,41 @@ public class XulaATMUser {
 
     }
 
+    public static XulaATMUser parse(String str) {
+
+        try {
+
+            Scanner parser = new Scanner(str);
+
+            //Read UserId
+            long userId = parser.nextLong();
+            parser.next();
+
+            //Read userName
+            String userName = parser.next();
+            parser.next();
+
+            //Read password
+            String password = parser.next();
+            parser.next();
+
+            //Read isActivated
+            boolean isActivated = parser.nextBoolean();
+
+            return new XulaATMUser(
+
+                    userName,
+                    password,
+                    userId,
+                    isActivated,
+                    new ArrayList<Long>()
+            );
+
+        } catch (InputMismatchException e){
+            return null;
+        }catch (NoSuchElementException e){
+            return null;
+        }
+
+    }
 }
