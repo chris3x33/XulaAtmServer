@@ -1,5 +1,9 @@
 package v20170926.xulaAtmModel;
 
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
 public class XulaATMTransaction {
     private long accountId;
     private long transactionId;
@@ -59,4 +63,45 @@ public class XulaATMTransaction {
                prevAmount;
     }
 
+    public static XulaATMTransaction parse(String str) {
+
+        try {
+
+            Scanner parser = new Scanner(str);
+
+            //Read accountId
+            long accountId = parser.nextLong();
+            parser.next();
+
+            //Read transactionId
+            long transactionId = parser.nextLong();
+            parser.next();
+
+            //Read amount
+            double amount = parser.nextDouble();
+            parser.next();
+
+            //Read type
+            int type = parser.nextInt();
+            parser.next();
+
+            //Read otherAccount
+            String otherAccount = parser.next();
+            parser.next();
+
+            //Read dateTime
+            String dateTime = parser.next();
+            parser.next();
+
+            //Read amount
+            double prevAmount = parser.nextDouble();
+
+            return null;
+
+        } catch (InputMismatchException e){
+            return null;
+        }catch (NoSuchElementException e){
+            return null;
+        }
+    }
 }
