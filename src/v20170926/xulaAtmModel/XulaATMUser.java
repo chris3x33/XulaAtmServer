@@ -147,4 +147,15 @@ public class XulaATMUser {
 
         return true;
     }
+
+    @Override
+    public String toString() {
+
+        return  userId + " , " +
+                userName + " , " +
+                password + " , " +
+                isActivated;
+
+    }
+
 }
