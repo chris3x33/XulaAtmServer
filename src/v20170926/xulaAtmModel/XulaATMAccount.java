@@ -157,4 +157,13 @@ public class XulaATMAccount {
 
     }
 
+    @Override
+    public String toString() {
+
+        return  userId + " , " +
+                accountId + " , " +
+                accountType + " , " +
+                balance;
+    }
+
 }
