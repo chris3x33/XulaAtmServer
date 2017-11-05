@@ -47,4 +47,16 @@ public class XulaATMTransaction {
     public long getTransactionId() {
         return transactionId;
     }
+
+    @Override
+    public String toString() {
+        return accountId + " , " +
+               transactionId + " , " +
+               amount + " , " +
+               type + " , " +
+               otherAccount +  " , " +
+               dateTime +  " , " +
+               prevAmount;
+    }
+
 }
