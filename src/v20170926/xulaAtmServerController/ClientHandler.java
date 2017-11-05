@@ -162,6 +162,12 @@ public class ClientHandler implements Runnable {
 
                 break;
 
+            case XulaAtmServerCommands.DEPOSIT_CMD:
+
+                handleDepositCommand();
+
+                break;
+
             default://Invalid Command
 
                 handleInvalidCommand();
@@ -169,6 +175,42 @@ public class ClientHandler implements Runnable {
                 break;
         }
 
+    }
+
+    private void handleDepositCommand() throws IOException {
+
+        int ack;
+        System.out.println("\nDepositCMD Start");
+
+        //Read toAccountId
+        long toAccountId = readLongWTimeout();
+        System.out.println("\tRead toAccountId: "+toAccountId);
+
+        //Send ACK
+        sendAck();
+
+        //Read amount
+        double amount = readDoubleWTimeout();
+        System.out.println("\tRead amount: "+amount);
+
+        //Send ACK
+        sendAck();
+
+        //Send DepositResult
+        sendResult(
+                new Result(Result.SUCCESS_CODE)
+        );
+
+        //Read ACK
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
+        //Send depositMsg
+        String depositMsg = "Received toAccountId: "+toAccountId+", amount: "+amount;
+        sendString(depositMsg);
+
+
+        System.out.println("DepositCMD End\n");
     }
 
     private void handleGetAccountBalanceCommand() throws IOException {
