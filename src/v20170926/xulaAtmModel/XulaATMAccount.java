@@ -7,21 +7,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.SecureRandom;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class XulaATMAccount {
 
-    private SecureRandom random = new SecureRandom();
-
     private long accountId;
     private long userId;
     private double balance;
     private int accountType;
-    private ArrayList<Long> transactionIds;
 
     public XulaATMAccount(long accountId, long userId, int accountType, double balance) {
         this.accountId = accountId;
@@ -30,10 +25,16 @@ public class XulaATMAccount {
         this.accountType = accountType;
     }
 
-    public XulaATMAccount(File accountFile) throws FileNotFoundException {
+    public XulaATMAccount(File accountFile) throws FileNotFoundException, NoSuchElementException {
 
-        transactionIds = new ArrayList<Long>();
         readAccountFrom(accountFile);
+
+        //get FileName
+        String accountFileName = accountFile.getName();
+        accountFileName = accountFileName.substring(0,accountFileName.indexOf('.'));
+
+        if(accountFileName.compareTo(Long.toString(getAccountId()))!=0){throw new NoSuchElementException();}
+
 
     }
 
@@ -84,13 +85,8 @@ public class XulaATMAccount {
 
         PrintWriter out = new PrintWriter(accountFile);
 
-        out.println(accountId);
-        out.println(userId);
-        out.println(accountType);
-        out.println(balance);
-
-        for (long transactionId : transactionIds){
-            out.println(transactionId);
+        synchronized (this) {
+            out.println(toString());
         }
 
         out.close();
@@ -98,65 +94,26 @@ public class XulaATMAccount {
         return true;
     }
 
-    public void readAccountFrom(File accountFile) throws FileNotFoundException {
+    public void readAccountFrom(File accountFile) throws FileNotFoundException, NoSuchElementException {
 
         Scanner scanner = new Scanner(accountFile);
 
-        //Read accountId
-        accountId = scanner.nextLong();
-        scanner.nextLine();
+        String line = scanner.nextLine();
 
-        //Read userId
-        userId = scanner.nextLong();
-        scanner.nextLine();
+        XulaATMAccount atmAccount = parse(line);
 
-        //Read accountType
-        accountType = scanner.nextInt();
-        scanner.nextLine();
+        if (atmAccount==null){ throw new NoSuchElementException();}
 
-        //Read balance
-        balance = scanner.nextDouble();
-        scanner.nextLine();
-
-        //Read transactionIds
-        while (scanner.hasNextLine()){
-            transactionIds.add(scanner.nextLong());
-            scanner.nextLine();
-        }
+        this.userId = atmAccount.userId;
+        this.accountId = atmAccount.accountId;
+        this.accountType = atmAccount.accountType;
+        this.balance = atmAccount.balance;
 
         scanner.close();
 
     }
     public long getUserId() {
         return userId;
-    }
-
-    public ArrayList<Long> getTransactionIds() {
-        return transactionIds;
-    }
-
-    public boolean hasTransaction(long transactionId){
-
-        for (long curTransactionId: transactionIds){
-            if (curTransactionId == transactionId){
-                return true;
-            }
-        }
-
-        return false;
-
-    }
-
-    public long getUnusedTransactionId() {
-
-        long unusedTransactionId;
-        do {
-            unusedTransactionId = Math.abs(random.nextLong());
-
-        } while (hasTransaction(unusedTransactionId));
-
-        return unusedTransactionId;
-
     }
 
     @Override
@@ -189,7 +146,7 @@ public class XulaATMAccount {
             //Read balance
             double balance = parser.nextDouble();
 
-            return null;
+            return new XulaATMAccount(accountId,userId,accountType,balance);
 
         } catch (InputMismatchException e){
             return null;

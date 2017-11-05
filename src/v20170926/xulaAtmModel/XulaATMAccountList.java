@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class XulaATMAccountList {
 
@@ -31,7 +32,13 @@ public class XulaATMAccountList {
         ArrayList<XulaATMAccount> atmAccounts = new ArrayList<XulaATMAccount>();
 
         for (File accountFile :accountFiles){
-            atmAccounts.add(new XulaATMAccount(accountFile));
+            try {
+
+                atmAccounts.add(new XulaATMAccount(accountFile));
+
+            }catch (FileNotFoundException | NoSuchElementException e){
+
+            }
         }
 
         return atmAccounts;
