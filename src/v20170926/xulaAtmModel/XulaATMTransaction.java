@@ -1,5 +1,9 @@
 package v20170926.xulaAtmModel;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -13,7 +17,9 @@ public class XulaATMTransaction {
     private String dateTime;
     private double prevAmount;
 
-    public XulaATMTransaction(long accountId, long transactionId, double amount, int type, String otherAccount, double prevAmount, String dateTime) {
+    public XulaATMTransaction(
+            long accountId, long transactionId, double amount, int type,
+            String otherAccount, double prevAmount, String dateTime) {
 
         this.accountId = accountId;
         this.transactionId = transactionId;
@@ -22,6 +28,38 @@ public class XulaATMTransaction {
         this.otherAccount = otherAccount;
         this.prevAmount = prevAmount;
         this.dateTime = dateTime;
+    }
+
+    public XulaATMTransaction(File transactionFile) throws FileNotFoundException, NoSuchElementException{
+        readTransactionFrom(transactionFile);
+
+        //get FileName
+        String transactionFileName = transactionFile.getName();
+        transactionFileName = transactionFileName.substring(0,transactionFileName.indexOf('.'));
+
+        String validFileName = Long.toString(getAccountId())+"-"+Long.toString(getTransactionId());
+
+        if(transactionFileName.compareTo(validFileName)!=0){throw new NoSuchElementException();}
+    }
+
+    private void readTransactionFrom(File transactionFile) throws FileNotFoundException, NoSuchElementException{
+
+        Scanner scanner = new Scanner(transactionFile);
+
+        String line = scanner.nextLine();
+
+        XulaATMTransaction atmTransaction = parse(line);
+
+        if (atmTransaction==null){ throw new NoSuchElementException();}
+
+        this.accountId = atmTransaction.accountId;
+        this.transactionId = atmTransaction.transactionId;
+        this.amount = atmTransaction.amount;
+        this.type = atmTransaction.type;
+        this.otherAccount = atmTransaction.otherAccount;
+        this.dateTime = atmTransaction.dateTime;
+        this.prevAmount = atmTransaction.prevAmount;
+
     }
 
     public double getAmount() {
@@ -50,6 +88,25 @@ public class XulaATMTransaction {
 
     public long getTransactionId() {
         return transactionId;
+    }
+
+    public void writeTo(String transactionListPath) throws IOException {
+
+        File accountListFolder = new File(transactionListPath);
+
+        if (!accountListFolder.isDirectory()){return;}
+
+        File accountFile = new File(transactionListPath+"\\"+accountId+"-"+transactionId+".txt");
+        accountFile.createNewFile();
+
+        PrintWriter out = new PrintWriter(accountFile);
+
+        synchronized (this) {
+            out.println(toString());
+        }
+
+        out.close();
+
     }
 
     @Override
@@ -96,7 +153,10 @@ public class XulaATMTransaction {
             //Read amount
             double prevAmount = parser.nextDouble();
 
-            return null;
+            return new XulaATMTransaction(
+                    accountId,  transactionId,  amount,  type,
+                    otherAccount,  prevAmount,  dateTime
+            );
 
         } catch (InputMismatchException e){
             return null;
