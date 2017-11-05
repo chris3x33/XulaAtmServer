@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,6 +14,7 @@ public class XulaATMTransactionList {
 
     private ArrayList<XulaATMTransaction> atmTransactions;
     private String dateTimeFormatPattern = "yyyy_dd_MM_HH_mm_ss";
+    private SecureRandom random = new SecureRandom();
 
     public XulaATMTransactionList(String transactionListFolder) throws FileNotFoundException {
         atmTransactions = new ArrayList<XulaATMTransaction>();
@@ -148,6 +150,38 @@ public class XulaATMTransactionList {
         }
 
         out.close();
+
+    }
+
+    public ArrayList<Long> getTransactionIds(long accountId){
+
+        ArrayList<Long> transactionIds = new ArrayList<Long>();
+
+        for (XulaATMTransaction atmTransaction : atmTransactions){
+
+            if(atmTransaction.getAccountId() == accountId){
+
+                transactionIds.add(
+                        atmTransaction.getTransactionId()
+                );
+
+            }
+        }
+
+        return transactionIds;
+
+    }
+
+    public long getUnusedTransactionId(long accountId) {
+
+        long unusedTransactionId;
+        ArrayList<Long> transactionIds = getTransactionIds(accountId);
+        do {
+            unusedTransactionId = Math.abs(random.nextLong());
+
+        } while (transactionIds.contains(unusedTransactionId));
+
+        return unusedTransactionId;
 
     }
 
