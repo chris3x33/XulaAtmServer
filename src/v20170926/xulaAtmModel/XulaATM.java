@@ -146,7 +146,7 @@ public class XulaATM {
         }
 
         //Get new transactionId
-        long newTransactionId = atmAccount.getUnusedTransactionId();
+        long newTransactionId = atmTransactionList.getUnusedTransactionId(toAccountId);
 
         atmTransactionList.recordTransaction(
                 toAccountId,

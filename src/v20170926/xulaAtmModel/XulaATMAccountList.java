@@ -138,17 +138,6 @@ public class XulaATMAccountList {
         }
     }
 
-    public long getUnusedTransactionId(long accountId){
-        if (accountExists(accountId)){
-            return -1;
-        }
-
-        XulaATMAccount atmAccount = getAccount(accountId);
-
-        return atmAccount.getUnusedTransactionId();
-
-    }
-
     public ArrayList<Long> getAccountIds(long userId) {
 
         ArrayList<Long> accountIds = new ArrayList<Long>();
