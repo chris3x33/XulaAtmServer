@@ -209,9 +209,9 @@ public class XulaATMUserList {
         return unusedUserId;
     }
 
-    public boolean createNewUser(String userName, String password, long userId, ArrayList<Long> atmAccountIds) {
+    public boolean createNewUser(String userName, String password, long userId) {
 
-        XulaATMUser atmUser = new XulaATMUser(userName, password, userId, atmAccountIds);
+        XulaATMUser atmUser = new XulaATMUser(userName, password, userId);
         boolean isAdded = atmUsers.add(atmUser);
 
         if (isAdded){

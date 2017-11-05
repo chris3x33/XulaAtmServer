@@ -22,30 +22,26 @@ public class XulaATMUser {
     private boolean isActivated;
     private ArrayList<Long> atmAccountIds;
 
-    public XulaATMUser(String userName, String password, long userId, ArrayList<Long> atmAccountIds) {
+    public XulaATMUser(String userName, String password, long userId) {
 
         this.userName = userName;
         this.password = password;
         this.userId = userId;
-        this.atmAccountIds = atmAccountIds;
         this.isActivated=true;
     }
 
     public XulaATMUser(
             String userName, String password, long userId,
-            boolean isActivated, ArrayList<Long> atmAccountIds) {
+            boolean isActivated) {
 
         this.userName = userName;
         this.password = password;
         this.userId = userId;
-        this.atmAccountIds = atmAccountIds;
         this.isActivated = isActivated;
 
     }
 
     public XulaATMUser(File userFile) throws FileNotFoundException {
-
-        atmAccountIds = new ArrayList<Long>();
 
         readUserFrom(userFile);
 
@@ -68,11 +64,6 @@ public class XulaATMUser {
         //Read isActivated
         isActivated = scanner.nextBoolean();
 
-        //Read Accounts
-        while (scanner.hasNextLine()){
-            atmAccountIds.add(scanner.nextLong());
-            scanner.nextLine();
-        }
 
     }
 
@@ -123,10 +114,6 @@ public class XulaATMUser {
         return userId;
     }
 
-    public ArrayList<Long> getAtmAccountIds() {
-        return atmAccountIds;
-    }
-
     public boolean writeTo(String userListFolderPath) throws IOException {
         File userListFolder = new File(userListFolderPath);
 
@@ -141,9 +128,6 @@ public class XulaATMUser {
         out.println(userName);
         out.println(password);
         out.println(isActivated);
-        for (long accountId : atmAccountIds){
-            out.println(accountId);
-        }
 
         out.close();
 
@@ -186,8 +170,7 @@ public class XulaATMUser {
                     userName,
                     password,
                     userId,
-                    isActivated,
-                    new ArrayList<Long>()
+                    isActivated
             );
 
         } catch (InputMismatchException e){

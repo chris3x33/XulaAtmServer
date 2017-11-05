@@ -121,19 +121,19 @@ public class XulaATM {
         //Get User
         XulaATMUser atmUser = atmUserList.getATMUser(userId);
 
-        //Get User AtmAccountIds
-        ArrayList<Long> atmAccountIds = atmUser.getAtmAccountIds();
+
 
         //Get atmAccount
         XulaATMAccount atmAccount = atmAccountList.getAccount(toAccountId);
 
         //check if the Account belongs to the user
-        if (!atmAccountIds.contains(toAccountId) ||
-                atmAccount.getUserId() != userId){
+        if (atmAccount.getUserId() != userId){
+
             return new DepositResult(
                     Result.ERROR_CODE,
                     "Account Access Denied!!"
             );
+
         }
 
         //Get balance before deposit
@@ -218,7 +218,7 @@ public class XulaATM {
         atmAccountIds.add(newSavingsAccountId);
 
         //Create User
-        atmUserList.createNewUser(username,encryptedPassword,newUserId,atmAccountIds);
+        atmUserList.createNewUser(username,encryptedPassword,newUserId);
 
         //Write to Filesystem async
         XulaATMAccount newCheckingAccount = atmAccountList.getAccount(newCheckingAccountId);
