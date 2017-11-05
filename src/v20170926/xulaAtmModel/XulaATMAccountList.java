@@ -148,4 +148,20 @@ public class XulaATMAccountList {
         return atmAccount.getUnusedTransactionId();
 
     }
+
+    public ArrayList<Long> getAccountIds(long userId) {
+
+        ArrayList<Long> accountIds = new ArrayList<Long>();
+
+        for (XulaATMAccount atmAccount :atmAccounts){
+
+            if (atmAccount.getUserId()== userId){
+                accountIds.add(atmAccount.getAccountId());
+            }
+
+        }
+
+        return accountIds;
+
+    }
 }

@@ -68,7 +68,7 @@ public class XulaATM {
         XulaATMUser atmUser = atmUserList.getATMUser(userId);
 
         //Get AtmAccountIds
-        ArrayList<Long> accountIDs = atmUserList.getAccountIDs(userId);
+        ArrayList<Long> accountIDs = atmAccountList.getAccountIds(userId);
 
         GetAccountIdsResult getAccountIdsResult = new GetAccountIdsResult(
                 Result.SUCCESS_CODE,
