@@ -107,12 +107,16 @@ public class ClientHandler implements Runnable {
 
             handleCommand(command);
 
+            Thread.sleep(10);
+
             SOCKET.close();
 
         } catch (SocketTimeoutException e) {
             System.out.println("SocketTimeoutException");
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (InterruptedException e) {
+
         }
 
 
@@ -173,9 +177,9 @@ public class ClientHandler implements Runnable {
 
         System.out.println("\nGetAccountBalanceCMD Start");
 
-        //Read AccountId
-        long AccountId = readLongWTimeout();
-        System.out.println("\tRead AccountId: "+AccountId);
+        //Read accountId
+        long accountId = readLongWTimeout();
+        System.out.println("\tRead AccountId: "+accountId);
 
         //Send ACK
         sendAck();
@@ -183,7 +187,7 @@ public class ClientHandler implements Runnable {
         //Get Account Balance result
         GetAccountBalanceResult getAccountBalanceResult;
         synchronized (xulaATM) {
-            getAccountBalanceResult = xulaATM.getAccountBalance(AccountId);
+            getAccountBalanceResult = xulaATM.getAccountBalance(accountId);
         }
 
         //Send getAccountIdsResult
