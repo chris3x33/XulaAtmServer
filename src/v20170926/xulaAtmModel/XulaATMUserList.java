@@ -59,18 +59,6 @@ public class XulaATMUserList {
         return null;
     }
 
-    public ArrayList<Long> getAccountIDs(long userId) {
-
-        for (XulaATMUser atmUser : atmUsers){
-            if (atmUser.getUserId()== userId){
-                return atmUser.getAtmAccountIds();
-            }
-        }
-
-        return null;
-
-    }
-
     public boolean userExists(long userId){
         for (XulaATMUser atmUser : atmUsers){
             if (atmUser.getUserId() == userId){
