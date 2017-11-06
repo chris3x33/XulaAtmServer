@@ -14,18 +14,12 @@ public class XulaATMUserList {
     private SecureRandom random = new SecureRandom();
 
     private ArrayList<XulaATMUser> atmUsers;
-    private ArrayList<Long> unsavedUserIds;
-
-    public XulaATMUserList(){
-
-        atmUsers = new ArrayList<XulaATMUser>();
-        unsavedUserIds = new ArrayList<Long>();
-
-    }
+    private String userListFolder;
 
     public XulaATMUserList(String userListFolder) throws FileNotFoundException {
         atmUsers = readUsersFrom(userListFolder);
-        unsavedUserIds = new ArrayList<Long>();
+        this.userListFolder =userListFolder;
+
     }
 
     private ArrayList<XulaATMUser> readUsersFrom(String userListFolderPath) throws FileNotFoundException {
@@ -222,10 +216,6 @@ public class XulaATMUserList {
         XulaATMUser atmUser = new XulaATMUser(userName, password, userId);
         boolean isAdded = atmUsers.add(atmUser);
 
-        if (isAdded){
-            unsavedUserIds.add(atmUser.getUserId());
-        }
-
         return isAdded;
     }
 
@@ -245,21 +235,11 @@ public class XulaATMUserList {
         }
     }
 
-    public void writeUnsavedUsersTo(String userListFolderPath) throws IOException {
+    public String getUserListFolder() {
+        return userListFolder;
+    }
 
-        for (long atmUserId : unsavedUserIds){
-
-            if (!userExists(atmUserId)){
-                continue;
-            }
-
-            XulaATMUser atmUser = getATMUser(atmUserId);
-
-            synchronized (atmUser) {
-                atmUser.writeTo(userListFolderPath);
-            }
-
-        }
-
+    public void setUserListFolder(String userListFolder) {
+        this.userListFolder = userListFolder;
     }
 }

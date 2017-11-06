@@ -114,7 +114,7 @@ public class XulaATMUser {
         return userId;
     }
 
-    public boolean writeTo(String userListFolderPath) throws IOException {
+    public synchronized boolean writeTo(String userListFolderPath) throws IOException {
         File userListFolder = new File(userListFolderPath);
 
         if (!userListFolder.isDirectory()){return false;}
@@ -129,6 +129,31 @@ public class XulaATMUser {
         out.close();
 
         return true;
+    }
+
+    public void writeToAsync(String userListFolderPath){
+
+        class Writer implements Runnable{
+
+            private String userListFolderPath;
+
+            public Writer(String userListFolderPath){
+                this.userListFolderPath = userListFolderPath;
+            }
+
+            @Override
+            public void run() {
+                try {
+                    writeTo(userListFolderPath);
+                } catch (IOException e) {
+
+                }
+            }
+        }
+
+        Thread writerThread = new Thread(new Writer(userListFolderPath));
+        writerThread.start();
+
     }
 
     @Override
