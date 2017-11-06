@@ -11,24 +11,31 @@ public class XulaATMTransactionList {
 
     private ArrayList<XulaATMTransaction> atmTransactions;
     private SecureRandom random = new SecureRandom();
+    private String transactionListFolder;
 
     public XulaATMTransactionList(String transactionListFolder) throws FileNotFoundException {
         atmTransactions = new ArrayList<XulaATMTransaction>();
+        this.transactionListFolder = transactionListFolder;
         readInTransactionsFrom(transactionListFolder);
     }
 
     public void recordTransaction(long accountId, long transactionId, double amount, int type, String otherAccount, double prevAmount, String dateTime) {
 
+
+        XulaATMTransaction atmTransaction = new XulaATMTransaction(
+                accountId,
+                transactionId,
+                amount,
+                type,
+                otherAccount,
+                prevAmount,
+                dateTime
+        );
+
+        atmTransaction.writeToAsyn(transactionListFolder);
+
         atmTransactions.add(
-                new XulaATMTransaction(
-                        accountId,
-                        transactionId,
-                        amount,
-                        type,
-                        otherAccount,
-                        prevAmount,
-                        dateTime
-                )
+                atmTransaction
         );
 
     }
@@ -102,4 +109,11 @@ public class XulaATMTransactionList {
 
     }
 
+    public String getTransactionListFolder() {
+        return transactionListFolder;
+    }
+
+    public void setTransactionListFolder(String transactionListFolder) {
+        this.transactionListFolder = transactionListFolder;
+    }
 }

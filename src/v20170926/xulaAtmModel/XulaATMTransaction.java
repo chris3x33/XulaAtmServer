@@ -90,7 +90,7 @@ public class XulaATMTransaction {
         return transactionId;
     }
 
-    public void writeTo(String transactionListPath) throws IOException {
+    public synchronized void writeTo(String transactionListPath) throws IOException {
 
         File accountListFolder = new File(transactionListPath);
 
@@ -106,6 +106,31 @@ public class XulaATMTransaction {
         }
 
         out.close();
+
+    }
+
+    public void writeToAsyn(String transactionListPath){
+
+        class Writer implements Runnable{
+
+            private String transactionListPath;
+
+            public Writer(String transactionListPath){
+                this.transactionListPath = transactionListPath;
+            }
+
+            @Override
+            public void run() {
+                try {
+                    writeTo(transactionListPath);
+                } catch (IOException e) {
+
+                }
+            }
+        }
+
+        Thread writerThread = new Thread(new Writer(transactionListPath));
+        writerThread.start();
 
     }
 
