@@ -94,6 +94,32 @@ public class XulaATMAccount {
         return true;
     }
 
+    public void writeToAsync(String accountListFolderPath){
+
+        class Writer implements Runnable{
+
+            private String accountListFolderPath;
+
+            public Writer(String transactionListPath){
+
+                this.accountListFolderPath = transactionListPath;
+            }
+
+            @Override
+            public void run() {
+                try {
+                    writeTo(accountListFolderPath);
+                } catch (IOException e) {
+
+                }
+            }
+        }
+
+        Thread writerThread = new Thread(new Writer(accountListFolderPath));
+        writerThread.start();
+
+    }
+
     public void readAccountFrom(File accountFile) throws FileNotFoundException, NoSuchElementException {
 
         Scanner scanner = new Scanner(accountFile);

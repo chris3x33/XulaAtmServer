@@ -13,9 +13,19 @@ public class XulaATMAccountList {
 
     private SecureRandom random = new SecureRandom();
     private ArrayList<XulaATMAccount> atmAccounts;
+    private String accountListFolderPath;
 
     public XulaATMAccountList(String accountListFolderPath) throws FileNotFoundException {
         atmAccounts = readAccountsFrom(accountListFolderPath);
+        this.accountListFolderPath = accountListFolderPath;
+    }
+
+    public String getAccountListFolderPath() {
+        return accountListFolderPath;
+    }
+
+    public void setAccountListFolderPath(String accountListFolderPath) {
+        this.accountListFolderPath = accountListFolderPath;
     }
 
     private ArrayList<XulaATMAccount> readAccountsFrom(String accountListFolderPath) throws FileNotFoundException {
