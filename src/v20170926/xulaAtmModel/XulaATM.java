@@ -19,17 +19,10 @@ public class XulaATM {
 
     private final String WELCOME_MSG = "Welcome to XULA ATM";
 
-    private final String USERLIST_FOLDER;
-    private final String ACCOUNTLIST_FOLDER;
-    private final String TRANSACTIONLIST_FOLDER;
-
     public XulaATM(
             String userListFolder, String accountListFolder,
             String transactionListFolder) throws FileNotFoundException {
 
-        this.USERLIST_FOLDER = userListFolder;
-        this.ACCOUNTLIST_FOLDER = accountListFolder;
-        this.TRANSACTIONLIST_FOLDER = transactionListFolder;
 
         atmAccountList = new XulaATMAccountList(accountListFolder);
         atmUserList = new XulaATMUserList(userListFolder);
@@ -37,11 +30,15 @@ public class XulaATM {
     }
 
     public String getUserListFolder() {
-        return USERLIST_FOLDER;
+        return atmUserList.getUserListFolder();
     }
 
     public String getAccountListFolder() {
-        return ACCOUNTLIST_FOLDER;
+        return atmAccountList.getAccountListFolderPath();
+    }
+    public String getTransactionListFolder() {
+
+        return atmTransactionList.getTransactionListFolder();
     }
 
     public String getWelcomeMsg() {
@@ -110,6 +107,9 @@ public class XulaATM {
             );
         }
 
+        //Get User
+        XulaATMUser atmUser = atmUserList.getATMUser(userId);
+
         //Check if Account Exists
         if(!atmAccountList.accountExists(toAccountId)){
             return new DepositResult(
@@ -117,11 +117,6 @@ public class XulaATM {
                     "Account Doesn't Exists!!"
             );
         }
-
-        //Get User
-        XulaATMUser atmUser = atmUserList.getATMUser(userId);
-
-
 
         //Get atmAccount
         XulaATMAccount atmAccount = atmAccountList.getAccount(toAccountId);
@@ -145,9 +140,8 @@ public class XulaATM {
             return depositResult;
         }
 
-        //Get new transactionId
+        //Save transaction
         long newTransactionId = atmTransactionList.getUnusedTransactionId(toAccountId);
-
         atmTransactionList.recordTransaction(
                 toAccountId,
                 newTransactionId,
@@ -157,6 +151,17 @@ public class XulaATM {
                 balanceBeforeDeposit,
                 getCurrentDate()
         );
+
+        //Update Account in filesystem
+        atmAccount.writeToAsync(atmAccountList.getAccountListFolderPath());
+
+        String depositMsg = String.format(
+                "Successfully Deposited $%.2f into Account: %d",
+                depositAmount,
+                toAccountId
+        );
+
+        depositResult.setDepositMsg(depositMsg);
 
         return depositResult;
     }
@@ -212,20 +217,18 @@ public class XulaATM {
                 0
         );
 
-        //Create User Account id list
-        ArrayList<Long> atmAccountIds = new ArrayList<Long>();
-        atmAccountIds.add(newCheckingAccountId);
-        atmAccountIds.add(newSavingsAccountId);
-
         //Create User
         atmUserList.createNewUser(username,encryptedPassword,newUserId);
 
         //Write to Filesystem async
         XulaATMAccount newCheckingAccount = atmAccountList.getAccount(newCheckingAccountId);
+        newCheckingAccount.writeToAsync(atmAccountList.getAccountListFolderPath());
 
         XulaATMAccount newSavingsAccount = atmAccountList.getAccount(newSavingsAccountId);
+        newSavingsAccount.writeToAsync(atmAccountList.getAccountListFolderPath());
 
         XulaATMUser atmUser = atmUserList.getATMUser(newUserId);
+        atmUser.writeToAsync(atmUserList.getUserListFolder());
 
         return new CreateNewUserResult(Result.SUCCESS_CODE, newUserId);
 

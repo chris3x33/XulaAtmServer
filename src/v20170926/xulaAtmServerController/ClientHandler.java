@@ -196,19 +196,28 @@ public class ClientHandler implements Runnable {
         //Send ACK
         sendAck();
 
+        //Get userId
+        Session session = sessionList.getSession(sessionId);
+        long userId = session.getUserId();
+
+        DepositResult depositResult;
+        synchronized (xulaATM){
+            depositResult = xulaATM.deposit(userId,toAccountId,amount);
+        }
+
         //Send DepositResult
-        sendResult(
-                new Result(Result.SUCCESS_CODE)
-        );
+        sendResult(depositResult);
 
-        //Read ACK
-        ack = readIntWTimeout();
-        printACKResult(ack);
+        if(depositResult.getStatus() == Result.SUCCESS_CODE) {
 
-        //Send depositMsg
-        String depositMsg = "Received toAccountId: "+toAccountId+", amount: "+amount;
-        sendString(depositMsg);
+            //Read ACK
+            ack = readIntWTimeout();
+            printACKResult(ack);
 
+            //Send depositMsg
+            sendString(depositResult.getDepositMsg());
+
+        }
 
         System.out.println("DepositCMD End\n");
     }
