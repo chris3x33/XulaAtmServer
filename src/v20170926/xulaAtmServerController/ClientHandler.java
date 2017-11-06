@@ -235,10 +235,14 @@ public class ClientHandler implements Runnable {
         //Send ACK
         sendAck();
 
+        //Get userId
+        Session session = sessionList.getSession(sessionId);
+        long userId = session.getUserId();
+
         //Get Account Balance result
         GetAccountBalanceResult getAccountBalanceResult;
         synchronized (xulaATM) {
-            getAccountBalanceResult = xulaATM.getAccountBalance(accountId);
+            getAccountBalanceResult = xulaATM.getAccountBalance(userId, accountId);
         }
 
         //Send getAccountIdsResult

@@ -93,7 +93,8 @@ public class ATMDepositWithdrawTest {
         for (int i = 0; i < accountIDs.size(); i++){
 
             long accountId = accountIDs.get(i);
-            GetAccountBalanceResult getAccountBalanceResult = xulaATM.getAccountBalance(accountId);
+            GetAccountBalanceResult getAccountBalanceResult = xulaATM.getAccountBalance(
+                    userId, accountId);
             accountBalances.add(getAccountBalanceResult.getAccountBalance());
 
         }
@@ -155,7 +156,7 @@ public class ATMDepositWithdrawTest {
         }
 
         //Get New Balance
-        double accountNewBalance = xulaATM.getAccountBalance(accountId).getAccountBalance();
+        double accountNewBalance = xulaATM.getAccountBalance(userId,accountId).getAccountBalance();
 
         //Output New Balance
         System.out.println("New Balance: "+accountNewBalance);

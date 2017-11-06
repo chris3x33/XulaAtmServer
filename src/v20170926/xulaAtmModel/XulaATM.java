@@ -45,9 +45,37 @@ public class XulaATM {
         return WELCOME_MSG;
     }
 
-    public GetAccountBalanceResult getAccountBalance(long accountId) {
+    public GetAccountBalanceResult getAccountBalance(long userId ,long accountId) {
 
-        return atmAccountList.getAccountBalance(accountId);
+        //Check if User Exists
+        if(!userExists(userId)){
+            return new GetAccountBalanceResult(
+                    Result.ERROR_CODE,
+                    "User Doesn't Exists!!"
+            );
+        }
+
+        //Check if Account Exists
+        if(!atmAccountList.accountExists(accountId)){
+            return new GetAccountBalanceResult(
+                    Result.ERROR_CODE,
+                    "Account Doesn't Exists!!"
+            );
+        }
+
+        //Get atmAccount
+        XulaATMAccount atmAccount = atmAccountList.getAccount(accountId);
+
+        //check if the Account belongs to the user
+        if (atmAccount.getUserId() != userId){
+
+            return new GetAccountBalanceResult(
+                    Result.ERROR_CODE,
+                    "Account Access Denied!!"
+            );
+
+        }
+        return new GetAccountBalanceResult(Result.SUCCESS_CODE, atmAccount.getBalance());
 
     }
 

@@ -58,28 +58,6 @@ public class XulaATMAccountList {
         atmAccounts = new ArrayList<XulaATMAccount>();
     }
 
-    public GetAccountBalanceResult getAccountBalance(long accountID) {
-
-        //chck if accountExists
-        boolean accountExists = false;
-        XulaATMAccount atmAccount = null;
-        for (XulaATMAccount atmTestAccount: atmAccounts) {
-
-            accountExists = (atmTestAccount.getAccountId() == accountID);
-            if (accountExists){
-                atmAccount = atmTestAccount;
-                break;
-            }
-
-        }
-
-        if (!accountExists){
-            return new GetAccountBalanceResult(Result.ERROR_CODE,"Account "+accountID+" Does not Exists");
-        }
-
-        return new GetAccountBalanceResult(Result.SUCCESS_CODE, atmAccount.getBalance());
-
-    }
 
     public boolean accountExists(long accountID){
         for (XulaATMAccount atmAccount : atmAccounts){
