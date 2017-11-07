@@ -80,22 +80,6 @@ public class XulaATMAccountList {
         return unusedUserId;
     }
 
-    public DepositResult deposit(long toAccountId, double depositAmount) {
-
-        //check if the Account Exists
-        if (!accountExists(toAccountId)){
-
-            return new DepositResult(
-                    Result.ERROR_CODE,
-                    "Account Doesn't Exists!!"
-            );
-
-        }
-
-        return getAccount(toAccountId).deposit(depositAmount);
-
-    }
-
     public XulaATMAccount getAccount(long accountId){
 
         for (XulaATMAccount atmAccount : atmAccounts){

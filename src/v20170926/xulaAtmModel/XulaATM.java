@@ -162,7 +162,7 @@ public class XulaATM {
         //Get balance before deposit
         double balanceBeforeDeposit = atmAccount.getBalance();
 
-        DepositResult depositResult = atmAccountList.deposit(toAccountId, depositAmount);
+        DepositResult depositResult = atmAccount.deposit(depositAmount);
 
         if (depositResult.getStatus() == Result.ERROR_CODE){
             return depositResult;
