@@ -2,6 +2,7 @@ package v20170926.xulaAtmModel;
 
 import v20170926.xulaAtmModel.result.DepositResult;
 import v20170926.xulaAtmModel.result.Result;
+import v20170926.xulaAtmModel.result.WithdrawResult;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -48,6 +49,36 @@ public class XulaATMAccount {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public WithdrawResult withdraw(double withdrawAmount) {
+
+        //check if withdrawAmount is negative
+        if (withdrawAmount < 0){
+
+            return new WithdrawResult(
+                    Result.ERROR_CODE,
+                    "Withdraw amount can not be negative!!"
+            );
+
+        }
+
+        //check if balance - withdrawAmount is negative
+        if ((balance - withdrawAmount) < 0){
+
+            return new WithdrawResult(
+                    Result.ERROR_CODE,
+                    "Insufficient funds!!"
+            );
+
+        }
+
+        double prevBalance = balance;
+
+        setBalance(prevBalance - withdrawAmount);
+
+        return new WithdrawResult(Result.SUCCESS_CODE);
+
     }
 
     public DepositResult deposit(double depositAmount){
