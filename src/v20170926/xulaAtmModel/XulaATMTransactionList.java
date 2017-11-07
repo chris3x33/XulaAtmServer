@@ -127,4 +127,14 @@ public class XulaATMTransactionList {
         return false;
     }
 
+    public XulaATMTransaction getTransaction(long accountId, long transactionId){
+        for (XulaATMTransaction atmTransaction: atmTransactions){
+            if (atmTransaction.getAccountId() == accountId&&
+                    atmTransaction.getTransactionId()==transactionId){
+                return atmTransaction;
+            }
+        }
+        return null;
+    }
+
 }
