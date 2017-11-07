@@ -121,7 +121,7 @@ public class XulaATM {
     public WithdrawResult withdraw(long fromAccountId, double
             withdrawAmount) {
 
-        return atmAccountList.withdraw(fromAccountId, withdrawAmount);
+        return null;
 
     }
 

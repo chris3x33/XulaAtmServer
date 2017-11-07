@@ -80,14 +80,6 @@ public class XulaATMAccountList {
         return unusedUserId;
     }
 
-
-
-    public WithdrawResult withdraw(long fromAccountId, double
-            withdrawAmount) {
-
-        return null;
-    }
-
     public DepositResult deposit(long toAccountId, double depositAmount) {
 
         //check if the Account Exists
