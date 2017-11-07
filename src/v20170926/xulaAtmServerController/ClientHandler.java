@@ -168,12 +168,61 @@ public class ClientHandler implements Runnable {
 
                 break;
 
+            case XulaAtmServerCommands.GET_TRANSACTIONIDS_CMD:
+
+                handleGetTransactionIdsCommand();
+
+                break;
+
             default://Invalid Command
 
                 handleInvalidCommand();
 
                 break;
         }
+
+    }
+
+    private void handleGetTransactionIdsCommand() throws IOException {
+
+        System.out.println("\nGetTransactionIdsCMD Start");
+
+        //Read accountId
+        long accountId = readLongWTimeout();
+        System.out.println("\tRead accountId: "+accountId);
+
+        //Send ACK
+        sendAck();
+
+        //Get userId
+        Session session = sessionList.getSession(sessionId);
+        long userId = session.getUserId();
+
+        //Get getTransactionIdsResult
+        GetTransactionIdsResult getTransactionIdsResult;
+        synchronized (xulaATM) {
+            getTransactionIdsResult = xulaATM.getTransactionIds(userId,accountId);
+        }
+
+        //Send getTransactionIdsResult
+        sendResult(getTransactionIdsResult);
+
+        //if ERROR, Do not send TransactionIds.
+        if (getTransactionIdsResult.getStatus() == Result.ERROR_CODE) {
+
+            System.out.println("GetTransactionIdsCMD End\n");
+
+            return;
+
+        }
+
+        //Send numOfTransactionIds
+        writeLongs(getTransactionIdsResult.getTransactionIDs());
+        System.out.println(
+                "\tSent TransactionIds: "+getTransactionIdsResult.getTransactionIDs()
+        );
+
+        System.out.println("GetTransactionIdsCMD End\n");
 
     }
 
