@@ -174,12 +174,96 @@ public class ClientHandler implements Runnable {
 
                 break;
 
+            case XulaAtmServerCommands.GET_TRANSACTION_CMD:
+
+                handleGetTransactionCommand();
+
+                break;
+
             default://Invalid Command
 
                 handleInvalidCommand();
 
                 break;
         }
+
+    }
+
+    private void handleGetTransactionCommand() throws IOException{
+
+        int ack;
+
+        System.out.println("\nGetTransactionCMD Start");
+
+        //Read accountId
+        long accountId = readLongWTimeout();
+        System.out.println("\tRead accountId: "+accountId);
+
+        //Send ACK
+        sendAck();
+
+        //Read accountId
+        long transactionId = readLongWTimeout();
+        System.out.println("\tRead transactionId: "+transactionId);
+
+        //Send ACK
+        sendAck();
+
+        //Get userId
+        Session session = sessionList.getSession(sessionId);
+        long userId = session.getUserId();
+
+        //Get getTransactionResult
+        GetTransactionResult getTransactionResult;
+        synchronized (xulaATM) {
+            getTransactionResult = xulaATM.getTransaction(
+                    userId,accountId, transactionId
+            );
+        }
+
+        //Send getTransactionResult
+        sendResult(getTransactionResult);
+
+        //if ERROR, Do not send Transaction.
+        if (getTransactionResult.getStatus() == Result.ERROR_CODE) {
+
+            System.out.println("GetTransactionCMD End\n");
+
+            return;
+
+        }
+
+        //Get Transaction
+        XulaATMTransaction atmTransaction = getTransactionResult.getAtmTransaction();
+
+        //Send Type
+        int type = atmTransaction.getType();
+        DATA_OUT.writeInt(type);
+        System.out.println("\tSent type: "+type);
+
+        //Read ACK
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
+        //Send amount
+        double amount = atmTransaction.getAmount();
+        DATA_OUT.writeDouble(amount);
+        System.out.println("\tSent amount: "+amount);
+
+        //Read ACK
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
+        sendString(atmTransaction.getOtherAccount());
+
+        sendString(atmTransaction.getDateTime());
+
+        //Send prevAmount
+        double prevAmount = atmTransaction.getPrevAmount();
+        DATA_OUT.writeDouble(prevAmount);
+        System.out.println("\tSent prevAmount: "+prevAmount);
+
+        System.out.println("GetTransactionCMD End\n");
 
     }
 
