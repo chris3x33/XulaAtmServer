@@ -118,10 +118,75 @@ public class XulaATM {
         return atmUserList.userExists(userName);
     }
 
-    public WithdrawResult withdraw(long fromAccountId, double
-            withdrawAmount) {
+    public WithdrawResult withdraw(
+            long userId, long fromAccountId, double withdrawAmount) {
 
-        return null;
+        //Check if User Exists
+        if(!userExists(userId)){
+            return new WithdrawResult(
+                    Result.ERROR_CODE,
+                    "User Doesn't Exists!!"
+            );
+        }
+
+        //Get User
+        XulaATMUser atmUser = atmUserList.getATMUser(userId);
+
+        //Check if Account Exists
+        if(!atmAccountList.accountExists(fromAccountId)){
+            return new WithdrawResult(
+                    Result.ERROR_CODE,
+                    "Account Doesn't Exists!!"
+            );
+        }
+
+        //Get atmAccount
+        XulaATMAccount atmAccount = atmAccountList.getAccount(fromAccountId);
+
+        //check if the Account belongs to the user
+        if (atmAccount.getUserId() != userId){
+
+            return new WithdrawResult(
+                    Result.ERROR_CODE,
+                    "Account Access Denied!!"
+            );
+
+        }
+
+        //Get balance before withdraw
+        double balanceBeforeWithdraw = atmAccount.getBalance();
+
+        WithdrawResult withdrawResult
+                = atmAccount.withdraw(withdrawAmount);
+
+        if (withdrawResult.getStatus() == Result.ERROR_CODE){
+            return withdrawResult;
+        }
+
+        //Save transaction
+        long newTransactionId = atmTransactionList.getUnusedTransactionId(fromAccountId);
+        atmTransactionList.recordTransaction(
+                fromAccountId,
+                newTransactionId,
+                withdrawAmount,
+                XulaATMTransactionType.WITHDRAW,
+                "CASH",
+                balanceBeforeWithdraw,
+                getCurrentDate()
+        );
+
+        //Update Account in filesystem
+        atmAccount.writeToAsync(atmAccountList.getAccountListFolderPath());
+
+        String withdrawMsg = String.format(
+                "Successfully Withdrawn $%.2f from Account: %d",
+                withdrawAmount,
+                fromAccountId
+        );
+
+        withdrawResult.setWithdrawMsg(withdrawMsg);
+
+        return withdrawResult;
 
     }
 
