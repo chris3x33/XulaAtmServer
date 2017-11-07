@@ -150,6 +150,56 @@ public class XulaATM {
 
     }
 
+    public GetTransactionResult getTransaction(
+            long userId, long accountId, long transactionId) {
+
+        //Check if User Exists
+        if(!userExists(userId)){
+            return new GetTransactionResult(
+                    Result.ERROR_CODE,
+                    "User Doesn't Exists!!"
+            );
+        }
+
+        //Check if Account Exists
+        if(!atmAccountList.accountExists(accountId)){
+            return new GetTransactionResult(
+                    Result.ERROR_CODE,
+                    "Account: "+accountId+" Doesn't Exists!!"
+            );
+        }
+
+        //Get atmAccount
+        XulaATMAccount atmAccount = atmAccountList.getAccount(accountId);
+
+        //check if the Account belongs to the user
+        if (atmAccount.getUserId() != userId){
+
+            return new GetTransactionResult(
+                    Result.ERROR_CODE,
+                    "Account Access Denied!!"
+            );
+
+        }
+
+        //Check if Transaction Exists
+        if(!atmTransactionList.transactionExists(accountId, transactionId)){
+            return new GetTransactionResult(
+                    Result.ERROR_CODE,
+                    "Transaction: "+transactionId+" Doesn't Exists!!"
+            );
+        }
+
+        //Get Transaction
+        XulaATMTransaction atmTransaction =
+                atmTransactionList.getTransaction(accountId, transactionId);
+
+        return new GetTransactionResult(
+                Result.SUCCESS_CODE,
+                atmTransaction
+        );
+    }
+
     public boolean userExists(long userId) {
 
         return atmUserList.userExists(userId);
