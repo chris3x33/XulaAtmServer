@@ -104,11 +104,6 @@ public class XulaATMAccountList {
 
     }
 
-    public TransferResult transfer(long fromAccountId, long toAccount, double transferAmount) {
-
-        return null;
-    }
-
     public XulaATMAccount getAccount(long accountId){
 
         for (XulaATMAccount atmAccount : atmAccounts){
