@@ -116,4 +116,15 @@ public class XulaATMTransactionList {
     public void setTransactionListFolder(String transactionListFolder) {
         this.transactionListFolder = transactionListFolder;
     }
+
+    public boolean transactionExists(long accountId, long transactionId){
+        for (XulaATMTransaction atmTransaction: atmTransactions){
+            if (atmTransaction.getAccountId() == accountId&&
+                    atmTransaction.getTransactionId()==transactionId){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
