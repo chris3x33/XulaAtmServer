@@ -18,12 +18,25 @@ public class XulaATMAccount {
     private long userId;
     private double balance;
     private int accountType;
+    private long numOfTransactions;
 
     public XulaATMAccount(long accountId, long userId, int accountType, double balance) {
         this.accountId = accountId;
         this.userId = userId;
         this.balance = balance;
         this.accountType = accountType;
+        this.numOfTransactions = 0;
+    }
+
+    public XulaATMAccount(
+            long accountId, long userId, int accountType,
+            double balance, long numOfTransactions) {
+
+        this.accountId = accountId;
+        this.userId = userId;
+        this.balance = balance;
+        this.accountType = accountType;
+        this.numOfTransactions = numOfTransactions;
     }
 
     public XulaATMAccount(File accountFile) throws FileNotFoundException, NoSuchElementException {
@@ -49,6 +62,18 @@ public class XulaATMAccount {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public long getNumOfTransactions() {
+        return numOfTransactions;
+    }
+
+    public void setNumOfTransactions(long numOfTransactions) {
+        this.numOfTransactions = numOfTransactions;
+    }
+
+    public void incrementNumOfTransactions(){
+        numOfTransactions++;
     }
 
     public WithdrawResult withdraw(double withdrawAmount) {
@@ -165,6 +190,7 @@ public class XulaATMAccount {
         this.accountId = atmAccount.accountId;
         this.accountType = atmAccount.accountType;
         this.balance = atmAccount.balance;
+        this.numOfTransactions = atmAccount.numOfTransactions;
 
         scanner.close();
 
@@ -179,7 +205,8 @@ public class XulaATMAccount {
         return  userId + " , " +
                 accountId + " , " +
                 accountType + " , " +
-                balance;
+                balance + " , " +
+                numOfTransactions;
     }
 
     public static XulaATMAccount parse(String str) {
@@ -202,8 +229,14 @@ public class XulaATMAccount {
 
             //Read balance
             double balance = parser.nextDouble();
+            parser.next();
 
-            return new XulaATMAccount(accountId,userId,accountType,balance);
+            //Read numOfTransactions
+            long numOfTransactions = parser.nextLong();
+
+            return new XulaATMAccount(
+                    accountId,userId,accountType,balance, numOfTransactions
+            );
 
         } catch (InputMismatchException e){
             return null;
