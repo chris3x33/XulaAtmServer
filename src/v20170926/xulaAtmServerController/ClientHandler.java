@@ -168,6 +168,12 @@ public class ClientHandler implements Runnable {
 
                 break;
 
+            case XulaAtmServerCommands.WITHDRAW_CMD:
+
+                handleWithdrawCommand();
+
+                break;
+
             case XulaAtmServerCommands.GET_TRANSACTIONIDS_CMD:
 
                 handleGetTransactionIdsCommand();
@@ -187,6 +193,51 @@ public class ClientHandler implements Runnable {
                 break;
         }
 
+    }
+
+    private void handleWithdrawCommand() throws IOException {
+
+        int ack;
+        System.out.println("\nWithdrawCMD Start");
+
+        //Read toAccountId
+        long toAccountId = readLongWTimeout();
+        System.out.println("\tRead toAccountId: "+toAccountId);
+
+        //Send ACK
+        sendAck();
+
+        //Read amount
+        double amount = readDoubleWTimeout();
+        System.out.println("\tRead amount: "+amount);
+
+        //Send ACK
+        sendAck();
+
+        //Get userId
+        Session session = sessionList.getSession(sessionId);
+        long userId = session.getUserId();
+
+        WithdrawResult withdrawResult;
+        synchronized (xulaATM){
+            withdrawResult = xulaATM.withdraw(userId,toAccountId,amount);
+        }
+
+        //Send WithdrawResult
+        sendResult(withdrawResult);
+
+        if(withdrawResult.getStatus() == Result.SUCCESS_CODE) {
+
+            //Read ACK
+            ack = readIntWTimeout();
+            printACKResult(ack);
+
+            //Send WithdrawMsg
+            sendString(withdrawResult.getWithdrawMsg());
+
+        }
+
+        System.out.println("WithdrawCMD End\n");
     }
 
     private void handleGetTransactionCommand() throws IOException{
