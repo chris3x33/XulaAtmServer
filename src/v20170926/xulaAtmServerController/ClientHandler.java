@@ -236,6 +236,15 @@ public class ClientHandler implements Runnable {
         //Get Transaction
         XulaATMTransaction atmTransaction = getTransactionResult.getAtmTransaction();
 
+        //Send TransactionIndex
+        long transactionIndex = atmTransaction.getTransactionIndex();
+        DATA_OUT.writeLong(transactionIndex);
+        System.out.println("\tSent transactionIndex: "+transactionIndex);
+
+        //Read ACK
+        ack = readIntWTimeout();
+        printACKResult(ack);
+
         //Send Type
         int type = atmTransaction.getType();
         DATA_OUT.writeInt(type);

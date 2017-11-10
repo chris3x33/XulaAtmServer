@@ -261,7 +261,9 @@ public class XulaATM {
 
         //Save transaction
         long newTransactionId = atmTransactionList.getUnusedTransactionId(fromAccountId);
+
         atmTransactionList.recordTransaction(
+                atmAccount.getNumOfTransactions(),
                 fromAccountId,
                 newTransactionId,
                 withdrawAmount,
@@ -270,6 +272,8 @@ public class XulaATM {
                 balanceBeforeWithdraw,
                 getCurrentDate()
         );
+
+        atmAccount.incrementNumOfTransactions();
 
         //Update Account in filesystem
         atmAccount.writeToAsync(atmAccountList.getAccountListFolderPath());
@@ -332,6 +336,7 @@ public class XulaATM {
         //Save transaction
         long newTransactionId = atmTransactionList.getUnusedTransactionId(toAccountId);
         atmTransactionList.recordTransaction(
+                atmAccount.getNumOfTransactions(),
                 toAccountId,
                 newTransactionId,
                 depositAmount,
@@ -340,6 +345,8 @@ public class XulaATM {
                 balanceBeforeDeposit,
                 getCurrentDate()
         );
+
+        atmAccount.incrementNumOfTransactions();
 
         //Update Account in filesystem
         atmAccount.writeToAsync(atmAccountList.getAccountListFolderPath());

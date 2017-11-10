@@ -9,6 +9,8 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class XulaATMTransaction {
+
+    private long transactionIndex;
     private long accountId;
     private long transactionId;
     private double amount;
@@ -18,9 +20,10 @@ public class XulaATMTransaction {
     private double prevAmount;
 
     public XulaATMTransaction(
-            long accountId, long transactionId, double amount, int type,
+            long transactionIndex, long accountId, long transactionId, double amount, int type,
             String otherAccount, double prevAmount, String dateTime) {
 
+        this.transactionIndex = transactionIndex;
         this.accountId = accountId;
         this.transactionId = transactionId;
         this.amount = amount;
@@ -28,6 +31,7 @@ public class XulaATMTransaction {
         this.otherAccount = otherAccount;
         this.prevAmount = prevAmount;
         this.dateTime = dateTime;
+
     }
 
     public XulaATMTransaction(File transactionFile) throws FileNotFoundException, NoSuchElementException{
@@ -52,6 +56,7 @@ public class XulaATMTransaction {
 
         if (atmTransaction==null){ throw new NoSuchElementException();}
 
+        this.transactionIndex = atmTransaction.transactionIndex;
         this.accountId = atmTransaction.accountId;
         this.transactionId = atmTransaction.transactionId;
         this.amount = atmTransaction.amount;
@@ -88,6 +93,10 @@ public class XulaATMTransaction {
 
     public long getTransactionId() {
         return transactionId;
+    }
+
+    public long getTransactionIndex() {
+        return transactionIndex;
     }
 
     public synchronized void writeTo(String transactionListPath) throws IOException {
@@ -136,7 +145,8 @@ public class XulaATMTransaction {
 
     @Override
     public String toString() {
-        return accountId + " , " +
+        return transactionIndex + " , " +
+               accountId + " , " +
                transactionId + " , " +
                amount + " , " +
                type + " , " +
@@ -150,6 +160,10 @@ public class XulaATMTransaction {
         try {
 
             Scanner parser = new Scanner(str);
+
+            //Read transactionIndex
+            long transactionIndex = parser.nextLong();
+            parser.next();
 
             //Read accountId
             long accountId = parser.nextLong();
@@ -179,7 +193,7 @@ public class XulaATMTransaction {
             double prevAmount = parser.nextDouble();
 
             return new XulaATMTransaction(
-                    accountId,  transactionId,  amount,  type,
+                    transactionIndex, accountId,  transactionId,  amount,  type,
                     otherAccount,  prevAmount,  dateTime
             );
 
